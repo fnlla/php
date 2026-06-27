@@ -73,6 +73,7 @@ FNLLA PHP currently ships with:
 - `database/migrations/` contains schema changes
 - `database/seeders/` contains seeders
 - `database/factories/` contains factories
+- `docs/` contains maintainer and delivery guides for building on top of the framework
 - `lang/` contains translation lines
 - `public/` contains the public entrypoints, static assets and the vendored FNLLA UI runtime
 - `routes/` contains HTTP and console route definitions
@@ -161,6 +162,19 @@ update-fnlla-ui.cmd
 ```
 
 If Composer is present locally, `composer test` and `composer lint` still work as wrappers, but the framework no longer depends on Packagist for its day-to-day test or lint workflow.
+
+## Building new websites and apps
+
+Use [`docs/BUILDING-WITH-FNLLA-PHP.md`](./docs/BUILDING-WITH-FNLLA-PHP.md) as the primary guide for building new websites and web applications on top of FNLLA PHP.
+
+That guide covers:
+
+- the recommended project build sequence
+- how to add routes, controllers and views
+- how to structure forms, validation and flash feedback
+- how to use MySQL, migrations and the query builder
+- how to protect pages with auth and authorization
+- how to stay inside the FNLLA UI contract during delivery
 
 ## CLI surface
 
