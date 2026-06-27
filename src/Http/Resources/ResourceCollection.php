@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+===============================================================================
+FNLLA PHP HTTP SOURCE
+File: src\Http\Resources\ResourceCollection.php
+Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+===============================================================================
+
+FNLLA PHP is produced, maintained and distributed by TechAyo LTD
+(techayo.co.uk). This repository is the authoritative maintainer workspace for
+the proprietary FNLLA PHP framework and its related delivery scripts, tests,
+templates and release metadata.
+
+Purpose:
+- Implements request, response and HTTP-facing runtime primitives.
+*/
+
+namespace Fnlla\Php\Http\Resources;
+
+final class ResourceCollection
+{
+    public function __construct(
+        private iterable $items,
+        private string $resourceClass
+    ) {
+    }
+
+    public function resolve(): array
+    {
+        $resolved = [];
+
+        foreach ($this->items as $item) {
+            /** @var JsonResource $resource */
+            $resource = new $this->resourceClass($item);
+            $resolved[] = $resource->resolve();
+        }
+
+        return $resolved;
+    }
+}

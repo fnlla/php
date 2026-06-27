@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+===============================================================================
+FNLLA PHP SERVICE PROVIDER SOURCE
+File: src\Providers\AuthServiceProvider.php
+Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+===============================================================================
+
+FNLLA PHP is produced, maintained and distributed by TechAyo LTD
+(techayo.co.uk). This repository is the authoritative maintainer workspace for
+the proprietary FNLLA PHP framework and its related delivery scripts, tests,
+templates and release metadata.
+
+Purpose:
+- Registers maintained framework services and application-level boot behavior.
+*/
+
+namespace Fnlla\Php\Providers;
+
+use Fnlla\Php\Auth\Authorization\Gate;
+use Fnlla\Php\Support\ServiceProvider;
+
+final class AuthServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+    }
+
+    public function boot(): void
+    {
+        $gate = $this->container->make(Gate::class);
+
+        $gate->define("view-dashboard", static fn (?array $user): bool => $user !== null);
+        $gate->define("manage-admin-area", static fn (?array $user): bool => $user !== null && (($user["role"] ?? "user") === "admin"));
+    }
+}

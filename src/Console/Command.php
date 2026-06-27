@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+===============================================================================
+FNLLA PHP CONSOLE SOURCE
+File: src\Console\Command.php
+Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+===============================================================================
+
+FNLLA PHP is produced, maintained and distributed by TechAyo LTD
+(techayo.co.uk). This repository is the authoritative maintainer workspace for
+the proprietary FNLLA PHP framework and its related delivery scripts, tests,
+templates and release metadata.
+
+Purpose:
+- Implements the maintained CLI surface and scheduler-oriented console behavior.
+*/
+
+namespace Fnlla\Php\Console;
+
+use Fnlla\Php\Container\Container;
+
+abstract class Command
+{
+    public function __construct(protected Container $container)
+    {
+    }
+
+    abstract public function name(): string;
+
+    abstract public function description(): string;
+
+    abstract public function handle(array $arguments): int;
+
+    protected function line(string $message): void
+    {
+        fwrite(STDOUT, $message . PHP_EOL);
+    }
+
+    protected function error(string $message): void
+    {
+        fwrite(STDERR, $message . PHP_EOL);
+    }
+}

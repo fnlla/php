@@ -1,0 +1,89 @@
+/*
+===============================================================================
+FNLLA PHP PUBLIC ASSET
+File: public\assets\app.css
+Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+===============================================================================
+
+FNLLA PHP is produced, maintained and distributed by TechAyo LTD
+(techayo.co.uk). This stylesheet belongs to the maintained FNLLA PHP delivery
+shell that sits on top of the vendored FNLLA UI runtime.
+
+Purpose:
+- Styles the delivery-facing shell that sits on top of the vendored FNLLA UI runtime.
+*/
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(87, 162, 136, 0.12), transparent 26rem),
+    linear-gradient(180deg, #f6fbf8 0%, #eef5f1 48%, #f9fcfa 100%);
+}
+
+.site-header-shell {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(249, 252, 250, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26, 65, 55, 0.08);
+}
+
+.site-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-right: 0.75rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1a4137 0%, #57a288 100%);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.site-brand-text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-main {
+  padding-bottom: 4rem;
+}
+
+.site-hero-panel-note {
+  margin-top: 1rem;
+}
+
+.site-section-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.site-card-muted {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.site-status-anchor {
+  scroll-margin-top: 8rem;
+}
+
+.site-footer {
+  margin-top: 2rem;
+}
+
+.site-footer-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

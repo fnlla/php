@@ -1,0 +1,51 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+===============================================================================
+FNLLA PHP ROUTING SOURCE
+File: src\Routing\UrlGenerator.php
+Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+===============================================================================
+
+FNLLA PHP is produced, maintained and distributed by TechAyo LTD
+(techayo.co.uk). This repository is the authoritative maintainer workspace for
+the proprietary FNLLA PHP framework and its related delivery scripts, tests,
+templates and release metadata.
+
+Purpose:
+- Implements maintained route registration, matching and URL generation behavior.
+*/
+
+namespace Fnlla\Php\Routing;
+
+use RuntimeException;
+
+final class UrlGenerator
+{
+    public function __construct(private Router $router)
+    {
+    }
+
+    public function route(string $name, array $parameters = []): string
+    {
+        $definition = $this->router->routeByName($name);
+
+        if ($definition === null) {
+            throw new RuntimeException("Route not found: " . $name);
+        }
+
+        $path = $definition->path();
+
+        foreach ($parameters as $key => $value) {
+            $path = str_replace("{" . $key . "}", rawurlencode((string) $value), $path);
+        }
+
+        if (preg_match('/\{[^}]+\}/', $path) === 1) {
+            throw new RuntimeException("Missing parameters for route: " . $name);
+        }
+
+        return url(ltrim($path, "/"));
+    }
+}

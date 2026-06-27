@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+===============================================================================
+FNLLA PHP DATABASE SOURCE
+File: src\Database\Migrations\Migration.php
+Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+===============================================================================
+
+FNLLA PHP is produced, maintained and distributed by TechAyo LTD
+(techayo.co.uk). This repository is the authoritative maintainer workspace for
+the proprietary FNLLA PHP framework and its related delivery scripts, tests,
+templates and release metadata.
+
+Purpose:
+- Implements the maintained MySQL data access and migration runtime.
+*/
+
+namespace Fnlla\Php\Database\Migrations;
+
+use Fnlla\Php\Database\DatabaseManager;
+
+abstract class Migration
+{
+    public function __construct(protected DatabaseManager $database)
+    {
+    }
+
+    abstract public function up(): void;
+
+    public function down(): void
+    {
+    }
+
+    protected function statement(string $sql): void
+    {
+        $this->database->statement($sql);
+    }
+}

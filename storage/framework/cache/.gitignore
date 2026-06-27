@@ -1,0 +1,3 @@
+# Keep the cache directory in the repository while ignoring runtime cache files.
+*
+!.gitignore

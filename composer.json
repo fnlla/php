@@ -1,0 +1,38 @@
+{
+    "name": "fnlla/php",
+    "description": "Proprietary production-hardened server-rendered PHP framework by TechAyo LTD for FNLLA UI based productions.",
+    "type": "project",
+    "license": "proprietary",
+    "homepage": "https://techayo.co.uk",
+    "authors": [
+        {
+            "name": "TechAyo LTD",
+            "homepage": "https://techayo.co.uk",
+            "role": "Producer, maintainer and distributor"
+        }
+    ],
+    "support": {
+        "issues": "https://techayo.co.uk"
+    },
+    "require": {
+        "php": "^8.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fnlla\\Php\\": "src/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "scripts": {
+        "console": "@php fnlla",
+        "test": "@php scripts/test.php",
+        "lint": [
+            "@php scripts/lint.php",
+            "@php scripts/validate-fnlla-ui.php"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -1,0 +1,24 @@
+# ==============================================================================
+# FNLLA PHP EDITOR CONFIGURATION
+# Copyright (c) 2026 TechAyo LTD (techayo.co.uk). All rights reserved.
+# Produced, maintained and distributed by TechAyo LTD.
+# This file defines the default formatting contract for first-party repository files.
+# ==============================================================================
+
+root = true
+
+[*.php]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{md,json,xml,yml,yaml}]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true

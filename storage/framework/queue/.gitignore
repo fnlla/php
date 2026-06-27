@@ -1,0 +1,3 @@
+# Keep the queue directory in the repository while ignoring runtime queue files.
+*
+!.gitignore
