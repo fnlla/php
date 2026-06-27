@@ -13,6 +13,8 @@ It is written for the official stack:
 
 If you follow the patterns below, your project will stay aligned with the current framework contract and with the intended TechAyo LTD delivery style.
 
+Before using this guide for a real delivery, read [`STARTING-A-NEW-PROJECT.md`](./STARTING-A-NEW-PROJECT.md). That document explains the official starter-export workflow and when not to build directly inside the maintained `fnlla/php` repository.
+
 ## The working model
 
 FNLLA PHP is built around a small and explicit request flow:

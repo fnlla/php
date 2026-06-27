@@ -124,6 +124,26 @@ Copy `.env.example` to `.env` when you want explicit local configuration.
 
 No Packagist download step is required for the framework itself.
 
+## How to start a real new project
+
+For an actual new website or web application, the recommended workflow is not to clone `fnlla/php` and build the downstream project directly inside the framework repository.
+
+Instead:
+
+1. keep `fnlla/php` as the maintained framework source
+2. export a clean starter into a separate project directory
+3. build the real website or application in that exported directory
+
+Use:
+
+```bash
+php fnlla make:project ..\my-new-project "My New Project"
+```
+
+Then open the exported directory, initialize its own Git repository and build the real project there.
+
+Use [`docs/STARTING-A-NEW-PROJECT.md`](./docs/STARTING-A-NEW-PROJECT.md) for the exact workflow and rationale.
+
 ## Database boundary
 
 FNLLA PHP currently targets MySQL only.
