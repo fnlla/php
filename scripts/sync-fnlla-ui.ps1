@@ -160,7 +160,7 @@ function Resolve-RuntimeExportPath {
         return $base
     }
 
-    throw "Could not locate FNLLA UI runtime export under: $BasePath"
+    throw "Could not locate FNLLA Web runtime export under: $BasePath"
 }
 
 function Assert-SafeCloneReset {
@@ -244,7 +244,7 @@ $ephemeralClonePath = $null
 try {
     if ($SourcePath) {
         $resolvedSourcePath = Resolve-AbsolutePath -Path $SourcePath
-        Assert-DirectoryExists -Path $resolvedSourcePath -Description "FNLLA UI source path"
+        Assert-DirectoryExists -Path $resolvedSourcePath -Description "FNLLA Web source path"
         $sourceRuntimePath = Resolve-RuntimeExportPath -BasePath $resolvedSourcePath
     }
     else {
@@ -280,7 +280,7 @@ try {
     $targetVersion = (Get-Content -LiteralPath $targetVersionPath -TotalCount 1).Trim()
 
     Write-Host ""
-    Write-Host "FNLLA UI sync complete."
+    Write-Host "FNLLA Web sync complete."
     Write-Host "Source runtime: $sourceRuntimePath"
     Write-Host "Target runtime: $targetRuntimePath"
     Write-Host "Version: $sourceVersion"

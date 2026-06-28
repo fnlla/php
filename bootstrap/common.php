@@ -65,7 +65,7 @@ $GLOBALS["fnlla_php_config"] = load_config_directory(base_path("config"));
 
 /*
 Development guard note:
-- FNLLA PHP uses this shared bootstrap point to enforce the official FNLLA UI
+- FNLLA PHP uses this shared bootstrap point to enforce the official FNLLA Web
   dependency boundary
 - the guard is skipped only for specific maintainer repair flows that need to
   fix a broken UI contract from the CLI itself

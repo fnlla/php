@@ -32,13 +32,13 @@ final class FnllaUiValidateCommand extends Command
 
     public function description(): string
     {
-        return "Validate that views and assets stay within the FNLLA UI contract.";
+        return "Validate that views and assets stay within the FNLLA Web contract.";
     }
 
     public function handle(array $arguments): int
     {
         FnllaUiGuard::validateOnly();
-        $this->line("FNLLA UI contract passed.");
+        $this->line("FNLLA Web contract passed.");
 
         return 0;
     }

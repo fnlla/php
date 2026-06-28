@@ -223,7 +223,7 @@ final class MakeProjectCommand extends Command
         }
 
         $decoded["name"] = "project/" . $packageSlug;
-        $decoded["description"] = $appName . " built on FNLLA PHP and FNLLA UI.";
+        $decoded["description"] = $appName . " built on FNLLA PHP and FNLLA Web.";
 
         file_put_contents(
             $path,
@@ -241,20 +241,20 @@ This repository is a working project starter exported from `fnlla/php`.
 It is intended to be the beginning of a new server-rendered website or web application built on:
 
 - FNLLA PHP
-- FNLLA UI
+- FNLLA Web
 - PHP 8.3
 - MySQL
 
 ## What is already included
 
 - the FNLLA PHP application core
-- the vendored FNLLA UI runtime under `public/vendor/fnlla-ui/`
+- the vendored FNLLA Web runtime under `public/vendor/fnlla-ui/`
 - machine-readable release metadata in `MANIFEST.json`
 - root legal and policy files: `LICENSE.md`, `SUPPORT.md`, `TRADEMARKS.md`
 - routes, controllers and views
 - sessions, cookies, CSRF and auth foundations
 - MySQL migrations, seeders and factories
-- local lint, test, version metadata and FNLLA UI validation scripts
+- local lint, test, version metadata and FNLLA Web validation scripts
 
 ## How to start working
 
@@ -354,7 +354,7 @@ CMD;
 REM ============================================================================
 REM FNLLA PROJECT LAUNCHER
 REM File: lint-project.cmd
-REM Purpose: Runs syntax lint and FNLLA UI validation for this project.
+REM Purpose: Runs syntax lint and FNLLA Web validation for this project.
 REM ============================================================================
 setlocal
 php "%~dp0scripts\lint.php" || exit /b %ERRORLEVEL%

@@ -82,7 +82,7 @@ final class VersionManifest
                 ],
             ],
             "ui_runtime" => [
-                "name" => "FNLLA UI",
+                "name" => "FNLLA Web",
                 "slug" => "fnlla-ui",
                 "repository" => "https://github.com/fnlla/web.git",
                 "source_of_truth" => "github",
@@ -202,7 +202,7 @@ final class VersionManifest
             $actualUiMajor = (int) explode(".", $uiVersion !== "" ? $uiVersion : "0.0.0")[0];
 
             if ($expectedUiMajor !== $actualUiMajor) {
-                $errors[] = "MANIFEST.json: ui_runtime.expected_major does not match the vendored FNLLA UI major version";
+                $errors[] = "MANIFEST.json: ui_runtime.expected_major does not match the vendored FNLLA Web major version";
             }
         }
 

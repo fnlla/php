@@ -26,7 +26,7 @@ final class FnllaUiGuard
 {
     /*
     The guard is intentionally centralized here so FNLLA PHP can enforce the
-    official FNLLA UI dependency boundary from one place during both HTTP and
+    official FNLLA Web dependency boundary from one place during both HTTP and
     CLI bootstrap.
     */
     public static function enforce(): void
@@ -64,7 +64,7 @@ final class FnllaUiGuard
         $config = config("fnlla_ui", []);
 
         if (!is_array($config)) {
-            throw new RuntimeException("FNLLA UI configuration is invalid.");
+            throw new RuntimeException("FNLLA Web configuration is invalid.");
         }
 
         return $config;
@@ -93,7 +93,7 @@ final class FnllaUiGuard
         /*
         Sync cadence is stateful on purpose:
         - the framework still checks often enough during development
-        - bootstrap avoids recloning FNLLA UI on every single request
+        - bootstrap avoids recloning FNLLA Web on every single request
         */
         $statePath = (string) ($config["state_path"] ?? storage_path("framework/fnlla-ui-guard.json"));
         $state = self::loadState($statePath);
@@ -126,7 +126,7 @@ final class FnllaUiGuard
         $scriptPath = base_path((string) ($config["sync_script"] ?? "scripts/sync-fnlla-ui.ps1"));
 
         if (!is_file($scriptPath)) {
-            throw new RuntimeException("FNLLA UI sync script is missing: " . $scriptPath);
+            throw new RuntimeException("FNLLA Web sync script is missing: " . $scriptPath);
         }
 
         $commands = [];
@@ -152,7 +152,7 @@ final class FnllaUiGuard
             $errors[] = trim(implode(PHP_EOL, $output)) ?: ("Command failed with exit code " . $exitCode);
         }
 
-        throw new RuntimeException("FNLLA UI sync failed. " . implode(" | ", $errors));
+        throw new RuntimeException("FNLLA Web sync failed. " . implode(" | ", $errors));
     }
 
     private static function assertRuntimeFilesExist(array $requiredFiles): void
@@ -163,7 +163,7 @@ final class FnllaUiGuard
             }
 
             if (!is_file($path) && !is_dir($path)) {
-                throw new RuntimeException("FNLLA UI runtime is incomplete. Missing: " . $path);
+                throw new RuntimeException("FNLLA Web runtime is incomplete. Missing: " . $path);
             }
         }
     }
@@ -171,7 +171,7 @@ final class FnllaUiGuard
     private static function assertLayoutContract(string $layoutPath, array $markers): void
     {
         if (!is_file($layoutPath)) {
-            throw new RuntimeException("FNLLA UI layout file is missing: " . $layoutPath);
+            throw new RuntimeException("FNLLA Web layout file is missing: " . $layoutPath);
         }
 
         $contents = (string) file_get_contents($layoutPath);
@@ -182,7 +182,7 @@ final class FnllaUiGuard
             }
 
             if (!str_contains($contents, $marker)) {
-                throw new RuntimeException("FNLLA UI contract violation in layout. Missing marker: " . $marker);
+                throw new RuntimeException("FNLLA Web contract violation in layout. Missing marker: " . $marker);
             }
         }
     }
@@ -208,7 +208,7 @@ final class FnllaUiGuard
                 }
 
                 if (!str_contains($contents, $marker)) {
-                    throw new RuntimeException("FNLLA UI contract violation in view {$file}. Missing marker: " . $marker);
+                    throw new RuntimeException("FNLLA Web contract violation in view {$file}. Missing marker: " . $marker);
                 }
             }
         }

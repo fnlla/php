@@ -35,7 +35,7 @@
           <span class="doc-brand-separator" aria-hidden="true">-</span>
           <p class="doc-display">Documentation</p>
         </div>
-        <p class="doc-lead">Repository packaging, vendored FNLLA UI boundaries and the line between downstream runtime files and maintainer-owned internals.</p>
+        <p class="doc-lead">Repository packaging, vendored FNLLA Web boundaries and the line between downstream runtime files and maintainer-owned internals.</p>
       </div>
     </header>
 
@@ -49,7 +49,7 @@
       <div class="doc-nav-panel" id="doc-nav-panel" data-doc-nav-panel>
         <a class="btn btn-ghost btn-sm" href="./index.html">Overview</a>
         <a class="btn btn-outline btn-sm" href="./distribution.html" aria-current="page">Distribution</a>
-        <a class="btn btn-ghost btn-sm" href="./fnlla-ui.html">FNLLA UI</a>
+        <a class="btn btn-ghost btn-sm" href="./fnlla-ui.html">FNLLA Web</a>
         <a class="btn btn-ghost btn-sm" href="./getting-started.html">Getting Started</a>
         <a class="btn btn-ghost btn-sm" href="./building.html">Building</a>
         <a class="btn btn-ghost btn-sm" href="./api.html">API</a>
@@ -111,7 +111,7 @@ src/
 storage/
 tests/
 views/</code></pre>
-          <p class="card-text">The export already includes runtime code, templates, validation scripts and the vendored FNLLA UI runtime so the new project can boot immediately.</p>
+          <p class="card-text">The export already includes runtime code, templates, validation scripts and the vendored FNLLA Web runtime so the new project can boot immediately.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Intentionally excluded from starter export</h3>
@@ -127,14 +127,14 @@ SECURITY.md</code></pre>
 
     <section class="section">
       <div class="section-header">
-        <h2 class="section-title">FNLLA UI dependency boundary</h2>
+        <h2 class="section-title">FNLLA Web dependency boundary</h2>
         <p class="section-text">FNLLA PHP is not UI-agnostic in the official stack. The UI runtime is a first-class dependency, not an optional styling preference.</p>
       </div>
 
       <div class="doc-mini-grid">
         <article class="card">
           <h3 class="card-title">Supported rule</h3>
-          <p class="card-text">Keep the vendored FNLLA UI runtime under <code>public/vendor/fnlla-ui/</code> and sync it only from the official GitHub source of truth.</p>
+          <p class="card-text">Keep the vendored FNLLA Web runtime under <code>public/vendor/fnlla-ui/</code> and sync it only from the official GitHub source of truth.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Unsupported rule</h3>
@@ -142,7 +142,7 @@ SECURITY.md</code></pre>
         </article>
         <article class="card">
           <h3 class="card-title">Operational consequence</h3>
-          <p class="card-text">Bootstrap, validation and the shared application layout all assume the FNLLA UI shell structure and class families stay intact.</p>
+          <p class="card-text">Bootstrap, validation and the shared application layout all assume the FNLLA Web shell structure and class families stay intact.</p>
         </article>
       </div>
     </section>

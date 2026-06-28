@@ -11,7 +11,7 @@ If this change may be security-sensitive, stop and follow `SECURITY.md` instead 
 - Auth or session flow:
 - Database or migrations:
 - Views or rendering:
-- FNLLA UI contract:
+- FNLLA Web contract:
 - Release surface:
 
 ## Validation

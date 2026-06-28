@@ -27,7 +27,7 @@ $allErrors = errors();
   <div class="container">
     <div class="section-header">
       <h1 class="section-title">Contact flow demo</h1>
-      <p class="section-text">This page demonstrates plain PHP form handling paired with FNLLA UI form, alert and toast patterns.</p>
+      <p class="section-text">This page demonstrates plain PHP form handling paired with FNLLA Web form, alert and toast patterns.</p>
     </div>
 
     <section class="contact-section" id="contact-form">

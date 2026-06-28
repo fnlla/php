@@ -18,7 +18,7 @@ Everyone participating in repository work, issue handling, delivery hardening, r
 - discriminatory or abusive language
 - deliberate sabotage of repository quality, release metadata or ownership signals
 - publishing private, client, business or security-sensitive information without authorization
-- misrepresenting FNLLA PHP or FNLLA UI ownership, authorship or licensing
+- misrepresenting FNLLA PHP or FNLLA Web ownership, authorship or licensing
 
 ## Maintainer responsibilities
 

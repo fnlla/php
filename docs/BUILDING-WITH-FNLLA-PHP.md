@@ -36,7 +36,7 @@ That means:
 
 - keep the shared shell structure from `views/layouts/app.php`
 - keep using `public/vendor/fnlla-ui/` as the source of runtime UI assets
-- keep `section`, `container`, `card`, grid and related FNLLA UI layout conventions
+- keep `section`, `container`, `card`, grid and related FNLLA Web layout conventions
 - do not introduce Tailwind, Bootstrap, Bulma, Foundation, UIkit, Materialize or Semantic UI
 
 The framework already enforces parts of that contract during bootstrap and validation.
@@ -46,7 +46,7 @@ The framework already enforces parts of that contract during bootstrap and valid
 When starting a new delivery on top of FNLLA PHP, the safest sequence is:
 
 1. Set local environment values in `.env`.
-2. Confirm FNLLA UI is synced and valid.
+2. Confirm FNLLA Web is synced and valid.
 3. Define the pages and flows you need.
 4. Add routes.
 5. Add or extend controllers.
@@ -54,7 +54,7 @@ When starting a new delivery on top of FNLLA PHP, the safest sequence is:
 7. Add forms, validation and flash feedback where needed.
 8. Add database tables and migrations when persistence is required.
 9. Add auth or authorization boundaries when a page is protected.
-10. Run tests, lint and FNLLA UI validation before shipping.
+10. Run tests, lint and FNLLA Web validation before shipping.
 
 ## Local setup for a new project
 
@@ -139,7 +139,7 @@ Example page template:
     <div class="stack gap-lg">
       <header class="stack gap-sm">
         <h1>Services</h1>
-        <p class="content-text">Build the page with FNLLA UI primitives and plain PHP data output.</p>
+        <p class="content-text">Build the page with FNLLA Web primitives and plain PHP data output.</p>
       </header>
 
       <div class="grid grid-2 gap-md">
@@ -163,7 +163,7 @@ Use these rules for page templates:
 - let `views/layouts/app.php` own the global shell, header, footer and shared assets
 - keep page templates focused on page content, not full HTML documents
 - use helper functions like `h()`, `route()`, `asset()`, `auth()` and `csrf_field()` where appropriate
-- keep markup aligned with FNLLA UI classes and layout patterns
+- keep markup aligned with FNLLA Web classes and layout patterns
 
 Good default page structure:
 
@@ -439,14 +439,14 @@ $router->group([
 
 When building pages:
 
-- compose layouts with FNLLA UI primitives first
+- compose layouts with FNLLA Web primitives first
 - avoid one-off CSS unless the page truly needs it
 - keep custom CSS in `public/assets/app.css`
 - prefer reusable structural patterns over ad hoc markup
 
 A good rule is:
 
-- use FNLLA UI for layout, spacing, cards, grid, buttons, alerts and shells
+- use FNLLA Web for layout, spacing, cards, grid, buttons, alerts and shells
 - use project CSS only for branding or delivery-specific refinements
 
 ## What to avoid
@@ -470,7 +470,7 @@ For a brand-new website or application delivery, use this checklist:
 3. Add migrations for those entities.
 4. Add routes for public pages, auth flows and admin flows.
 5. Build controllers page by page.
-6. Build views using FNLLA UI structure.
+6. Build views using FNLLA Web structure.
 7. Add validation and flash feedback to every form.
 8. Add auth and authorization guards.
 9. Add seed data if it improves local setup.
@@ -504,7 +504,7 @@ FNLLA PHP is strongest when you keep:
 - views plain
 - validation early
 - MySQL usage disciplined
-- UI work inside the FNLLA UI contract
+- UI work inside the FNLLA Web contract
 - release hygiene consistent
 
 If a new website or application follows those rules, `fnlla-php` becomes a fast and stable base instead of a pile of custom exceptions.

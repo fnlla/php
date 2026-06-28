@@ -15,7 +15,7 @@ the FNLLA PHP framework released under the MIT License and its related delivery 
 templates and release metadata.
 
 Purpose:
-- Defines the shared delivery shell for server-rendered pages built on FNLLA UI.
+- Defines the shared delivery shell for server-rendered pages built on FNLLA Web.
 */
 
 $pageStatus = flash("status");
@@ -73,7 +73,7 @@ $pageMeta = page_meta([
                 <button class="btn btn-outline btn-sm" id="resource-menu-trigger" type="button" data-fnlla-dropdown-toggle aria-expanded="false" aria-controls="resource-menu">Resources</button>
                 <div class="dropdown-menu" id="resource-menu" aria-labelledby="resource-menu-trigger">
                   <a class="dropdown-item" href="<?= h(route("api.health")) ?>">JSON health route</a>
-                  <a class="dropdown-item" href="https://github.com/fnlla/web" target="_blank" rel="noreferrer">FNLLA UI repo</a>
+                  <a class="dropdown-item" href="https://github.com/fnlla/web" target="_blank" rel="noreferrer">FNLLA Web repo</a>
                 </div>
               </li>
             </ul>
@@ -117,7 +117,7 @@ $pageMeta = page_meta([
           </article>
           <article class="card site-card-muted">
             <h2 class="card-title">UI already bundled</h2>
-            <p class="card-text">The project vendors FNLLA UI locally, so its styles, scripts and icons can be shipped without external CDNs.</p>
+            <p class="card-text">The project vendors FNLLA Web locally, so its styles, scripts and icons can be shipped without external CDNs.</p>
           </article>
           <article class="card site-card-muted">
             <h2 class="card-title">Good first extension points</h2>
@@ -125,7 +125,7 @@ $pageMeta = page_meta([
           </article>
         </div>
         <div class="site-footer-meta">
-          <p class="site-footer-note">FNLLA PHP starter ships with a professional browser-tab title contract and an optional cookie-consent shell powered by FNLLA UI only.</p>
+          <p class="site-footer-note">FNLLA PHP starter ships with a professional browser-tab title contract and an optional cookie-consent shell powered by FNLLA Web only.</p>
           <div class="site-footer-tools">
             <button class="btn btn-ghost btn-sm" type="button" data-fnlla-consent-open>Cookie settings</button>
           </div>
@@ -224,7 +224,7 @@ $pageMeta = page_meta([
       <div class="offcanvas-header">
         <div>
           <h2 class="content-title mb-1" id="starter-panel-title">Starter project notes</h2>
-          <p class="content-text" id="starter-panel-description">This panel shows how FNLLA PHP can use FNLLA UI overlays without any custom JavaScript glue.</p>
+          <p class="content-text" id="starter-panel-description">This panel shows how FNLLA PHP can use FNLLA Web overlays without any custom JavaScript glue.</p>
         </div>
         <button class="btn btn-ghost btn-sm" type="button" data-fnlla-offcanvas-close data-fnlla-offcanvas-initial-focus>Close</button>
       </div>
@@ -233,7 +233,7 @@ $pageMeta = page_meta([
           <p class="offcanvas-kicker">Included</p>
           <div class="list-group list-group-nav">
             <div class="list-group-item"><span class="list-group-link">Plain PHP router and controller flow</span></div>
-            <div class="list-group-item"><span class="list-group-link">FNLLA UI runtime vendored locally</span></div>
+            <div class="list-group-item"><span class="list-group-link">FNLLA Web runtime vendored locally</span></div>
             <div class="list-group-item"><span class="list-group-link">Form validation, flashes and CSRF token handling</span></div>
           </div>
         </section>

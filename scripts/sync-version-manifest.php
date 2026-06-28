@@ -28,5 +28,5 @@ $manifest = VersionManifest::syncRepositoryManifest();
 
 fwrite(STDOUT, "FNLLA PHP version manifest synchronized." . PHP_EOL);
 fwrite(STDOUT, "Framework version: " . $manifest["product"]["version"] . PHP_EOL);
-fwrite(STDOUT, "Vendored FNLLA UI version: " . $manifest["ui_runtime"]["vendored_version"] . PHP_EOL);
+fwrite(STDOUT, "Vendored FNLLA Web version: " . $manifest["ui_runtime"]["vendored_version"] . PHP_EOL);
 fwrite(STDOUT, "Manifest path: " . VersionManifest::repositoryManifestPath() . PHP_EOL);

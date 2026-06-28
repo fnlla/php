@@ -41,7 +41,7 @@ final class VersionSyncCommand extends Command
 
         $this->line("FNLLA PHP MANIFEST.json synchronized.");
         $this->line("Framework version: " . $manifest["product"]["version"]);
-        $this->line("Vendored FNLLA UI version: " . $manifest["ui_runtime"]["vendored_version"]);
+        $this->line("Vendored FNLLA Web version: " . $manifest["ui_runtime"]["vendored_version"]);
 
         return 0;
     }

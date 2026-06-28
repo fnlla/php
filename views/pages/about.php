@@ -63,7 +63,7 @@ Purpose:
               </tr>
               <tr>
                 <td><code>View</code></td>
-                <td>Render plain PHP templates inside the shared FNLLA UI layout shell.</td>
+                <td>Render plain PHP templates inside the shared FNLLA Web layout shell.</td>
               </tr>
             </tbody>
           </table>
@@ -81,8 +81,8 @@ Purpose:
         <p class="card-text">The framework deliberately avoids hidden service containers, template compilers and magic route discovery so tracing behavior stays straightforward.</p>
       </article>
       <article class="card">
-        <h2 class="card-title">Why FNLLA UI fits here</h2>
-        <p class="card-text">Server-rendered HTML can still feel polished when the component and section system is already solved by a published runtime like FNLLA UI.</p>
+        <h2 class="card-title">Why FNLLA Web fits here</h2>
+        <p class="card-text">Server-rendered HTML can still feel polished when the component and section system is already solved by a published runtime like FNLLA Web.</p>
       </article>
     </div>
   </div>

@@ -1,6 +1,6 @@
 {
     "name": "fnlla/php",
-    "description": "Open-source server-rendered PHP framework by TechAyo LTD for FNLLA UI based productions.",
+    "description": "Open-source server-rendered PHP framework by TechAyo LTD for FNLLA Web based productions.",
     "type": "project",
     "license": "MIT",
     "homepage": "https://techayo.co.uk",

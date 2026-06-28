@@ -40,7 +40,7 @@ use Fnlla\Php\Console\Commands\VersionSyncCommand;
 
 /*
 Guard bypass note:
-- the dedicated FNLLA UI repair commands must stay callable even when the guard
+- the dedicated FNLLA Web repair commands must stay callable even when the guard
   itself is blocking normal bootstrap because of a UI contract violation
 - this keeps the repository recoverable without editing bootstrap files by hand
 */

@@ -23,7 +23,7 @@ The most useful contributions are:
 - reproducible bug reports
 - framework contract and docs parity reports
 - small documentation clarifications
-- narrowly scoped fixes aligned with the existing HTTP, CLI and FNLLA UI contract
+- narrowly scoped fixes aligned with the existing HTTP, CLI and FNLLA Web contract
 - feature proposals that clearly justify shared framework value
 
 ## What usually will not be accepted
@@ -35,7 +35,7 @@ The following are commonly declined or redirected:
 - changes that conflict with the documented framework boundary
 - contributions that introduce unclear ownership or third-party IP risk
 - large unsolicited pull requests that were not discussed first
-- framework changes that attempt to detach the official FNLLA UI integration boundary
+- framework changes that attempt to detach the official FNLLA Web integration boundary
 
 ## Before writing code
 
@@ -49,7 +49,7 @@ That is especially important for:
 - database abstraction, migration or CLI contract changes
 - naming changes
 - structural tooling changes
-- FNLLA UI guard or sync behavior changes
+- FNLLA Web guard or sync behavior changes
 
 ## Security issues
 
@@ -63,7 +63,7 @@ When a change is accepted for implementation:
 - do not treat generated runtime state under `storage/` as a hand-authored source of truth
 - keep `README.md`, `VERSION`, `LICENSE.md`, `SUPPORT.md` and `TRADEMARKS.md` aligned when release-facing behavior changes
 - preserve the documented MySQL-only database boundary unless an explicit product decision changes it
-- preserve the FNLLA UI runtime boundary under `public/vendor/fnlla-ui/`
+- preserve the FNLLA Web runtime boundary under `public/vendor/fnlla-ui/`
 - keep GitHub as the source of truth for both `fnlla/php` and `fnlla/ui`
 
 ## Maintainer workflow

@@ -32,13 +32,13 @@ final class FnllaUiSyncCommand extends Command
 
     public function description(): string
     {
-        return "Sync the vendored FNLLA UI runtime from GitHub.";
+        return "Sync the vendored FNLLA Web runtime from GitHub.";
     }
 
     public function handle(array $arguments): int
     {
         FnllaUiGuard::syncNow();
-        $this->line("FNLLA UI sync completed.");
+        $this->line("FNLLA Web sync completed.");
 
         return 0;
     }

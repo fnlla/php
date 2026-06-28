@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#18352f">
-  <title>FNLLA UI - FNLLA PHP Documentation</title>
+  <title>FNLLA Web - FNLLA PHP Documentation</title>
   <link rel="icon" href="./assets/brand/fnlla-ui.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../public/vendor/fnlla-ui/assets/css/fnlla-ui.css">
   <link rel="stylesheet" href="./assets/docs.css">
@@ -35,7 +35,7 @@
           <span class="doc-brand-separator" aria-hidden="true">-</span>
           <p class="doc-display">Documentation</p>
         </div>
-        <p class="doc-lead">How FNLLA PHP depends on FNLLA UI, where the vendored runtime lives and how downstream projects should keep that dependency healthy.</p>
+        <p class="doc-lead">How FNLLA PHP depends on FNLLA Web, where the vendored runtime lives and how downstream projects should keep that dependency healthy.</p>
       </div>
     </header>
 
@@ -49,7 +49,7 @@
       <div class="doc-nav-panel" id="doc-nav-panel" data-doc-nav-panel>
         <a class="btn btn-ghost btn-sm" href="./index.html">Overview</a>
         <a class="btn btn-ghost btn-sm" href="./distribution.html">Distribution</a>
-        <a class="btn btn-outline btn-sm" href="./fnlla-ui.html" aria-current="page">FNLLA UI</a>
+        <a class="btn btn-outline btn-sm" href="./fnlla-ui.html" aria-current="page">FNLLA Web</a>
         <a class="btn btn-ghost btn-sm" href="./getting-started.html">Getting Started</a>
         <a class="btn btn-ghost btn-sm" href="./building.html">Building</a>
         <a class="btn btn-ghost btn-sm" href="./api.html">API</a>
@@ -66,8 +66,8 @@
 
     <section class="section pt-1">
       <div class="section-header">
-        <h2 class="section-title">FNLLA UI is a required runtime dependency</h2>
-        <p class="section-text">FNLLA PHP is not designed to be UI-agnostic in the official stack. The maintained application shell, shared layout and validation flow all assume that FNLLA UI is present as the only supported UI runtime.</p>
+        <h2 class="section-title">FNLLA Web is a required runtime dependency</h2>
+        <p class="section-text">FNLLA PHP is not designed to be UI-agnostic in the official stack. The maintained application shell, shared layout and validation flow all assume that FNLLA Web is present as the only supported UI runtime.</p>
       </div>
 
       <div class="doc-card-grid doc-card-grid-2">
@@ -77,7 +77,7 @@
         </article>
         <article class="card">
           <h2 class="card-title">Why it matters</h2>
-          <p class="card-text">Shared views, docs shells, theme switching, consent UI and application primitives all expect FNLLA UI classes, tokens and JavaScript behavior to exist locally.</p>
+          <p class="card-text">Shared views, docs shells, theme switching, consent UI and application primitives all expect FNLLA Web classes, tokens and JavaScript behavior to exist locally.</p>
         </article>
       </div>
     </section>
@@ -85,7 +85,7 @@
     <section class="section">
       <div class="section-header">
         <h2 class="section-title">Supported dependency contract</h2>
-        <p class="section-text">Downstream work should treat FNLLA UI as a first-class product dependency, not as a replaceable design preference.</p>
+        <p class="section-text">Downstream work should treat FNLLA Web as a first-class product dependency, not as a replaceable design preference.</p>
       </div>
 
       <div class="doc-mini-grid">
@@ -93,14 +93,14 @@
           <h3 class="card-title">Supported</h3>
           <ul class="doc-checklist">
             <li>Keep the vendored runtime under <code>public/vendor/fnlla-ui/</code>.</li>
-            <li>Sync updates from the official FNLLA UI repository workflow.</li>
-            <li>Build pages with FNLLA UI layout, card, button, alert and form primitives.</li>
+            <li>Sync updates from the official FNLLA Web repository workflow.</li>
+            <li>Build pages with FNLLA Web layout, card, button, alert and form primitives.</li>
           </ul>
         </article>
         <article class="card">
           <h3 class="card-title">Unsupported</h3>
           <ul class="doc-checklist">
-            <li>Replacing FNLLA UI with Tailwind, Bootstrap or another framework in the official stack.</li>
+            <li>Replacing FNLLA Web with Tailwind, Bootstrap or another framework in the official stack.</li>
             <li>Loading third-party UI assets from random CDNs instead of the vendored runtime.</li>
             <li>Changing shared shell markup so the framework can no longer validate the UI contract.</li>
           </ul>
@@ -111,7 +111,7 @@
     <section class="section">
       <div class="section-header">
         <h2 class="section-title">Sync and validation workflow</h2>
-        <p class="section-text">When FNLLA UI changes upstream, update the vendored runtime deliberately and validate it before treating the repository as release-ready.</p>
+        <p class="section-text">When FNLLA Web changes upstream, update the vendored runtime deliberately and validate it before treating the repository as release-ready.</p>
       </div>
 
       <div class="grid grid-2 gap-md">
@@ -124,7 +124,7 @@ php scripts/build-docs.php --check</code></pre>
         </article>
         <article class="card">
           <h3 class="card-title">Operational rule</h3>
-          <p class="card-text">If you change FNLLA UI upstream, sync the vendored copy before shipping FNLLA PHP changes that rely on the new runtime behavior or styles.</p>
+          <p class="card-text">If you change FNLLA Web upstream, sync the vendored copy before shipping FNLLA PHP changes that rely on the new runtime behavior or styles.</p>
         </article>
       </div>
     </section>
@@ -132,14 +132,14 @@ php scripts/build-docs.php --check</code></pre>
     <section class="section">
       <div class="section-header">
         <h2 class="section-title">Starter-export consequence</h2>
-        <p class="section-text">A new project created from FNLLA PHP inherits the vendored FNLLA UI runtime immediately, so downstream teams can build pages without adding a separate UI package step.</p>
+        <p class="section-text">A new project created from FNLLA PHP inherits the vendored FNLLA Web runtime immediately, so downstream teams can build pages without adding a separate UI package step.</p>
       </div>
 
       <div class="doc-flow-grid">
         <article class="card">
           <p class="doc-link-label">1. Export</p>
           <h3 class="card-title">Project scaffold</h3>
-          <p class="card-text">The starter export includes the application code and the vendored FNLLA UI runtime together.</p>
+          <p class="card-text">The starter export includes the application code and the vendored FNLLA Web runtime together.</p>
         </article>
         <article class="card">
           <p class="doc-link-label">2. Build</p>

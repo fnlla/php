@@ -28,7 +28,7 @@ body:
         - Database or migrations
         - CLI command surface
         - Views or rendering
-        - FNLLA UI contract
+        - FNLLA Web contract
         - Release tooling
     validations:
       required: true

@@ -6,7 +6,7 @@ Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 
 This script applies a consistent TechAyo LTD ownership banner to first-party
 source files in the FNLLA PHP repository so the framework stays aligned with
-the same repository identity style used in FNLLA UI.
+the same repository identity style used in FNLLA Web.
 #>
 
 [CmdletBinding()]
@@ -46,7 +46,7 @@ function Get-TitleAndPurpose {
         '^database\\seeders\\' { return @("FNLLA PHP DATABASE SEEDER", "Provides seed data for framework demos, local setup or delivery bootstrapping.") }
         '^database\\factories\\' { return @("FNLLA PHP DATA FACTORY", "Provides repeatable data generation for tests, seeding and local framework validation.") }
         '^lang\\' { return @("FNLLA PHP LOCALIZATION FILE", "Provides maintained translation lines for the official FNLLA PHP runtime.") }
-        '^public\\assets\\' { return @("FNLLA PHP PUBLIC ASSET", "Styles the delivery-facing shell that sits on top of the vendored FNLLA UI runtime.") }
+        '^public\\assets\\' { return @("FNLLA PHP PUBLIC ASSET", "Styles the delivery-facing shell that sits on top of the vendored FNLLA Web runtime.") }
         '^public\\' { return @("FNLLA PHP PUBLIC ENTRYPOINT", "Handles a public web request or static file routing boundary for the maintained framework.") }
         '^routes\\' { return @("FNLLA PHP ROUTE DEFINITION", "Registers maintained HTTP or console routes for the framework runtime.") }
         '^scripts\\' { return @("FNLLA PHP MAINTAINER SCRIPT", "Supports framework maintenance, validation, release hygiene or repository hardening.") }
@@ -74,7 +74,7 @@ function Get-TitleAndPurpose {
         '^src\\Application\.php$' { return @("FNLLA PHP APPLICATION KERNEL", "Coordinates the maintained request lifecycle for the FNLLA PHP runtime.") }
         '^tests\\PHPUnit\\' { return @("FNLLA PHP TEST HARNESS SOURCE", "Implements the repository-local test harness used by FNLLA PHP without Packagist dependencies.") }
         '^tests\\' { return @("FNLLA PHP TEST CASE", "Validates maintained framework behavior inside the repository-local test harness.") }
-        '^views\\layouts\\' { return @("FNLLA PHP VIEW LAYOUT", "Defines the shared delivery shell for server-rendered pages built on FNLLA UI.") }
+        '^views\\layouts\\' { return @("FNLLA PHP VIEW LAYOUT", "Defines the shared delivery shell for server-rendered pages built on FNLLA Web.") }
         '^views\\pages\\' { return @("FNLLA PHP VIEW TEMPLATE", "Defines a maintained page template for the official FNLLA PHP demonstration surface.") }
         '^fnlla$' { return @("FNLLA PHP REPOSITORY LAUNCHER", "Provides the maintained CLI entrypoint for the FNLLA PHP framework repository.") }
         '^.*\.cmd$' { return @("FNLLA PHP REPOSITORY LAUNCHER", "Provides a Windows launcher for a maintained framework or maintainer workflow command.") }
@@ -125,7 +125,7 @@ Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 
 FNLLA PHP is produced, maintained and distributed by TechAyo LTD
 (techayo.co.uk). This stylesheet belongs to the maintained FNLLA PHP delivery
-shell that sits on top of the vendored FNLLA UI runtime.
+shell that sits on top of the vendored FNLLA Web runtime.
 
 Purpose:
 - $Purpose

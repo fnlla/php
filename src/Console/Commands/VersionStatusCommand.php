@@ -32,7 +32,7 @@ final class VersionStatusCommand extends Command
 
     public function description(): string
     {
-        return "Show the current FNLLA PHP and vendored FNLLA UI version contract.";
+        return "Show the current FNLLA PHP and vendored FNLLA Web version contract.";
     }
 
     public function handle(array $arguments): int
@@ -40,7 +40,7 @@ final class VersionStatusCommand extends Command
         $status = VersionManifest::status();
 
         $this->line("FNLLA PHP version: " . ($status["framework_version"] ?? "unknown"));
-        $this->line("Vendored FNLLA UI version: " . ($status["vendored_ui_version"] ?? "unknown"));
+        $this->line("Vendored FNLLA Web version: " . ($status["vendored_ui_version"] ?? "unknown"));
         $this->line("Repository MANIFEST.json: " . ($status["repository_manifest_exists"] ? "present" : "missing"));
         $this->line("Version contract: " . ($status["version_contract_ok"] ? "ok" : "out of sync"));
 

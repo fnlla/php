@@ -23,11 +23,11 @@ Purpose:
     <section class="hero hero-split" aria-label="FNLLA PHP hero">
       <div class="grid gap-md hero-copy">
         <span class="tag">Server-rendered starter</span>
-        <h1 class="hero-title">Build lean PHP apps on top of FNLLA UI without pulling in a full-stack framework.</h1>
-        <p class="hero-text">FNLLA PHP gives you a tiny application core for routes, controllers, views and forms while FNLLA UI handles the layout, components and interaction layer.</p>
+        <h1 class="hero-title">Build lean PHP apps on top of FNLLA Web without pulling in a full-stack framework.</h1>
+        <p class="hero-text">FNLLA PHP gives you a tiny application core for routes, controllers, views and forms while FNLLA Web handles the layout, components and interaction layer.</p>
         <ul class="hero-proof-list">
           <li>No Composer dependency is required for the starter itself.</li>
-          <li>Published FNLLA UI assets are bundled locally under <code>public/vendor/fnlla-ui/</code>.</li>
+          <li>Published FNLLA Web assets are bundled locally under <code>public/vendor/fnlla-ui/</code>.</li>
           <li>The demo includes overlays, tabs, validation feedback and a JSON endpoint.</li>
         </ul>
         <div class="hero-actions">
@@ -52,7 +52,7 @@ Purpose:
           </div>
           <div class="hero-metric">
             <p class="hero-metric-value">1</p>
-            <p class="hero-metric-label">vendored FNLLA UI runtime source of truth</p>
+            <p class="hero-metric-label">vendored FNLLA Web runtime source of truth</p>
           </div>
         </div>
         <p class="help-text mb-0 site-hero-panel-note">Good default for internal tools, service sites and admin surfaces that benefit from clarity more than novelty.</p>
@@ -100,7 +100,7 @@ Purpose:
     <div class="grid grid-2 gap-md">
       <article class="card">
         <h2 class="card-title">Try a side workspace</h2>
-        <p class="card-text">FNLLA UI overlays can stay purely declarative. The starter panel in the global header and the example panel below both run on the published runtime script.</p>
+        <p class="card-text">FNLLA Web overlays can stay purely declarative. The starter panel in the global header and the example panel below both run on the published runtime script.</p>
         <div class="d-flex flex-wrap gap-md">
           <button class="btn btn-primary" type="button" data-fnlla-offcanvas-open="#delivery-panel" aria-controls="delivery-panel">Open delivery panel</button>
           <a class="btn btn-outline" href="<?= h(url("api/health")) ?>">Open health endpoint</a>
@@ -108,7 +108,7 @@ Purpose:
       </article>
       <article class="card">
         <h2 class="card-title">Use local assets only</h2>
-        <p class="card-text">The project copies the published FNLLA UI runtime into its own public tree, which keeps the deployment path simple and offline-safe.</p>
+        <p class="card-text">The project copies the published FNLLA Web runtime into its own public tree, which keeps the deployment path simple and offline-safe.</p>
         <div class="d-flex flex-wrap gap-md">
           <span class="badge">CSS bundled locally</span>
           <span class="badge">JS bundled locally</span>
@@ -134,7 +134,7 @@ Purpose:
     <div class="offcanvas-header">
       <div>
         <h2 class="content-title mb-1" id="delivery-panel-title">Delivery panel</h2>
-        <p class="content-text" id="delivery-panel-description">This is a second FNLLA UI overlay on the same page, which demonstrates how the PHP starter can compose interactive surfaces without custom front-end state management.</p>
+        <p class="content-text" id="delivery-panel-description">This is a second FNLLA Web overlay on the same page, which demonstrates how the PHP starter can compose interactive surfaces without custom front-end state management.</p>
       </div>
       <button class="btn btn-ghost btn-sm" type="button" data-fnlla-offcanvas-close data-fnlla-offcanvas-initial-focus>Close</button>
     </div>

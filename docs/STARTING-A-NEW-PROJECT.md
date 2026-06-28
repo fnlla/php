@@ -40,11 +40,11 @@ That command exports a clean working starter into a new directory outside the fr
 The exported project already includes:
 
 - the FNLLA PHP runtime
-- the vendored FNLLA UI runtime
+- the vendored FNLLA Web runtime
 - routes, controllers and views
 - MySQL config and migration support
 - auth, sessions, cookies and CSRF foundations
-- lint, test and FNLLA UI validation scripts
+- lint, test and FNLLA Web validation scripts
 - a project README that explains the next steps
 
 It also avoids copying framework-maintainer-only repository metadata such as:

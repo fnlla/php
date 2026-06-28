@@ -38,7 +38,7 @@ final class HomeController extends Controller
                 ],
                 [
                     "title" => "Views with no template engine tax",
-                    "text" => "Use plain PHP templates and lean on FNLLA UI for layout, components and responsive structure.",
+                    "text" => "Use plain PHP templates and lean on FNLLA Web for layout, components and responsive structure.",
                 ],
                 [
                     "title" => "Built for production hardening",
