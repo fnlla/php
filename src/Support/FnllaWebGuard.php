@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
 ===============================================================================
 FNLLA PHP SUPPORT SOURCE
-File: src\Support\FnllaUiGuard.php
+File: src\Support\FnllaWebGuard.php
 Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 ===============================================================================
 
@@ -22,7 +22,7 @@ namespace Fnlla\Php\Support;
 
 use RuntimeException;
 
-final class FnllaUiGuard
+final class FnllaWebGuard
 {
     /*
     The guard is intentionally centralized here so FNLLA PHP can enforce the
@@ -61,7 +61,7 @@ final class FnllaUiGuard
 
     private static function config(): array
     {
-        $config = config("fnlla_ui", []);
+        $config = config("fnlla_web", []);
 
         if (!is_array($config)) {
             throw new RuntimeException("FNLLA Web configuration is invalid.");
@@ -95,10 +95,10 @@ final class FnllaUiGuard
         - the framework still checks often enough during development
         - bootstrap avoids recloning FNLLA Web on every single request
         */
-        $statePath = (string) ($config["state_path"] ?? storage_path("framework/fnlla-ui-guard.json"));
+        $statePath = (string) ($config["state_path"] ?? storage_path("framework/fnlla-web-guard.json"));
         $state = self::loadState($statePath);
         $interval = max(0, (int) ($config["check_interval_seconds"] ?? 900));
-        $currentVersion = self::readLocalVersion((string) ($config["version_file"] ?? public_path("vendor/fnlla-ui/VERSION")));
+        $currentVersion = self::readLocalVersion((string) ($config["version_file"] ?? public_path("vendor/fnlla-web/VERSION")));
         $lastCheckedAt = (int) ($state["last_checked_at"] ?? 0);
         $lastKnownVersion = (string) ($state["local_version"] ?? "");
         $hasValidRecentState = !$force
@@ -111,8 +111,17 @@ final class FnllaUiGuard
             return;
         }
 
+        if (!$force && $currentVersion !== "") {
+            self::saveState($statePath, [
+                "last_checked_at" => time(),
+                "local_version" => $currentVersion,
+            ]);
+
+            return;
+        }
+
         self::runSync($config);
-        $syncedVersion = self::readLocalVersion((string) ($config["version_file"] ?? public_path("vendor/fnlla-ui/VERSION")));
+        $syncedVersion = self::readLocalVersion((string) ($config["version_file"] ?? public_path("vendor/fnlla-web/VERSION")));
 
         self::saveState($statePath, [
             "last_checked_at" => time(),
@@ -123,7 +132,7 @@ final class FnllaUiGuard
     private static function runSync(array $config): void
     {
         /* GitHub-driven sync is delegated to the maintained PowerShell script so clone safety stays in one place. */
-        $scriptPath = base_path((string) ($config["sync_script"] ?? "scripts/sync-fnlla-ui.ps1"));
+        $scriptPath = base_path((string) ($config["sync_script"] ?? "scripts/sync-fnlla-web.ps1"));
 
         if (!is_file($scriptPath)) {
             throw new RuntimeException("FNLLA Web sync script is missing: " . $scriptPath);
@@ -282,6 +291,9 @@ final class FnllaUiGuard
             return "";
         }
 
-        return trim((string) file_get_contents($path));
+        $contents = (string) file_get_contents($path);
+        $firstLine = strtok($contents, "\r\n");
+
+        return trim($firstLine === false ? $contents : $firstLine);
     }
 }

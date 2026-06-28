@@ -40,7 +40,7 @@ $rootPages = [
     ],
     [
         "label" => "FNLLA Web",
-        "href" => "fnlla-ui.html",
+        "href" => "fnlla-web.html",
         "title" => "FNLLA Web",
         "document_title" => "FNLLA Web - FNLLA PHP Documentation",
     ],
@@ -137,7 +137,7 @@ $pagesToWrite = [
         ]),
     ],
     [
-        "target" => $docsRoot . DIRECTORY_SEPARATOR . "fnlla-ui.html",
+        "target" => $docsRoot . DIRECTORY_SEPARATOR . "fnlla-web.html",
         "content" => render_docs_page([
             "root_pages" => $rootPages,
             "guide_pages" => $guidePages,
@@ -146,7 +146,7 @@ $pagesToWrite = [
             "page_title" => "FNLLA Web",
             "page_lead" => "How FNLLA PHP depends on FNLLA Web, where the vendored runtime lives and how downstream projects should keep that dependency healthy.",
             "version" => $version,
-            "content_html" => render_fnlla_ui_content(),
+            "content_html" => render_fnlla_web_content(),
         ]),
     ],
     [
@@ -285,8 +285,8 @@ function render_docs_page(array $page): string
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#18352f">
   <title>{$documentTitle}</title>
-  <link rel="icon" href="./assets/brand/fnlla-ui.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../public/vendor/fnlla-ui/assets/css/fnlla-ui.css">
+  <link rel="icon" href="./assets/brand/fnlla-web.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../public/vendor/fnlla-web/assets/css/fnlla-web.css">
   <link rel="stylesheet" href="./assets/docs.css">
 </head>
 <body data-fnlla-theme="default">
@@ -344,7 +344,7 @@ function render_docs_page(array $page): string
     </footer>
   </main>
 
-  <script src="../public/vendor/fnlla-ui/assets/js/fnlla-ui.js"></script>
+  <script src="../public/vendor/fnlla-web/assets/js/fnlla-web.js"></script>
   <script src="./assets/docs.js"></script>
 </body>
 </html>
@@ -407,7 +407,7 @@ function render_overview_content(string $version): string
           <h2 class="card-title">Stable repository contract</h2>
           <pre><code>public/index.php
 public/router.php
-public/vendor/fnlla-ui/
+public/vendor/fnlla-web/
 src/
 routes/
 views/</code></pre>
@@ -419,7 +419,7 @@ views/</code></pre>
           <ul class="doc-checklist">
             <li><strong>Framework mode:</strong> maintain <code>fnlla/php</code>, its scripts, docs and shared delivery foundations here.</li>
             <li><strong>Project mode:</strong> export a downstream starter with <code>php fnlla make:project</code> and build the real client application in that separate directory.</li>
-            <li><strong>UI rule:</strong> keep FNLLA Web as the only supported UI runtime under <code>public/vendor/fnlla-ui/</code>.</li>
+            <li><strong>UI rule:</strong> keep FNLLA Web as the only supported UI runtime under <code>public/vendor/fnlla-web/</code>.</li>
           </ul>
         </article>
 
@@ -447,7 +447,7 @@ views/</code></pre>
           <p class="doc-link-title">Distribution</p>
           <p class="doc-link-text">What belongs to the downstream runtime surface, what stays maintainer-only and how the vendored FNLLA Web runtime should be treated.</p>
         </a>
-        <a class="doc-link-card" href="./fnlla-ui.html">
+        <a class="doc-link-card" href="./fnlla-web.html">
           <span class="doc-link-label">Dependency</span>
           <p class="doc-link-title">FNLLA Web</p>
           <p class="doc-link-text">Where the vendored runtime lives, how to keep it synced and why FNLLA PHP officially depends on FNLLA Web as its only supported UI layer.</p>
@@ -503,7 +503,7 @@ views/</code></pre>
 HTML;
 }
 
-function render_fnlla_ui_content(): string
+function render_fnlla_web_content(): string
 {
     return <<<HTML
     <section class="section pt-1">
@@ -515,7 +515,7 @@ function render_fnlla_ui_content(): string
       <div class="doc-card-grid doc-card-grid-2">
         <article class="card">
           <h2 class="card-title">Where it lives</h2>
-          <p class="card-text">The vendored runtime lives under <code>public/vendor/fnlla-ui/</code>. That directory is the local downstream copy used by the framework and by starter exports created from this repository.</p>
+          <p class="card-text">The vendored runtime lives under <code>public/vendor/fnlla-web/</code>. That directory is the local downstream copy used by the framework and by starter exports created from this repository.</p>
         </article>
         <article class="card">
           <h2 class="card-title">Why it matters</h2>
@@ -534,7 +534,7 @@ function render_fnlla_ui_content(): string
         <article class="card">
           <h3 class="card-title">Supported</h3>
           <ul class="doc-checklist">
-            <li>Keep the vendored runtime under <code>public/vendor/fnlla-ui/</code>.</li>
+            <li>Keep the vendored runtime under <code>public/vendor/fnlla-web/</code>.</li>
             <li>Sync updates from the official FNLLA Web repository workflow.</li>
             <li>Build pages with FNLLA Web layout, card, button, alert and form primitives.</li>
           </ul>
@@ -559,8 +559,8 @@ function render_fnlla_ui_content(): string
       <div class="grid grid-2 gap-md">
         <article class="card">
           <h3 class="card-title">Recommended commands</h3>
-          <pre><code class="language-bash">php fnlla fnlla-ui:sync
-php fnlla fnlla-ui:validate
+          <pre><code class="language-bash">php fnlla fnlla-web:sync
+php fnlla fnlla-web:validate
 php scripts/build-docs.php --check</code></pre>
           <p class="card-text">These commands keep the local downstream copy aligned and confirm that docs and application shell expectations still match the vendored runtime.</p>
         </article>
@@ -613,7 +613,7 @@ function render_distribution_content(): string
           <ul class="doc-checklist">
             <li><code>public/index.php</code> and <code>public/router.php</code> as HTTP entrypoints.</li>
             <li><code>public/assets/</code> for project-owned public assets.</li>
-            <li><code>public/vendor/fnlla-ui/</code> for the vendored authoritative UI runtime.</li>
+            <li><code>public/vendor/fnlla-web/</code> for the vendored authoritative UI runtime.</li>
             <li><code>views/layouts/</code> and <code>views/pages/</code> as the server-rendered delivery layer.</li>
           </ul>
         </article>
@@ -671,7 +671,7 @@ SECURITY.md</code></pre>
       <div class="doc-mini-grid">
         <article class="card">
           <h3 class="card-title">Supported rule</h3>
-          <p class="card-text">Keep the vendored FNLLA Web runtime under <code>public/vendor/fnlla-ui/</code> and sync it only from the official GitHub source of truth.</p>
+          <p class="card-text">Keep the vendored FNLLA Web runtime under <code>public/vendor/fnlla-web/</code> and sync it only from the official GitHub source of truth.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Unsupported rule</h3>
@@ -730,8 +730,8 @@ php -S 127.0.0.1:8080 -t public public/router.php</code></pre>
       <div class="doc-card-grid doc-card-grid-2">
         <article class="card">
           <h3 class="card-title">Initial commands</h3>
-          <pre><code>php fnlla fnlla-ui:sync
-php fnlla fnlla-ui:validate
+          <pre><code>php fnlla fnlla-web:sync
+php fnlla fnlla-web:validate
 php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php
@@ -908,7 +908,7 @@ function render_api_content(): string
             <li><code>public/index.php</code></li>
             <li><code>public/router.php</code></li>
             <li><code>views/layouts/app.php</code> as the shared HTML shell</li>
-            <li><code>public/vendor/fnlla-ui/</code> as the mandatory UI runtime bundle</li>
+            <li><code>public/vendor/fnlla-web/</code> as the mandatory UI runtime bundle</li>
           </ul>
         </article>
         <article class="card">
@@ -962,8 +962,8 @@ throttle</code></pre>
           <h3 class="card-title">Framework and runtime commands</h3>
           <ul class="doc-checklist">
             <li><code>php fnlla make:project</code></li>
-            <li><code>php fnlla fnlla-ui:sync</code></li>
-            <li><code>php fnlla fnlla-ui:validate</code></li>
+            <li><code>php fnlla fnlla-web:sync</code></li>
+            <li><code>php fnlla fnlla-web:validate</code></li>
             <li><code>php fnlla route:list</code></li>
             <li><code>php fnlla version:status</code> and <code>php fnlla version:sync</code></li>
           </ul>
@@ -994,7 +994,7 @@ throttle</code></pre>
         </article>
         <article class="card">
           <h3 class="card-title">Validation scripts</h3>
-          <p class="card-text"><code>scripts/validate-fnlla-ui.php</code>, <code>scripts/validate-version-manifest.php</code> and <code>scripts/build-docs.php --check</code> are the core content-contract checks.</p>
+          <p class="card-text"><code>scripts/validate-fnlla-web.php</code>, <code>scripts/validate-version-manifest.php</code> and <code>scripts/build-docs.php --check</code> are the core content-contract checks.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Source of truth</h3>

@@ -7,7 +7,7 @@ This guide explains how to build new server-rendered websites and web applicatio
 It is written for the official stack:
 
 - `fnlla-php` as the application framework
-- `fnlla-ui` as the only supported UI runtime
+- `fnlla-web` as the only supported UI runtime
 - PHP 8.3
 - MySQL
 
@@ -30,12 +30,12 @@ Keep that flow in mind when building anything new. The framework is intentionall
 
 ## Official UI rule
 
-Every new website or application built on `fnlla-php` must use `fnlla-ui`.
+Every new website or application built on `fnlla-php` must use `fnlla-web`.
 
 That means:
 
 - keep the shared shell structure from `views/layouts/app.php`
-- keep using `public/vendor/fnlla-ui/` as the source of runtime UI assets
+- keep using `public/vendor/fnlla-web/` as the source of runtime UI assets
 - keep `section`, `container`, `card`, grid and related FNLLA Web layout conventions
 - do not introduce Tailwind, Bootstrap, Bulma, Foundation, UIkit, Materialize or Semantic UI
 
@@ -77,8 +77,8 @@ Then fill the important values:
 Recommended first checks:
 
 ```bash
-php fnlla fnlla-ui:sync
-php fnlla fnlla-ui:validate
+php fnlla fnlla-web:sync
+php fnlla fnlla-web:validate
 php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php
@@ -483,7 +483,7 @@ Before shipping a new project built on FNLLA PHP, run:
 ```bash
 php scripts/test.php
 php scripts/lint.php
-php scripts/validate-fnlla-ui.php
+php scripts/validate-fnlla-web.php
 php fnlla route:list
 ```
 

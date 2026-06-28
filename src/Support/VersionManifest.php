@@ -30,7 +30,7 @@ final class VersionManifest
     private const ROOT_LICENSE_FILE = "LICENSE.md";
     private const ROOT_SUPPORT_FILE = "SUPPORT.md";
     private const ROOT_TRADEMARKS_FILE = "TRADEMARKS.md";
-    private const UI_VERSION_FILE = "public/vendor/fnlla-ui/VERSION";
+    private const UI_VERSION_FILE = "public/vendor/fnlla-web/VERSION";
     private const SEMVER_PATTERN = '/^\d+\.\d+\.\d+$/';
 
     public static function repositoryManifestPath(): string
@@ -83,7 +83,7 @@ final class VersionManifest
             ],
             "ui_runtime" => [
                 "name" => "FNLLA Web",
-                "slug" => "fnlla-ui",
+                "slug" => "fnlla-web",
                 "repository" => "https://github.com/fnlla/web.git",
                 "source_of_truth" => "github",
                 "version_path" => self::UI_VERSION_FILE,
@@ -151,12 +151,12 @@ final class VersionManifest
         }
 
         if ($uiVersionLines === null) {
-            $errors[] = "public/vendor/fnlla-ui/VERSION: missing file";
+            $errors[] = "public/vendor/fnlla-web/VERSION: missing file";
         } else {
             if ($uiVersion === "") {
-                $errors[] = "public/vendor/fnlla-ui/VERSION: first line is empty";
+                $errors[] = "public/vendor/fnlla-web/VERSION: first line is empty";
             } elseif (!preg_match(self::SEMVER_PATTERN, $uiVersion)) {
-                $errors[] = "public/vendor/fnlla-ui/VERSION: '{$uiVersion}' is not a semantic version";
+                $errors[] = "public/vendor/fnlla-web/VERSION: '{$uiVersion}' is not a semantic version";
             }
         }
 

@@ -20,7 +20,7 @@ Purpose:
 
 use Fnlla\Php\Container\Container;
 use Fnlla\Php\Support\Env;
-use Fnlla\Php\Support\FnllaUiGuard;
+use Fnlla\Php\Support\FnllaWebGuard;
 use Fnlla\Php\Support\Logger;
 use Fnlla\Php\Support\ServiceProvider;
 
@@ -70,8 +70,8 @@ Development guard note:
 - the guard is skipped only for specific maintainer repair flows that need to
   fix a broken UI contract from the CLI itself
 */
-if (!defined("FNLLA_UI_SKIP_AUTO_GUARD")) {
-    FnllaUiGuard::enforce();
+if (!defined("FNLLA_WEB_SKIP_AUTO_GUARD")) {
+    FnllaWebGuard::enforce();
 }
 
 date_default_timezone_set((string) config("app.timezone", "UTC"));

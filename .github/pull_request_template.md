@@ -18,7 +18,7 @@ If this change may be security-sensitive, stop and follow `SECURITY.md` instead 
 
 - [ ] `php scripts/test.php` was run where behavior changed
 - [ ] `php scripts/lint.php` was run
-- [ ] `php scripts/validate-fnlla-ui.php` still passes when UI-facing templates or layout changed
+- [ ] `php scripts/validate-fnlla-web.php` still passes when UI-facing templates or layout changed
 - [ ] CLI behavior was checked where command or migration flow changed
 
 ## Release Notes

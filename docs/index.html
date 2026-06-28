@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#18352f">
   <title>Overview - FNLLA PHP Documentation</title>
-  <link rel="icon" href="./assets/brand/fnlla-ui.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../public/vendor/fnlla-ui/assets/css/fnlla-ui.css">
+  <link rel="icon" href="./assets/brand/fnlla-web.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../public/vendor/fnlla-web/assets/css/fnlla-web.css">
   <link rel="stylesheet" href="./assets/docs.css">
 </head>
 <body data-fnlla-theme="default">
@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.6</span>
+        <span class="doc-status">Stable 1.0.7</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -49,7 +49,7 @@
       <div class="doc-nav-panel" id="doc-nav-panel" data-doc-nav-panel>
         <a class="btn btn-outline btn-sm" href="./index.html" aria-current="page">Overview</a>
         <a class="btn btn-ghost btn-sm" href="./distribution.html">Distribution</a>
-        <a class="btn btn-ghost btn-sm" href="./fnlla-ui.html">FNLLA Web</a>
+        <a class="btn btn-ghost btn-sm" href="./fnlla-web.html">FNLLA Web</a>
         <a class="btn btn-ghost btn-sm" href="./getting-started.html">Getting Started</a>
         <a class="btn btn-ghost btn-sm" href="./building.html">Building</a>
         <a class="btn btn-ghost btn-sm" href="./api.html">API</a>
@@ -75,11 +75,11 @@
           <h2 class="card-title">Stable repository contract</h2>
           <pre><code>public/index.php
 public/router.php
-public/vendor/fnlla-ui/
+public/vendor/fnlla-web/
 src/
 routes/
 views/</code></pre>
-          <p class="card-text">Version 1.0.6 keeps the framework intentionally explicit: request flow, UI runtime boundary and maintainer scripts are visible in the repository rather than hidden behind packaging layers.</p>
+          <p class="card-text">Version 1.0.7 keeps the framework intentionally explicit: request flow, UI runtime boundary and maintainer scripts are visible in the repository rather than hidden behind packaging layers.</p>
         </article>
 
         <article class="card">
@@ -87,7 +87,7 @@ views/</code></pre>
           <ul class="doc-checklist">
             <li><strong>Framework mode:</strong> maintain <code>fnlla/php</code>, its scripts, docs and shared delivery foundations here.</li>
             <li><strong>Project mode:</strong> export a downstream starter with <code>php fnlla make:project</code> and build the real client application in that separate directory.</li>
-            <li><strong>UI rule:</strong> keep FNLLA Web as the only supported UI runtime under <code>public/vendor/fnlla-ui/</code>.</li>
+            <li><strong>UI rule:</strong> keep FNLLA Web as the only supported UI runtime under <code>public/vendor/fnlla-web/</code>.</li>
           </ul>
         </article>
 
@@ -115,7 +115,7 @@ views/</code></pre>
           <p class="doc-link-title">Distribution</p>
           <p class="doc-link-text">What belongs to the downstream runtime surface, what stays maintainer-only and how the vendored FNLLA Web runtime should be treated.</p>
         </a>
-        <a class="doc-link-card" href="./fnlla-ui.html">
+        <a class="doc-link-card" href="./fnlla-web.html">
           <span class="doc-link-label">Dependency</span>
           <p class="doc-link-title">FNLLA Web</p>
           <p class="doc-link-text">Where the vendored runtime lives, how to keep it synced and why FNLLA PHP officially depends on FNLLA Web as its only supported UI layer.</p>
@@ -174,7 +174,7 @@ views/</code></pre>
     </footer>
   </main>
 
-  <script src="../public/vendor/fnlla-ui/assets/js/fnlla-ui.js"></script>
+  <script src="../public/vendor/fnlla-web/assets/js/fnlla-web.js"></script>
   <script src="./assets/docs.js"></script>
 </body>
 </html>

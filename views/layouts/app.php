@@ -41,7 +41,7 @@ $pageMeta = page_meta([
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1A4137">
   <title><?= h($pageMeta["title"]) ?></title>
-  <link rel="stylesheet" href="<?= h(asset("vendor/fnlla-ui/assets/css/fnlla-ui.css")) ?>">
+  <link rel="stylesheet" href="<?= h(asset("vendor/fnlla-web/assets/css/fnlla-web.css")) ?>">
   <link rel="stylesheet" href="<?= h(asset("assets/app.css")) ?>">
 </head>
 <body data-fnlla-theme="default">
@@ -257,12 +257,12 @@ $pageMeta = page_meta([
     <?php endif; ?>
   </div>
 
-  <script src="<?= h(asset("vendor/fnlla-ui/assets/js/fnlla-ui.js")) ?>"></script>
+  <script src="<?= h(asset("vendor/fnlla-web/assets/js/fnlla-web.js")) ?>"></script>
   <?php if (is_array($pageStatus) && (($pageStatus["toast"] ?? false) === true)): ?>
   <script>
     window.addEventListener("DOMContentLoaded", function () {
-      if (window.FNLLAUI && typeof window.FNLLAUI.showToast === "function") {
-        window.FNLLAUI.showToast("#page-status-toast");
+      if (window.FNLLAWEB && typeof window.FNLLAWEB.showToast === "function") {
+        window.FNLLAWEB.showToast("#page-status-toast");
       }
     });
   </script>

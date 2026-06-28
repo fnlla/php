@@ -63,8 +63,8 @@ When a change is accepted for implementation:
 - do not treat generated runtime state under `storage/` as a hand-authored source of truth
 - keep `README.md`, `VERSION`, `LICENSE.md`, `SUPPORT.md` and `TRADEMARKS.md` aligned when release-facing behavior changes
 - preserve the documented MySQL-only database boundary unless an explicit product decision changes it
-- preserve the FNLLA Web runtime boundary under `public/vendor/fnlla-ui/`
-- keep GitHub as the source of truth for both `fnlla/php` and `fnlla/ui`
+- preserve the FNLLA Web runtime boundary under `public/vendor/fnlla-web/`
+- keep GitHub as the source of truth for both `fnlla/php` and `fnlla/web`
 
 ## Maintainer workflow
 
@@ -73,8 +73,8 @@ Recommended local sequence:
 ```bash
 php scripts/test.php
 php scripts/lint.php
-php scripts/validate-fnlla-ui.php
-php fnlla fnlla-ui:sync
+php scripts/validate-fnlla-web.php
+php fnlla fnlla-web:sync
 ```
 
 ## Pull request expectations

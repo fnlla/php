@@ -63,7 +63,11 @@ final class Application
         try {
             /* Route dispatch is treated as the pipeline destination so framework middleware stays transport-agnostic. */
             $pipeline = new Pipeline($this->container);
-            $result = $pipeline->process($request, $this->middleware, fn (Request $request): mixed => $this->router->dispatch($request));
+            $result = $pipeline->process(
+                $request,
+                $this->router->resolveMiddlewareStack($this->middleware),
+                fn (Request $request): mixed => $this->router->dispatch($request)
+            );
         } catch (Throwable $exception) {
             $this->exceptionHandler->report($exception, $request);
             $response = $this->exceptionHandler->render($exception, $request);

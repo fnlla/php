@@ -1,7 +1,7 @@
 @echo off
 REM ============================================================================
 REM FNLLA PHP REPOSITORY LAUNCHER
-REM File: update-fnlla-ui.cmd
+REM File: update-fnlla-web.cmd
 REM Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 REM FNLLA PHP is produced, maintained and distributed by TechAyo LTD.
 REM Purpose: Provides a Windows launcher for a maintained framework or maintainer workflow command.
@@ -9,7 +9,7 @@ REM ============================================================================
 setlocal
 
 set "SCRIPT_DIR=%~dp0"
-set "SYNC_SCRIPT=%SCRIPT_DIR%scripts\sync-fnlla-ui.ps1"
+set "SYNC_SCRIPT=%SCRIPT_DIR%scripts\sync-fnlla-web.ps1"
 
 if not exist "%SYNC_SCRIPT%" (
     echo Missing sync script: "%SYNC_SCRIPT%"

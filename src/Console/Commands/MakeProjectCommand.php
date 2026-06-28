@@ -90,7 +90,7 @@ final class MakeProjectCommand extends Command
         $this->line("1. Open the new project directory.");
         $this->line("2. Copy .env.example to .env and set APP_URL plus MySQL credentials.");
         $this->line("3. Review routes/web.php, src/Controllers/ and views/pages/ and replace the demo surface with your project pages.");
-        $this->line("4. Run php fnlla fnlla-ui:validate, php scripts/test.php, php scripts/lint.php and php scripts/validate-version-manifest.php.");
+        $this->line("4. Run php fnlla fnlla-web:validate, php scripts/test.php, php scripts/lint.php and php scripts/validate-version-manifest.php.");
         $this->line("5. Initialize a separate Git repository for the new website or application.");
 
         return 0;
@@ -248,7 +248,7 @@ It is intended to be the beginning of a new server-rendered website or web appli
 ## What is already included
 
 - the FNLLA PHP application core
-- the vendored FNLLA Web runtime under `public/vendor/fnlla-ui/`
+- the vendored FNLLA Web runtime under `public/vendor/fnlla-web/`
 - machine-readable release metadata in `MANIFEST.json`
 - root legal and policy files: `LICENSE.md`, `SUPPORT.md`, `TRADEMARKS.md`
 - routes, controllers and views
@@ -263,7 +263,7 @@ It is intended to be the beginning of a new server-rendered website or web appli
 3. Run:
 
 ```bash
-php fnlla fnlla-ui:validate
+php fnlla fnlla-web:validate
 php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php
@@ -301,8 +301,8 @@ Use `LICENSE.md`, `SUPPORT.md` and `TRADEMARKS.md` to understand the upstream FN
 
 ```bash
 php fnlla list
-php fnlla fnlla-ui:sync
-php fnlla fnlla-ui:validate
+php fnlla fnlla-web:sync
+php fnlla fnlla-web:validate
 php fnlla migrate
 php fnlla migrate:rollback
 php fnlla migrate:status
@@ -318,7 +318,7 @@ On Windows, the starter also includes:
 ```cmd
 test-project.cmd
 lint-project.cmd
-update-fnlla-ui.cmd
+update-fnlla-web.cmd
 ```
 MD;
 
@@ -358,7 +358,7 @@ REM Purpose: Runs syntax lint and FNLLA Web validation for this project.
 REM ============================================================================
 setlocal
 php "%~dp0scripts\lint.php" || exit /b %ERRORLEVEL%
-php "%~dp0scripts\validate-fnlla-ui.php" || exit /b %ERRORLEVEL%
+php "%~dp0scripts\validate-fnlla-web.php" || exit /b %ERRORLEVEL%
 php "%~dp0scripts\validate-version-manifest.php" || exit /b %ERRORLEVEL%
 CMD;
 

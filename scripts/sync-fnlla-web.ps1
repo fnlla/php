@@ -1,7 +1,7 @@
 <#
 ===============================================================================
 FNLLA PHP MAINTAINER SCRIPT
-File: scripts\sync-fnlla-ui.ps1
+File: scripts\sync-fnlla-web.ps1
 Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 ===============================================================================
 
@@ -78,6 +78,25 @@ function Invoke-CheckedCommand {
     }
 }
 
+function Resolve-PublishScriptPath {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BasePath
+    )
+
+    $preferredPath = Join-Path $BasePath "scripts\publish-fnlla-web.mjs"
+    if (Test-Path -LiteralPath $preferredPath -PathType Leaf) {
+        return $preferredPath
+    }
+
+    $publishScripts = @(Get-ChildItem -LiteralPath (Join-Path $BasePath "scripts") -Filter "publish-*.mjs" -File -ErrorAction SilentlyContinue | Sort-Object -Property Name)
+    foreach ($script in $publishScripts) {
+        return $script.FullName
+    }
+
+    return $null
+}
+
 function Try-CloneSource {
     param(
         [Parameter(Mandatory = $true)]
@@ -148,12 +167,44 @@ function Resolve-RuntimeExportPath {
     )
 
     $base = Resolve-AbsolutePath -Path $BasePath
-    $distPath = Join-Path $base "dist\fnlla-ui"
+    $distPath = Join-Path $base "dist\fnlla-web"
     $assetsPath = Join-Path $base "assets"
     $versionPath = Join-Path $base "VERSION"
+    $sourceRepoMarkers = @(
+        ".git",
+        ".github",
+        "docs",
+        "scripts",
+        "src",
+        "package.json"
+    )
 
     if ((Test-Path -LiteralPath $distPath -PathType Container) -and (Test-Path -LiteralPath (Join-Path $distPath "VERSION") -PathType Leaf)) {
         return $distPath
+    }
+
+    $looksLikeSourceRepo = $false
+    foreach ($marker in $sourceRepoMarkers) {
+        if (Test-Path -LiteralPath (Join-Path $base $marker)) {
+            $looksLikeSourceRepo = $true
+            break
+        }
+    }
+
+    if ($looksLikeSourceRepo) {
+        $publishScriptPath = Resolve-PublishScriptPath -BasePath $base
+        if ($null -eq $publishScriptPath) {
+            throw "The provided FNLLA Web path looks like a source repository checkout, but no publish script was found. Publish FNLLA Web first and sync from dist\\fnlla-web."
+        }
+
+        $nodePath = Assert-CommandExists -Name "node"
+        Invoke-CheckedCommand -FilePath $nodePath -Arguments @($publishScriptPath) -Label "node"
+
+        if ((Test-Path -LiteralPath $distPath -PathType Container) -and (Test-Path -LiteralPath (Join-Path $distPath "VERSION") -PathType Leaf)) {
+            return $distPath
+        }
+
+        throw "FNLLA Web publish completed, but dist\\fnlla-web was not created under: $base"
     }
 
     if ((Test-Path -LiteralPath $assetsPath -PathType Container) -and (Test-Path -LiteralPath $versionPath -PathType Leaf)) {
@@ -216,9 +267,11 @@ function Sync-RuntimeExport {
     )
 
     $robocopyPath = Assert-CommandExists -Name "robocopy"
-    if (-not (Test-Path -LiteralPath $DestinationRuntimePath)) {
-        New-Item -ItemType Directory -Path $DestinationRuntimePath | Out-Null
+    if (Test-Path -LiteralPath $DestinationRuntimePath) {
+        Remove-Item -LiteralPath $DestinationRuntimePath -Recurse -Force
     }
+
+    New-Item -ItemType Directory -Path $DestinationRuntimePath | Out-Null
 
     & $robocopyPath $SourceRuntimePath $DestinationRuntimePath /MIR /NFL /NDL /NJH /NJS /NP
     $exitCode = $LASTEXITCODE
@@ -229,7 +282,7 @@ function Sync-RuntimeExport {
 }
 
 $projectRoot = Resolve-AbsolutePath -Path (Join-Path $PSScriptRoot "..")
-$targetRuntimePath = Resolve-AbsolutePath -Path (Join-Path $projectRoot "public\vendor\fnlla-ui")
+$targetRuntimePath = Resolve-AbsolutePath -Path (Join-Path $projectRoot "public\vendor\fnlla-web")
 $publicRoot = Resolve-AbsolutePath -Path (Join-Path $projectRoot "public")
 
 Assert-DirectoryExists -Path $projectRoot -Description "Project root"
@@ -252,7 +305,7 @@ try {
             $cloneRoot = Resolve-AbsolutePath -Path $WorkingClonePath
         }
         else {
-            $cloneRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("fnlla-ui-sync-" + [System.Guid]::NewGuid().ToString("N"))
+            $cloneRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("fnlla-web-sync-" + [System.Guid]::NewGuid().ToString("N"))
             $ephemeralClonePath = $cloneRoot
         }
 

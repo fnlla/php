@@ -27,7 +27,7 @@ Purpose:
         <p class="hero-text">FNLLA PHP gives you a tiny application core for routes, controllers, views and forms while FNLLA Web handles the layout, components and interaction layer.</p>
         <ul class="hero-proof-list">
           <li>No Composer dependency is required for the starter itself.</li>
-          <li>Published FNLLA Web assets are bundled locally under <code>public/vendor/fnlla-ui/</code>.</li>
+          <li>Published FNLLA Web assets are bundled locally under <code>public/vendor/fnlla-web/</code>.</li>
           <li>The demo includes overlays, tabs, validation feedback and a JSON endpoint.</li>
         </ul>
         <div class="hero-actions">

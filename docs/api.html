@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#18352f">
   <title>API - FNLLA PHP Documentation</title>
-  <link rel="icon" href="./assets/brand/fnlla-ui.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../public/vendor/fnlla-ui/assets/css/fnlla-ui.css">
+  <link rel="icon" href="./assets/brand/fnlla-web.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../public/vendor/fnlla-web/assets/css/fnlla-web.css">
   <link rel="stylesheet" href="./assets/docs.css">
 </head>
 <body data-fnlla-theme="default">
@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.6</span>
+        <span class="doc-status">Stable 1.0.7</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -49,7 +49,7 @@
       <div class="doc-nav-panel" id="doc-nav-panel" data-doc-nav-panel>
         <a class="btn btn-ghost btn-sm" href="./index.html">Overview</a>
         <a class="btn btn-ghost btn-sm" href="./distribution.html">Distribution</a>
-        <a class="btn btn-ghost btn-sm" href="./fnlla-ui.html">FNLLA Web</a>
+        <a class="btn btn-ghost btn-sm" href="./fnlla-web.html">FNLLA Web</a>
         <a class="btn btn-ghost btn-sm" href="./getting-started.html">Getting Started</a>
         <a class="btn btn-ghost btn-sm" href="./building.html">Building</a>
         <a class="btn btn-outline btn-sm" href="./api.html" aria-current="page">API</a>
@@ -77,7 +77,7 @@
             <li><code>public/index.php</code></li>
             <li><code>public/router.php</code></li>
             <li><code>views/layouts/app.php</code> as the shared HTML shell</li>
-            <li><code>public/vendor/fnlla-ui/</code> as the mandatory UI runtime bundle</li>
+            <li><code>public/vendor/fnlla-web/</code> as the mandatory UI runtime bundle</li>
           </ul>
         </article>
         <article class="card">
@@ -131,8 +131,8 @@ throttle</code></pre>
           <h3 class="card-title">Framework and runtime commands</h3>
           <ul class="doc-checklist">
             <li><code>php fnlla make:project</code></li>
-            <li><code>php fnlla fnlla-ui:sync</code></li>
-            <li><code>php fnlla fnlla-ui:validate</code></li>
+            <li><code>php fnlla fnlla-web:sync</code></li>
+            <li><code>php fnlla fnlla-web:validate</code></li>
             <li><code>php fnlla route:list</code></li>
             <li><code>php fnlla version:status</code> and <code>php fnlla version:sync</code></li>
           </ul>
@@ -163,7 +163,7 @@ throttle</code></pre>
         </article>
         <article class="card">
           <h3 class="card-title">Validation scripts</h3>
-          <p class="card-text"><code>scripts/validate-fnlla-ui.php</code>, <code>scripts/validate-version-manifest.php</code> and <code>scripts/build-docs.php --check</code> are the core content-contract checks.</p>
+          <p class="card-text"><code>scripts/validate-fnlla-web.php</code>, <code>scripts/validate-version-manifest.php</code> and <code>scripts/build-docs.php --check</code> are the core content-contract checks.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Source of truth</h3>
@@ -177,7 +177,7 @@ throttle</code></pre>
     </footer>
   </main>
 
-  <script src="../public/vendor/fnlla-ui/assets/js/fnlla-ui.js"></script>
+  <script src="../public/vendor/fnlla-web/assets/js/fnlla-web.js"></script>
   <script src="./assets/docs.js"></script>
 </body>
 </html>

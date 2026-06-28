@@ -101,7 +101,7 @@ Inside the new project directory:
 6. Run:
 
 ```bash
-php fnlla fnlla-ui:validate
+php fnlla fnlla-web:validate
 php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php

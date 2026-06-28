@@ -18,7 +18,7 @@ Purpose:
 - Supports framework maintenance, validation, release hygiene or repository hardening.
 */
 
-define("FNLLA_UI_SKIP_AUTO_GUARD", true);
+define("FNLLA_WEB_SKIP_AUTO_GUARD", true);
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "bootstrap" . DIRECTORY_SEPARATOR . "common.php";
 

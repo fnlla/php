@@ -16,8 +16,8 @@ jobs:
   hardening:
     runs-on: windows-latest
     env:
-      FNLLA_UI_AUTO_SYNC: false
-      FNLLA_UI_ENFORCE: true
+      FNLLA_WEB_AUTO_SYNC: false
+      FNLLA_WEB_ENFORCE: true
 
     steps:
       - name: Check out repository
@@ -44,7 +44,7 @@ jobs:
 
       - name: Validate FNLLA Web contract
         shell: pwsh
-        run: php .\scripts\validate-fnlla-ui.php
+        run: php .\scripts\validate-fnlla-web.php
 
       - name: Validate version contract
         shell: pwsh

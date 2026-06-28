@@ -8,4 +8,4 @@ REM Purpose: Provides a Windows launcher for a maintained framework or maintaine
 REM ============================================================================
 setlocal
 php "%~dp0scripts\lint.php" || exit /b %ERRORLEVEL%
-php "%~dp0scripts\validate-fnlla-ui.php" || exit /b %ERRORLEVEL%
+php "%~dp0scripts\validate-fnlla-web.php" || exit /b %ERRORLEVEL%

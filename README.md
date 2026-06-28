@@ -1,9 +1,9 @@
 # FNLLA PHP
 
 [![License](https://img.shields.io/badge/license-MIT-111827?style=flat-square)](./LICENSE.md)
-[![Web Contract](https://img.shields.io/badge/web-fnlla--web%20required-0f766e?style=flat-square)](./public/vendor/fnlla-ui/README.md)
+[![Web Contract](https://img.shields.io/badge/web-fnlla--web%20required-0f766e?style=flat-square)](./public/vendor/fnlla-web/README.md)
 [![Runtime](https://img.shields.io/badge/runtime-php%208.3%20%2B%20mysql-2f65eb?style=flat-square)](./VERSION)
-[![Development](https://img.shields.io/badge/source-github%20only-c26d00?style=flat-square)](./scripts/sync-fnlla-ui.ps1)
+[![Development](https://img.shields.io/badge/source-github%20only-c26d00?style=flat-square)](./scripts/sync-fnlla-web.ps1)
 
 ## What FNLLA PHP is
 
@@ -18,7 +18,7 @@ The supported application contract includes:
 - `src/` for framework source code
 - `views/` for plain PHP templates
 - `routes/` for HTTP and console route definitions
-- `public/vendor/fnlla-ui/` for the vendored authoritative FNLLA Web runtime
+- `public/vendor/fnlla-web/` for the vendored authoritative FNLLA Web runtime
 
 FNLLA PHP is produced, maintained and distributed by TechAyo LTD (techayo.co.uk).
 
@@ -115,7 +115,7 @@ Important operational rules:
 - do not replace FNLLA Web with another CSS framework
 - do not introduce Tailwind, Bootstrap, Bulma, Foundation, UIkit, Materialize or Semantic UI into the official FNLLA PHP stack
 - do not load FNLLA Web assets from third-party CDNs
-- keep the vendored runtime under `public/vendor/fnlla-ui/`
+- keep the vendored runtime under `public/vendor/fnlla-web/`
 - treat the GitHub `fnlla/web` repository as the only supported source of truth for FNLLA Web updates
 
 ## CSS variables and tokens
@@ -124,7 +124,7 @@ FNLLA Web is the source of truth for shared CSS variables in the official stack.
 
 That means:
 
-- shared colors, spacing, typography, sizing, radii, transitions and theme tokens come from `public/vendor/fnlla-ui/assets/css/fnlla-ui.css`
+- shared colors, spacing, typography, sizing, radii, transitions and theme tokens come from `public/vendor/fnlla-web/assets/css/fnlla-web.css`
 - downstream FNLLA PHP styles should consume those `--fnlla-*` variables instead of rebuilding a second global token system
 - FNLLA PHP may define a small project-local layer of aliases such as `--fnlla-php-*` in `public/assets/app.css` when the application shell needs its own composed values
 
@@ -211,7 +211,7 @@ Use the repository-local commands:
 ```bash
 php scripts/test.php
 php scripts/lint.php
-php scripts/validate-fnlla-ui.php
+php scripts/validate-fnlla-web.php
 php scripts/validate-version-manifest.php
 php scripts/build-docs.php --check
 ```
@@ -221,7 +221,7 @@ Windows launchers are also included:
 ```cmd
 test-fnlla-php.cmd
 lint-fnlla-php.cmd
-update-fnlla-ui.cmd
+update-fnlla-web.cmd
 ```
 
 If Composer is present locally, `composer test` and `composer lint` still work as wrappers, but the framework no longer depends on Packagist for its day-to-day test or lint workflow.
@@ -270,8 +270,8 @@ Use `php fnlla list` to see the currently registered commands.
 
 Important commands:
 
-- `php fnlla fnlla-ui:sync`
-- `php fnlla fnlla-ui:validate`
+- `php fnlla fnlla-web:sync`
+- `php fnlla fnlla-web:validate`
 - `php fnlla migrate`
 - `php fnlla migrate:rollback`
 - `php fnlla migrate:status`
@@ -302,10 +302,10 @@ Generated runtime state, local queue files, session files and logs should not be
 
 Authoritative maintainer scripts and checkpoints:
 
-- `scripts/sync-fnlla-ui.ps1` syncs the vendored FNLLA Web runtime from GitHub
+- `scripts/sync-fnlla-web.ps1` syncs the vendored FNLLA Web runtime from GitHub
 - `scripts/sync-version-manifest.php` regenerates the repository MANIFEST.json from current version state
 - `scripts/build-docs.php` rebuilds the shared HTML documentation set from the maintained docs sources
-- `scripts/validate-fnlla-ui.php` validates the enforced FNLLA Web contract
+- `scripts/validate-fnlla-web.php` validates the enforced FNLLA Web contract
 - `scripts/validate-version-manifest.php` validates framework and vendored runtime version metadata
 - `scripts/test.php` runs the repository-local framework tests
 - `scripts/lint.php` runs PHP syntax checks across the maintained source tree
@@ -316,10 +316,10 @@ Recommended maintainer sequence:
 ```bash
 php scripts/test.php
 php scripts/lint.php
-php scripts/validate-fnlla-ui.php
+php scripts/validate-fnlla-web.php
 php scripts/validate-version-manifest.php
 php scripts/build-docs.php --check
-php fnlla fnlla-ui:sync
+php fnlla fnlla-web:sync
 php fnlla version:status
 ```
 
@@ -330,7 +330,7 @@ Treat these as the public and supported downstream runtime surface:
 - `public/index.php`
 - `public/router.php`
 - `public/assets/`
-- `public/vendor/fnlla-ui/`
+- `public/vendor/fnlla-web/`
 
 Treat these as maintainer-owned framework internals:
 

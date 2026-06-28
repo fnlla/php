@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
 ===============================================================================
 FNLLA PHP CONSOLE SOURCE
-File: src\Console\Commands\FnllaUiSyncCommand.php
+File: src\Console\Commands\FnllaWebValidateCommand.php
 Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 ===============================================================================
 
@@ -21,24 +21,24 @@ Purpose:
 namespace Fnlla\Php\Console\Commands;
 
 use Fnlla\Php\Console\Command;
-use Fnlla\Php\Support\FnllaUiGuard;
+use Fnlla\Php\Support\FnllaWebGuard;
 
-final class FnllaUiSyncCommand extends Command
+final class FnllaWebValidateCommand extends Command
 {
     public function name(): string
     {
-        return "fnlla-ui:sync";
+        return "fnlla-web:validate";
     }
 
     public function description(): string
     {
-        return "Sync the vendored FNLLA Web runtime from GitHub.";
+        return "Validate that views and assets stay within the FNLLA Web contract.";
     }
 
     public function handle(array $arguments): int
     {
-        FnllaUiGuard::syncNow();
-        $this->line("FNLLA Web sync completed.");
+        FnllaWebGuard::validateOnly();
+        $this->line("FNLLA Web contract passed.");
 
         return 0;
     }

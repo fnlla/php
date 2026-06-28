@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
 ===============================================================================
 FNLLA PHP MAINTAINER SCRIPT
-File: scripts\validate-fnlla-ui.php
+File: scripts\validate-fnlla-web.php
 Copyright (c) 2026 TechAyo LTD (techayo.co.uk). Released under the MIT License.
 ===============================================================================
 
@@ -18,10 +18,10 @@ Purpose:
 - Supports framework maintenance, validation, release hygiene or repository hardening.
 */
 
-define("FNLLA_UI_SKIP_AUTO_GUARD", true);
+define("FNLLA_WEB_SKIP_AUTO_GUARD", true);
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "bootstrap" . DIRECTORY_SEPARATOR . "common.php";
 
-\Fnlla\Php\Support\FnllaUiGuard::validateOnly();
+\Fnlla\Php\Support\FnllaWebGuard::validateOnly();
 
 fwrite(STDOUT, "FNLLA Web contract passed." . PHP_EOL);

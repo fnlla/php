@@ -11,7 +11,7 @@ Highlights
 - Stable HTTP application foundation with routing, middleware, request and response abstractions, dependency injection and controllers
 - MySQL-first database layer with PDO access, query builder, migrations, rollback, seeders and factories
 - Sessions, cookies, CSRF protection, authentication, authorization and structured exception and logging flow
-- FNLLA Web runtime contract enforcement with GitHub-only sync under public/vendor/fnlla-ui/
+- FNLLA Web runtime contract enforcement with GitHub-only sync under public/vendor/fnlla-web/
 
 Operational notes
 - README.md, VERSION, LICENSE.md, SUPPORT.md and TRADEMARKS.md are aligned for the release line

@@ -25,6 +25,7 @@ use Fnlla\Php\Container\Container;
 use Fnlla\Php\Exceptions\ExceptionHandler;
 use Fnlla\Php\Http\Request;
 use Fnlla\Php\Http\Response;
+use Fnlla\Php\Middleware\MiddlewareInterface;
 use Fnlla\Php\Routing\Router;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -79,5 +80,35 @@ final class ApplicationTest extends TestCase
         self::assertStringContainsString('"request_id":', $response->body());
         self::assertFileExists($this->logPath);
         self::assertStringContainsString("Boom", (string) file_get_contents($this->logPath));
+    }
+
+    public function testGlobalMiddlewareAliasWrapsApplicationRequests(): void
+    {
+        $container = new Container();
+        $container->singleton("test.middleware", static fn (): MiddlewareInterface => new class implements MiddlewareInterface {
+            public function handle(Request $request, callable $next): mixed
+            {
+                $response = $next($request);
+
+                return $response instanceof Response
+                    ? $response->withHeader("X-Global-Middleware", "applied")
+                    : $response;
+            }
+        });
+
+        $router = new Router($container);
+        $router->middleware("test", "test.middleware");
+        $router->get("/wrapped", static fn (): Response => Response::html("ok"));
+
+        $application = new Application($router, $container, new ExceptionHandler());
+        $application->middleware("test");
+
+        $response = $application->handle(Request::capture("", [
+            "REQUEST_URI" => "/wrapped",
+            "REQUEST_METHOD" => "GET",
+        ]));
+
+        self::assertSame(200, $response->status());
+        self::assertSame("applied", $response->headers()["X-Global-Middleware"] ?? null);
     }
 }

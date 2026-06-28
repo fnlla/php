@@ -171,7 +171,12 @@ final class Router
 
         $pipeline = new Pipeline($this->container);
 
-        return $pipeline->process($resolvedRequest, $this->resolveMiddleware($definition->middlewareStack()), $destination);
+        return $pipeline->process($resolvedRequest, $this->resolveMiddlewareStack($definition->middlewareStack()), $destination);
+    }
+
+    public function resolveMiddlewareStack(array $stack): array
+    {
+        return $this->resolveMiddleware($stack);
     }
 
     private function applyGroupContext(string $path): array

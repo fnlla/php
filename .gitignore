@@ -12,7 +12,7 @@
 !/storage/framework/cache/.gitignore
 /storage/framework/queue/*
 !/storage/framework/queue/.gitignore
-/storage/framework/fnlla-ui-guard.json
+/storage/framework/fnlla-web-guard.json
 /storage/framework/sessions/*
 !/storage/framework/sessions/.gitignore
 /contact*.html
