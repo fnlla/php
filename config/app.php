@@ -18,7 +18,7 @@ Purpose:
 - Defines maintained application or framework configuration for the official FNLLA PHP stack.
 */
 
-$environment = (string) env("APP_ENV", "production");
+$environment = framework_detect_environment();
 $isDevelopment = $environment === "development";
 
 return [

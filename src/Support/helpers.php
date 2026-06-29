@@ -41,6 +41,58 @@ function env(string $key, mixed $default = null): mixed
     };
 }
 
+function framework_detect_environment(): string
+{
+    $explicit = $_ENV["APP_ENV"] ?? $_SERVER["APP_ENV"] ?? getenv("APP_ENV");
+
+    if (is_string($explicit) && trim($explicit) !== "") {
+        return trim($explicit);
+    }
+
+    return is_file(base_path(".env")) ? "production" : "development";
+}
+
+function app_request_is_secure(): bool
+{
+    $forwardedProto = $_SERVER["HTTP_X_FORWARDED_PROTO"] ?? null;
+
+    if (is_string($forwardedProto) && trim($forwardedProto) !== "") {
+        $firstProto = strtolower(trim(explode(",", $forwardedProto)[0] ?? ""));
+
+        if ($firstProto === "https") {
+            return true;
+        }
+
+        if ($firstProto === "http") {
+            return false;
+        }
+    }
+
+    $https = $_SERVER["HTTPS"] ?? null;
+
+    if (is_string($https) && $https !== "" && strtolower($https) !== "off") {
+        return true;
+    }
+
+    $requestScheme = strtolower((string) ($_SERVER["REQUEST_SCHEME"] ?? ""));
+
+    if ($requestScheme === "https") {
+        return true;
+    }
+
+    if (strtolower((string) ($_SERVER["HTTP_X_FORWARDED_SSL"] ?? "")) === "on") {
+        return true;
+    }
+
+    if ((int) ($_SERVER["SERVER_PORT"] ?? 0) === 443) {
+        return true;
+    }
+
+    $appUrl = strtolower(trim((string) env("APP_URL", "")));
+
+    return $appUrl !== "" && str_starts_with($appUrl, "https://");
+}
+
 function config(?string $key = null, mixed $default = null): mixed
 {
     $config = $GLOBALS["fnlla_php_config"] ?? [];

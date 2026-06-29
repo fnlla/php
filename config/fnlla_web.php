@@ -18,12 +18,8 @@ Purpose:
 - Defines maintained application or framework configuration for the official FNLLA PHP stack.
 */
 
-$explicitEnvironment = $_ENV["APP_ENV"] ?? $_SERVER["APP_ENV"] ?? getenv("APP_ENV");
-$hasExplicitEnvironment = is_string($explicitEnvironment) && trim($explicitEnvironment) !== "";
-$environment = $hasExplicitEnvironment
-    ? trim((string) $explicitEnvironment)
-    : (is_file(base_path(".env")) ? "production" : "development");
-$isDevelopmentLike = $environment === "development" || (!$hasExplicitEnvironment && !is_file(base_path(".env")));
+$environment = framework_detect_environment();
+$isDevelopmentLike = $environment === "development";
 
 return [
     "enforce" => (bool) env("FNLLA_WEB_ENFORCE", $isDevelopmentLike),

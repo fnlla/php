@@ -118,6 +118,9 @@ php -S 127.0.0.1:8080 -t public public/router.php
 For Apache environments, use `public/` as the document root.
 The exported project already contains `public/.htaccess`.
 
+The exported `.env.example` starts in local-development mode so sessions and flash flows work over plain HTTP on `127.0.0.1`.
+Before production deployment, switch the environment back to production-safe values and enable HTTPS.
+
 ## Which files you normally edit first
 
 For a new project, the first files are usually:

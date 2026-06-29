@@ -144,7 +144,8 @@ That enforcement currently includes:
 - validating that the shared layout keeps the FNLLA Web shell structure
 - validating that page templates keep the section and container conventions
 - rejecting markers that suggest unsupported alternate CSS frameworks
-- auto-syncing the vendored runtime from GitHub on a timed interval when development bootstraps
+- refreshing local FNLLA Web guard state on a timed interval during development bootstraps
+- auto-repairing a missing vendored runtime through the GitHub sync script and dedicated `fnlla-web:*` commands
 
 If the UI contract is broken, the application and CLI fail fast until the repository is brought back into compliance.
 
@@ -162,6 +163,9 @@ The repository already includes the rewrite file at `public/.htaccess`.
 There is intentionally no top-level `.htaccess` because `public/` is the only supported web root.
 
 Copy `.env.example` to `.env` when you want explicit local configuration.
+
+The template ships with local-development defaults that are safe for plain HTTP on `127.0.0.1`.
+Before production deployment, switch the environment values back to production-safe settings and serve the app over HTTPS.
 
 No Packagist download step is required for the framework itself.
 

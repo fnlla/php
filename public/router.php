@@ -19,10 +19,24 @@ Purpose:
 */
 
 $requestUri = $_SERVER["REQUEST_URI"] ?? "/";
-$requestPath = parse_url($requestUri, PHP_URL_PATH) ?: "/";
-$publicFile = __DIR__ . str_replace("/", DIRECTORY_SEPARATOR, $requestPath);
+$requestPath = rawurldecode(parse_url($requestUri, PHP_URL_PATH) ?: "/");
+$normalizedPath = str_replace("\\", "/", $requestPath);
+$trimmedPath = trim($normalizedPath, "/");
+$pathSegments = $trimmedPath === "" ? [] : array_values(array_filter(explode("/", $trimmedPath), static fn (string $segment): bool => $segment !== ""));
 
-if ($requestPath !== "/" && is_file($publicFile)) {
+foreach ($pathSegments as $segment) {
+    if ($segment === "." || $segment === ".." || (str_starts_with($segment, ".") && $segment !== ".well-known")) {
+        http_response_code(404);
+        header("Content-Type: text/plain; charset=UTF-8");
+        echo "Not Found";
+
+        return true;
+    }
+}
+
+$publicFile = __DIR__ . ($pathSegments !== [] ? DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $pathSegments) : "");
+
+if ($pathSegments !== [] && is_file($publicFile)) {
     return false;
 }
 

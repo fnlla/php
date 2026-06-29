@@ -74,6 +74,15 @@ Then fill the important values:
 - `DB_PASSWORD`
 - `CONTACT_NOTIFICATION_EMAIL`
 
+The template defaults are intentionally local-development friendly:
+
+- `APP_ENV=development`
+- `APP_DEBUG=true`
+- `SESSION_SECURE=false`
+
+That keeps sessions, flashes and CSRF-protected forms working over plain `http://127.0.0.1` during local setup.
+Before production deployment, switch those values back to production-safe settings and serve the app over HTTPS.
+
 Recommended first checks:
 
 ```bash

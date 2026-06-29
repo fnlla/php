@@ -562,7 +562,7 @@ function render_fnlla_web_content(): string
           <pre><code class="language-bash">php fnlla fnlla-web:sync
 php fnlla fnlla-web:validate
 php scripts/build-docs.php --check</code></pre>
-          <p class="card-text">These commands keep the local downstream copy aligned and confirm that docs and application shell expectations still match the vendored runtime.</p>
+          <p class="card-text">Use the explicit sync command when you want to pull in upstream runtime changes. The timed development guard keeps local state fresh and can auto-repair a missing vendored runtime, while these commands remain the deliberate maintainer workflow.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Operational rule</h3>
@@ -710,6 +710,8 @@ php -S 127.0.0.1:8080 -t public public/router.php</code></pre>
             <li>Set <code>APP_URL</code>.</li>
             <li>Set <code>DB_HOST</code>, <code>DB_PORT</code>, <code>DB_DATABASE</code>, <code>DB_USERNAME</code> and <code>DB_PASSWORD</code>.</li>
             <li>Set <code>CONTACT_NOTIFICATION_EMAIL</code> when using the contact flow.</li>
+            <li>The template starts with <code>APP_ENV=development</code>, <code>APP_DEBUG=true</code> and <code>SESSION_SECURE=false</code> so local HTTP on <code>127.0.0.1</code> works without session-cookie surprises.</li>
+            <li>Before production deployment, switch those values back to production-safe settings and serve the app over HTTPS.</li>
           </ul>
         </article>
 

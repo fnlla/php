@@ -18,7 +18,7 @@ Purpose:
 - Defines maintained application or framework configuration for the official FNLLA PHP stack.
 */
 
-$environment = (string) env("APP_ENV", "production");
+$environment = framework_detect_environment();
 $isDevelopment = $environment === "development";
 $sessionLifetimeMinutes = max(1, (int) env("SESSION_LIFETIME_MINUTES", 120));
 
@@ -28,7 +28,7 @@ return [
     "cookie_lifetime" => $sessionLifetimeMinutes * 60,
     "path" => (string) env("SESSION_PATH_SCOPE", "/"),
     "domain" => env("SESSION_DOMAIN"),
-    "secure" => (bool) env("SESSION_SECURE", !$isDevelopment),
+    "secure" => (bool) env("SESSION_SECURE", !$isDevelopment && app_request_is_secure()),
     "http_only" => (bool) env("SESSION_HTTP_ONLY", true),
     "same_site" => (string) env("SESSION_SAME_SITE", "Lax"),
     "strict_mode" => (bool) env("SESSION_STRICT_MODE", true),

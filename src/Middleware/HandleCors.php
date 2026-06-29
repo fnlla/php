@@ -27,13 +27,25 @@ final class HandleCors implements MiddlewareInterface
 {
     public function handle(Request $request, callable $next): mixed
     {
-        $headers = $this->headersForRequest($request);
+        $origin = trim((string) $request->header("Origin", ""));
+        $headers = $this->headersForRequest($request, $origin);
+        $isPreflight = $origin !== ""
+            && $request->method() === "OPTIONS"
+            && trim((string) $request->header("Access-Control-Request-Method", "")) !== "";
 
-        if ($request->method() === "OPTIONS") {
+        if ($isPreflight) {
+            if ($headers === []) {
+                return Response::empty(403);
+            }
+
             return Response::empty(204, $headers);
         }
 
         $result = $next($request);
+
+        if ($headers === []) {
+            return $result;
+        }
 
         if ($result instanceof Response) {
             return $result->withHeaders($headers);
@@ -54,25 +66,35 @@ final class HandleCors implements MiddlewareInterface
         return Response::json($result, 200, $headers);
     }
 
-    private function headersForRequest(Request $request): array
+    private function headersForRequest(Request $request, string $origin): array
     {
-        $origin = (string) $request->header("Origin", "");
+        if ($origin === "") {
+            return [];
+        }
+
         $allowedOrigins = (array) config("cors.allowed_origins", ["*"]);
-        $allowOrigin = in_array("*", $allowedOrigins, true) || in_array($origin, $allowedOrigins, true)
-            ? ($origin !== "" && !in_array("*", $allowedOrigins, true) ? $origin : "*")
-            : "";
+        $supportsCredentials = (bool) config("cors.supports_credentials", false);
+        $allowsWildcard = in_array("*", $allowedOrigins, true);
+        $isAllowedOrigin = $allowsWildcard || in_array($origin, $allowedOrigins, true);
+
+        if (!$isAllowedOrigin) {
+            return [];
+        }
+
+        $allowOrigin = $supportsCredentials || !$allowsWildcard ? $origin : "*";
 
         $headers = [
+            "Access-Control-Allow-Origin" => $allowOrigin,
             "Access-Control-Allow-Methods" => implode(", ", (array) config("cors.allowed_methods", ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"])),
             "Access-Control-Allow-Headers" => implode(", ", (array) config("cors.allowed_headers", ["Content-Type", "Authorization", "X-Requested-With", "X-Request-Id", "X-CSRF-TOKEN"])),
             "Access-Control-Max-Age" => (string) config("cors.max_age", 3600),
         ];
 
-        if ($allowOrigin !== "") {
-            $headers["Access-Control-Allow-Origin"] = $allowOrigin;
+        if ($allowOrigin !== "*") {
+            $headers["Vary"] = "Origin";
         }
 
-        if ((bool) config("cors.supports_credentials", false)) {
+        if ($supportsCredentials) {
             $headers["Access-Control-Allow-Credentials"] = "true";
         }
 

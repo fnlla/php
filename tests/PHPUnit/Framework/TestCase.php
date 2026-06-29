@@ -121,6 +121,15 @@ abstract class TestCase
         }
     }
 
+    public static function assertArrayNotHasKey(string|int $key, array $array, string $message = ""): void
+    {
+        self::incrementAssertions();
+
+        if (array_key_exists($key, $array)) {
+            self::fail($message !== "" ? $message : "Failed asserting that array does not have key " . self::export($key) . ".");
+        }
+    }
+
     public static function assertStringContainsString(string $needle, string $haystack, string $message = ""): void
     {
         self::incrementAssertions();

@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.7</span>
+        <span class="doc-status">Stable 1.0.8</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -131,6 +131,13 @@
               <li><code>DB_PASSWORD</code></li>
               <li><code>CONTACT_NOTIFICATION_EMAIL</code></li>
             </ul>
+            <p>The template defaults are intentionally local-development friendly:</p>
+            <ul>
+              <li><code>APP_ENV=development</code></li>
+              <li><code>APP_DEBUG=true</code></li>
+              <li><code>SESSION_SECURE=false</code></li>
+            </ul>
+            <p>That keeps sessions, flashes and CSRF-protected forms working over plain <code>http://127.0.0.1</code> during local setup. Before production deployment, switch those values back to production-safe settings and serve the app over HTTPS.</p>
             <p>Recommended first checks:</p>
             <pre><code class="language-bash">php fnlla fnlla-web:sync
 php fnlla fnlla-web:validate

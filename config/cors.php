@@ -19,9 +19,12 @@ Purpose:
 */
 
 return [
-    "allowed_origins" => ["*"],
+    "allowed_origins" => array_values(array_filter(array_map(
+        static fn (string $origin): string => trim($origin),
+        explode(",", (string) env("CORS_ALLOWED_ORIGINS", ""))
+    ), static fn (string $origin): bool => $origin !== "")),
     "allowed_methods" => ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     "allowed_headers" => ["Content-Type", "Authorization", "X-Requested-With", "X-Request-Id", "X-CSRF-TOKEN"],
-    "supports_credentials" => false,
-    "max_age" => 3600,
+    "supports_credentials" => (bool) env("CORS_SUPPORTS_CREDENTIALS", false),
+    "max_age" => max(0, (int) env("CORS_MAX_AGE", 3600)),
 ];

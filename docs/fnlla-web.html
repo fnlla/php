@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.7</span>
+        <span class="doc-status">Stable 1.0.8</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -120,7 +120,7 @@
           <pre><code class="language-bash">php fnlla fnlla-web:sync
 php fnlla fnlla-web:validate
 php scripts/build-docs.php --check</code></pre>
-          <p class="card-text">These commands keep the local downstream copy aligned and confirm that docs and application shell expectations still match the vendored runtime.</p>
+          <p class="card-text">Use the explicit sync command when you want to pull in upstream runtime changes. The timed development guard keeps local state fresh and can auto-repair a missing vendored runtime, while these commands remain the deliberate maintainer workflow.</p>
         </article>
         <article class="card">
           <h3 class="card-title">Operational rule</h3>

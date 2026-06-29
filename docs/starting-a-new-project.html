@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.7</span>
+        <span class="doc-status">Stable 1.0.8</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -157,6 +157,7 @@ php scripts/validate-version-manifest.php</code></pre>
               <li>Open <code>http://127.0.0.1:8080</code> in your browser.</li>
             </ol>
             <p>For Apache environments, use <code>public/</code> as the document root. The exported project already contains <code>public/.htaccess</code>.</p>
+            <p>The exported <code>.env.example</code> starts in local-development mode so sessions and flash flows work over plain HTTP on <code>127.0.0.1</code>. Before production deployment, switch the environment back to production-safe values and enable HTTPS.</p>
             <h2 id="which-files-you-normally-edit-first">Which files you normally edit first</h2>
             <p>For a new project, the first files are usually:</p>
             <ul>
