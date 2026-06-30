@@ -31,35 +31,147 @@ final class HomeController extends Controller
         return $this->view("pages/home", [
             "pageTitle" => "Overview",
             "pageTitleHome" => true,
-            "featureCards" => [
+            "proofCards" => [
                 [
-                    "title" => "Routing that stays readable",
-                    "text" => "Define routes in one file, keep handlers explicit and let middleware and the container handle the shared plumbing.",
+                    "title" => "Readable request flow",
+                    "text" => "Front controller, bootstrap, router, controller and view stay visible instead of disappearing behind layers of framework magic.",
                 ],
                 [
-                    "title" => "Views with no template engine tax",
-                    "text" => "Use plain PHP templates and lean on FNLLA Web for layout, components and responsive structure.",
+                    "title" => "UI runtime already solved",
+                    "text" => "FNLLA Web provides the shared page, component and interaction language, so the PHP starter can stay focused on delivery logic.",
                 ],
                 [
-                    "title" => "Built for production hardening",
-                    "text" => "The framework now includes middleware, DI, auth, validation, query builder and CLI-driven migrations as a stronger base for real delivery.",
+                    "title" => "Release hygiene stays explicit",
+                    "text" => "Validation, version metadata and runtime synchronization commands remain close to the repository instead of being hidden in a package registry workflow.",
                 ],
             ],
-            "runtimeTabs" => [
+            "platformStats" => [
                 [
-                    "label" => "Routing",
-                    "title" => "Front controller, middleware and dynamic routes",
-                    "text" => "Routes now support middleware, dependency injection, HEAD and OPTIONS responses plus parameter placeholders such as /projects/{project}.",
+                    "value" => "1",
+                    "label" => "official UI runtime boundary: `public/vendor/fnlla-web/`",
                 ],
                 [
-                    "label" => "Data",
-                    "title" => "Query builder and migrations",
-                    "text" => "The database layer is intentionally lean: PDO-backed connections, a small query builder and CLI migrations for schema changes.",
+                    "value" => "0",
+                    "label" => "required external CDNs or JS framework dependencies in the starter surface",
                 ],
                 [
-                    "label" => "Auth",
-                    "title" => "Session-backed authentication",
-                    "text" => "A session guard, auth middleware and provider-based user lookup are included so protected areas do not need custom plumbing each time.",
+                    "value" => "5",
+                    "label" => "primary request stages a new team can trace in one sitting",
+                ],
+                [
+                    "value" => "6",
+                    "label" => "project-facing validation and sync routines kept directly in the starter",
+                ],
+            ],
+            "workflowSteps" => [
+                [
+                    "number" => "1",
+                    "title" => "Export",
+                    "text" => "Generate a new downstream project from `fnlla/php` instead of building client work directly inside the framework repository.",
+                ],
+                [
+                    "number" => "2",
+                    "title" => "Shape",
+                    "text" => "Replace the demo routes, controllers and templates with the real page map, forms and protected areas for the project.",
+                ],
+                [
+                    "number" => "3",
+                    "title" => "Harden",
+                    "text" => "Run FNLLA Web validation, tests, lint and version checks so the project stays aligned with the supported contract.",
+                ],
+            ],
+            "faqItems" => [
+                [
+                    "question" => "Why not just clone `fnlla/php` and start building the client project there?",
+                    "answer" => "Because framework maintenance and one downstream delivery are different concerns. `make:project` keeps the framework repo clean and gives the new app its own lifecycle.",
+                ],
+                [
+                    "question" => "Does the starter still stay small enough for one developer to understand quickly?",
+                    "answer" => "Yes. The starter keeps the request lifecycle explicit on purpose, while FNLLA Web absorbs the repeated page, component and interaction patterns.",
+                ],
+                [
+                    "question" => "Can the starter support more than marketing pages?",
+                    "answer" => "Yes. Auth, authorization, validation, migrations, query builder, queues and scheduling are already present for internal tools, service portals and admin surfaces.",
+                ],
+                [
+                    "question" => "What is the intended first proof step after export?",
+                    "answer" => "Validate FNLLA Web, run the local tests and lint, then confirm the version contract before deeper delivery work begins.",
+                ],
+            ],
+        ]);
+    }
+
+    public function platform(Request $request): Response
+    {
+        return $this->view("pages/platform", [
+            "pageTitle" => "Platform",
+            "pageTitleSection" => "Framework",
+            "platformTabs" => [
+                [
+                    "label" => "Request flow",
+                    "title" => "A lean HTTP pipeline that still covers real delivery needs",
+                    "text" => "Requests come through `public/index.php`, move into bootstrap, route matching, middleware, controller logic and finally one shared layout. That keeps debugging and onboarding fast.",
+                ],
+                [
+                    "label" => "UI runtime",
+                    "title" => "FNLLA Web remains the only supported UI layer",
+                    "text" => "Layouts, cards, overlays, accordions, responsive nav and section systems come from the vendored FNLLA Web runtime, so downstream projects avoid mixed design-system drift.",
+                ],
+                [
+                    "label" => "Data and auth",
+                    "title" => "Enough application foundation without a full-stack abstraction tax",
+                    "text" => "The starter includes MySQL access, migrations, validation, sessions, auth, authorization and CLI operations without forcing a large ORM or a compiled front-end stack.",
+                ],
+                [
+                    "label" => "Release hygiene",
+                    "title" => "Version and runtime checks stay visible in the repository",
+                    "text" => "FNLLA Web sync, version manifest validation and starter-local tests are explicit commands so release integrity can be proven instead of assumed.",
+                ],
+            ],
+            "capabilityCards" => [
+                [
+                    "title" => "HTTP and middleware",
+                    "text" => "Named routes, route groups, middleware aliases, throttling and explicit request/response handling stay readable in the repo.",
+                ],
+                [
+                    "title" => "Auth and protected areas",
+                    "text" => "Session-backed auth, route protection and authorization gates cover dashboards, internal tools and admin surfaces without custom glue code.",
+                ],
+                [
+                    "title" => "Operational commands",
+                    "text" => "Migration, queue, schedule, FNLLA Web sync and version commands ship with the starter so the project can evolve past brochure-site scope cleanly.",
+                ],
+            ],
+            "platformStats" => [
+                [
+                    "value" => "PHP 8.3",
+                    "label" => "official runtime baseline for the maintained framework",
+                ],
+                [
+                    "value" => "MySQL",
+                    "label" => "supported database contract in the official stack",
+                ],
+                [
+                    "value" => "Local",
+                    "label" => "vendored FNLLA Web assets, shipped inside the project itself",
+                ],
+                [
+                    "value" => "GitHub",
+                    "label" => "source-of-truth workflow for framework and runtime updates",
+                ],
+            ],
+            "platformFaqs" => [
+                [
+                    "question" => "Is FNLLA PHP trying to compete by being larger than Laravel or Symfony?",
+                    "answer" => "No. Its advantage is a smaller, more inspectable surface that still covers the practical application needs of teams shipping server-rendered work.",
+                ],
+                [
+                    "question" => "Why keep FNLLA Web bundled locally instead of using a CDN?",
+                    "answer" => "A local vendored runtime keeps deployments offline-safe, predictable and easier to validate against one supported UI contract.",
+                ],
+                [
+                    "question" => "What happens when FNLLA Web changes upstream?",
+                    "answer" => "The runtime is resynced into `public/vendor/fnlla-web/`, then the starter validates the UI contract and version metadata before release work continues.",
                 ],
             ],
         ]);
@@ -76,6 +188,37 @@ final class HomeController extends Controller
                 "Use plain PHP for templates so teams can onboard quickly without a custom DSL.",
                 "Add production primitives deliberately: middleware, DI, validation, auth, logging and migrations.",
             ],
+            "timelineItems" => [
+                [
+                    "title" => "Request enters through the public edge",
+                    "text" => "The maintained public surface stays narrow: `public/index.php` for requests and `public/router.php` for the local PHP server.",
+                    "meta" => "Public entrypoints",
+                ],
+                [
+                    "title" => "Bootstrap wires the application intentionally",
+                    "text" => "Environment loading, container setup, session handling and route registration stay readable in `bootstrap/` rather than being hidden behind generated caches.",
+                    "meta" => "Bootstrap and container",
+                ],
+                [
+                    "title" => "Controller and view keep the delivery logic visible",
+                    "text" => "Controllers prepare data, validation and redirects while plain PHP views render inside one shared FNLLA Web shell.",
+                    "meta" => "Delivery layer",
+                ],
+            ],
+            "starterBoundaries" => [
+                [
+                    "title" => "Framework repo stays maintainable",
+                    "text" => "Use `fnlla/php` to improve shared routing, docs, guards, scripts and version contracts for every future project.",
+                ],
+                [
+                    "title" => "Exported projects stay delivery-focused",
+                    "text" => "Use `make:project` to create the actual website or application repository without inheriting the full maintainer docs workspace.",
+                ],
+                [
+                    "title" => "FNLLA Web remains one-way dependency",
+                    "text" => "The starter consumes FNLLA Web as a vendored runtime. It does not fork the UI contract into multiple parallel styling systems.",
+                ],
+            ],
         ]);
     }
 
@@ -83,6 +226,48 @@ final class HomeController extends Controller
     {
         return $this->view("pages/contact", [
             "pageTitle" => "Contact",
+            "pageTitleSection" => "Framework",
+            "engagementTracks" => [
+                [
+                    "title" => "Platform advisory",
+                    "text" => "Use this when the team needs help shaping the architecture, delivery boundaries or repo strategy before larger implementation work starts.",
+                ],
+                [
+                    "title" => "Implementation support",
+                    "text" => "Use this for page building, controller work, forms, auth flows, migrations and operational hardening inside one real FNLLA PHP project.",
+                ],
+                [
+                    "title" => "Operational support",
+                    "text" => "Use this when the project already exists and the current need is runtime sync, validation, release hygiene or maintainability cleanup.",
+                ],
+            ],
+            "deliverySteps" => [
+                [
+                    "number" => "1",
+                    "title" => "Scope the request",
+                    "text" => "Define the page map, auth boundary, data needs and runtime assumptions early so the build sequence stays clear.",
+                ],
+                [
+                    "number" => "2",
+                    "title" => "Build the application surface",
+                    "text" => "Routes, controllers, views, forms and persistence are added with FNLLA Web already solving the shared interaction layer.",
+                ],
+                [
+                    "number" => "3",
+                    "title" => "Validate before release",
+                    "text" => "Run FNLLA Web checks, tests, lint and version verification before any commit, deployment or handoff candidate is called ready.",
+                ],
+            ],
+            "contactFaqs" => [
+                [
+                    "question" => "Is this form wired as a real example or only visual markup?",
+                    "answer" => "It is a real starter flow: CSRF, validation, flashed input, flashed status and redirect-after-post are all active in the example.",
+                ],
+                [
+                    "question" => "What should a downstream team replace first here?",
+                    "answer" => "The content, service tracks, validation copy and mail destination should all be replaced with the real project context early in delivery.",
+                ],
+            ],
         ]);
     }
 

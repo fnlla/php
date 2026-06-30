@@ -59,6 +59,7 @@ $pageMeta = page_meta([
           <div class="navbar-panel" id="primary-navigation-panel">
             <ul class="navbar-menu">
               <li><a href="<?= h(route("home")) ?>" <?= is_current_path("/") ? 'aria-current="page"' : "" ?>>Home</a></li>
+              <li><a href="<?= h(route("platform")) ?>" <?= is_current_path("/platform") ? 'aria-current="page"' : "" ?>>Platform</a></li>
               <li><a href="<?= h(route("about")) ?>" <?= is_current_path("/about") ? 'aria-current="page"' : "" ?>>About</a></li>
               <li><a href="<?= h(route("contact")) ?>" <?= is_current_path("/contact") ? 'aria-current="page"' : "" ?>>Contact</a></li>
               <?php if (auth()->check()): ?>
@@ -72,6 +73,7 @@ $pageMeta = page_meta([
               <li class="dropdown" data-fnlla-dropdown>
                 <button class="btn btn-outline btn-sm" id="resource-menu-trigger" type="button" data-fnlla-dropdown-toggle aria-expanded="false" aria-controls="resource-menu">Resources</button>
                 <div class="dropdown-menu" id="resource-menu" aria-labelledby="resource-menu-trigger">
+                  <a class="dropdown-item" href="<?= h(route("platform")) ?>">Platform overview</a>
                   <a class="dropdown-item" href="<?= h(route("api.health")) ?>">JSON health route</a>
                   <a class="dropdown-item" href="https://github.com/fnlla/web" target="_blank" rel="noreferrer">FNLLA Web repo</a>
                 </div>
@@ -108,26 +110,85 @@ $pageMeta = page_meta([
       <?= $content ?>
     </main>
 
-    <footer class="section site-footer">
+    <footer class="section site-footer-shell">
       <div class="container">
-        <div class="site-footer-grid">
-          <article class="card site-card-muted">
-            <h2 class="card-title">Small on purpose</h2>
-            <p class="card-text">FNLLA PHP keeps the learning surface narrow: front controller, router, controllers, views and a few request helpers.</p>
-          </article>
-          <article class="card site-card-muted">
-            <h2 class="card-title">UI already bundled</h2>
-            <p class="card-text">The project vendors FNLLA Web locally, so its styles, scripts and icons can be shipped without external CDNs.</p>
-          </article>
-          <article class="card site-card-muted">
-            <h2 class="card-title">Good first extension points</h2>
-            <p class="card-text">Add route parameters, persistence, mail delivery or domain-specific services only when the app genuinely needs them.</p>
-          </article>
-        </div>
-        <div class="site-footer-meta">
-          <p class="site-footer-note">FNLLA PHP starter ships with a professional browser-tab title contract and an optional cookie-consent shell powered by FNLLA Web only.</p>
-          <div class="site-footer-tools">
-            <button class="btn btn-ghost btn-sm" type="button" data-fnlla-consent-open>Cookie settings</button>
+        <div class="footer p-4 radius-lg" aria-label="FNLLA PHP starter footer">
+          <div class="footer-top">
+            <div class="footer-lead">
+              <p class="help-text mb-1">FNLLA PHP starter</p>
+              <h2 class="footer-heading">A cleaner foundation for teams that want professional server-rendered delivery without a bloated framework shell.</h2>
+              <p class="footer-note">The starter keeps request flow, UI runtime boundaries and validation commands visible, while FNLLA Web carries the reusable presentation system.</p>
+            </div>
+            <div class="footer-pillars">
+              <article class="footer-pillar">
+                <span class="badge">Readable request flow</span>
+                <p class="footer-note">Trace bootstrap, routes, controllers and views without hidden generated layers.</p>
+              </article>
+              <article class="footer-pillar">
+                <span class="badge">Local UI runtime</span>
+                <p class="footer-note">Vendored FNLLA Web assets ship inside the project, with no external CDN dependency.</p>
+              </article>
+              <article class="footer-pillar">
+                <span class="badge">Release hygiene</span>
+                <p class="footer-note">Validation, version metadata and runtime sync remain explicit project commands.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="footer-body">
+            <div class="footer-grid">
+              <div class="footer-brand-block">
+                <h3 class="footer-heading"><?= h(config("app.name")) ?></h3>
+                <p class="footer-note">Use this starter for service websites, internal tools, authenticated portals and delivery surfaces that benefit from clarity, composability and an inspectable runtime contract.</p>
+                <div class="footer-status">
+                  <span class="badge">FNLLA Web only</span>
+                  <span class="badge">PHP 8.3</span>
+                  <span class="badge">MySQL ready</span>
+                </div>
+                <div class="footer-contact">
+                  <p class="footer-note">Routes, controllers and templates are ready to replace with real product flow.</p>
+                  <p class="footer-note">Cookie consent, overlays, tabs and mobile navigation already run on the bundled runtime.</p>
+                </div>
+              </div>
+
+              <div class="footer-link-group">
+                <h3 class="footer-heading">Explore</h3>
+                <div class="footer-links">
+                  <a href="<?= h(route("home")) ?>">Home</a>
+                  <a href="<?= h(route("platform")) ?>">Platform</a>
+                  <a href="<?= h(route("about")) ?>">About</a>
+                  <a href="<?= h(route("contact")) ?>">Contact</a>
+                </div>
+              </div>
+
+              <div class="footer-link-group">
+                <h3 class="footer-heading">Starter flow</h3>
+                <div class="footer-links">
+                  <a href="<?= h(route("login")) ?>">Sign in demo</a>
+                  <a href="<?= h(route("api.health")) ?>">Health endpoint</a>
+                  <a href="https://github.com/fnlla/web" target="_blank" rel="noreferrer">FNLLA Web repo</a>
+                </div>
+              </div>
+
+              <div class="footer-link-group">
+                <h3 class="footer-heading">Project checks</h3>
+                <div class="grid gap-2">
+                  <p class="footer-note mb-0"><code>php scripts/test.php</code></p>
+                  <p class="footer-note mb-0"><code>php scripts/lint.php</code></p>
+                  <p class="footer-note mb-0"><code>php scripts/validate-fnlla-web.php</code></p>
+                  <p class="footer-note mb-0"><code>php scripts/validate-version-manifest.php</code></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-meta-bar mt-4">
+            <div class="grid gap-2 footer-meta-copy">
+              <p class="footer-note">FNLLA PHP starter ships with the browser-title contract, an optional cookie-consent shell and one-way dependency on the vendored FNLLA Web runtime.</p>
+            </div>
+            <nav class="footer-legal" aria-label="Starter footer tools">
+              <button class="btn btn-ghost btn-sm" type="button" data-fnlla-consent-open>Cookie settings</button>
+            </nav>
           </div>
         </div>
       </div>

@@ -130,7 +130,7 @@ final class MakeProjectCommand extends Command
         foreach ($iterator as $fileInfo) {
             $name = $fileInfo->getFilename();
 
-            if ($this->shouldSkipRootEntry($name)) {
+            if (!$this->shouldExportRootEntry($name)) {
                 continue;
             }
 
@@ -141,14 +141,33 @@ final class MakeProjectCommand extends Command
         }
     }
 
-    private function shouldSkipRootEntry(string $name): bool
+    private function shouldExportRootEntry(string $name): bool
     {
         return in_array($name, [
-            ".git",
-            ".github",
-            "CODE_OF_CONDUCT.md",
-            "README.md",
-            "SECURITY.md",
+            ".editorconfig",
+            ".env.example",
+            ".gitattributes",
+            ".gitignore",
+            "LICENSE.md",
+            "MANIFEST.json",
+            "SUPPORT.md",
+            "TRADEMARKS.md",
+            "VERSION",
+            "bootstrap",
+            "composer.json",
+            "config",
+            "database",
+            "fnlla",
+            "fnlla.cmd",
+            "lang",
+            "public",
+            "routes",
+            "scripts",
+            "src",
+            "storage",
+            "tests",
+            "update-fnlla-web.cmd",
+            "views",
         ], true);
     }
 
@@ -184,19 +203,72 @@ final class MakeProjectCommand extends Command
 
     private function shouldSkipRelativeEntry(string $relativePath): bool
     {
+        if ($relativePath === "docs" || str_starts_with($relativePath, "docs/")) {
+            return true;
+        }
+
+        if ($this->isRuntimeStatePath($relativePath)) {
+            return true;
+        }
+
         return in_array($relativePath, [
             "scripts/apply-techayo-metadata.ps1",
+            "scripts/build-docs.php",
             "test-fnlla-php.cmd",
             "lint-fnlla-php.cmd",
         ], true);
     }
 
+    private function isRuntimeStatePath(string $relativePath): bool
+    {
+        if ($relativePath === "storage/framework/fnlla-web-guard.json") {
+            return true;
+        }
+
+        foreach ([
+            "storage/database/",
+            "storage/logs/",
+            "storage/framework/cache/",
+            "storage/framework/queue/",
+            "storage/framework/sessions/",
+        ] as $prefix) {
+            if (str_starts_with($relativePath, $prefix)) {
+                return basename($relativePath) !== ".gitignore";
+            }
+        }
+
+        return false;
+    }
+
     private function customizeExport(string $targetRoot, string $appName, string $packageSlug): void
     {
+        $this->sanitizeExportedStorage($targetRoot);
         $this->rewriteAppConfig($targetRoot, $appName);
         $this->rewriteComposerMetadata($targetRoot, $appName, $packageSlug);
         $this->rewriteStarterReadme($targetRoot, $appName);
         $this->rewriteProjectLaunchers($targetRoot);
+    }
+
+    private function sanitizeExportedStorage(string $targetRoot): void
+    {
+        $keepFiles = [
+            "storage/database/.gitignore" => "*\n!.gitignore\n",
+            "storage/framework/cache/.gitignore" => "# Keep the cache directory in the repository while ignoring runtime cache files.\n*\n!.gitignore\n",
+            "storage/framework/queue/.gitignore" => "# Keep the queue directory in the repository while ignoring runtime queue files.\n*\n!.gitignore\n",
+            "storage/framework/sessions/.gitignore" => "# Keep the sessions directory in the repository while ignoring runtime session files.\n*\n!.gitignore\n",
+            "storage/logs/.gitignore" => "*\n!.gitignore\n",
+        ];
+
+        foreach ($keepFiles as $relativePath => $contents) {
+            $absolutePath = $targetRoot . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, $relativePath);
+            $directory = dirname($absolutePath);
+
+            if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+                throw new RuntimeException("Unable to create storage directory during export: " . $directory);
+            }
+
+            file_put_contents($absolutePath, $contents);
+        }
     }
 
     private function rewriteAppConfig(string $targetRoot, string $appName): void
@@ -283,6 +355,19 @@ The exported project already includes `public/.htaccess`.
 The exported `.env.example` starts with local-development defaults so sessions work over plain HTTP on `127.0.0.1`.
 Before production deployment, switch the environment back to production-safe values and enable HTTPS.
 
+## What the export intentionally leaves behind
+
+This exported starter does not copy the full maintainer workspace from `fnlla/php`.
+
+It intentionally leaves behind:
+
+- framework-only browser docs under `docs/`
+- the maintainer docs builder `scripts/build-docs.php`
+- repository governance and contribution files such as `.git/`, `.github/`, `CODE_OF_CONDUCT.md` and `SECURITY.md`
+- local runtime residue such as logs, cache entries, queue files, session files and FNLLA Web guard state
+
+That keeps the downstream project focused on application delivery rather than framework maintenance.
+
 ## First files to replace or review
 
 - `routes/web.php`
@@ -301,6 +386,17 @@ That demo is a starting point, not the final product. Replace the placeholder pa
 Use `LICENSE.md`, `SUPPORT.md` and `TRADEMARKS.md` to understand the upstream FNLLA code license, support boundary and branding rules that came with this starter.
 
 ## Useful commands
+
+The starter keeps only the project-facing scripts and commands:
+
+- `php scripts/test.php` runs the repository-local test harness kept under `tests/`
+- `php scripts/lint.php` runs PHP syntax lint across the maintained project tree
+- `php scripts/validate-fnlla-web.php` checks that the exported project still respects the FNLLA Web runtime contract
+- `php scripts/validate-version-manifest.php` checks that `VERSION`, `MANIFEST.json` and the vendored FNLLA Web version stay aligned
+- `php fnlla version:sync` regenerates `MANIFEST.json` after an intentional version change
+- `php fnlla fnlla-web:sync` or `update-fnlla-web.cmd` refresh the vendored FNLLA Web runtime from GitHub
+
+The full framework documentation remains in the upstream `fnlla/php` repository.
 
 ```bash
 php fnlla list

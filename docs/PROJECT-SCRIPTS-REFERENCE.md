@@ -1,0 +1,217 @@
+# Project Scripts Reference
+
+## Why this guide exists
+
+`fnlla/php` now separates two concerns more deliberately:
+
+1. the maintained framework repository
+2. the downstream project starter exported by `php fnlla make:project`
+
+That distinction matters for `scripts/`.
+
+Not every script in the framework repository belongs in every exported project.
+
+The exported starter keeps only the scripts that are useful inside a real downstream application repository.
+
+## Short answer
+
+For a normal exported project, the important script set is:
+
+- `scripts/test.php`
+- `scripts/lint.php`
+- `scripts/validate-fnlla-web.php`
+- `scripts/validate-version-manifest.php`
+- `scripts/sync-version-manifest.php`
+- `scripts/sync-fnlla-web.ps1`
+
+The maintainer-only docs builder stays in the framework repository:
+
+- `scripts/build-docs.php`
+
+The private or maintainer-specific helper also stays out of the export:
+
+- `scripts/apply-techayo-metadata.ps1`
+
+## What each exported script does
+
+### `scripts/test.php`
+
+Purpose:
+
+- runs the repository-local FNLLA PHP test harness
+- discovers `*Test.php` files under `tests/`
+- boots the local shim under `tests/PHPUnit/Framework/TestCase.php`
+- reports pass/fail output without requiring a Composer-installed PHPUnit package
+
+Use it when:
+
+- you changed routes, controllers, helpers, middleware or validation behavior
+- you updated starter export behavior
+- you want a quick regression pass before a commit or deployment candidate
+
+Important boundary:
+
+- this is still a project-local test harness, not a framework-wide CI service
+- it depends on the `tests/` directory being present in the exported project
+
+### `scripts/lint.php`
+
+Purpose:
+
+- runs `php -l` against the maintained PHP source tree inside the current project
+- checks directories such as `bootstrap/`, `config/`, `database/`, `public/`, `routes/`, `scripts/`, `src/`, `tests/` and `views/`
+- ignores `vendor/` and runtime files under `storage/`
+
+Use it when:
+
+- you edited PHP files and want a fast syntax pass
+- you changed generated starter files and want a cheap pre-test check
+
+Important boundary:
+
+- it only checks syntax
+- it does not prove behavior, data flow or runtime correctness by itself
+
+### `scripts/validate-fnlla-web.php`
+
+Purpose:
+
+- validates that the current project still respects the FNLLA Web contract
+- confirms the vendored runtime exists where FNLLA PHP expects it
+- catches unsupported UI drift in the official stack
+
+Use it when:
+
+- the vendored `public/vendor/fnlla-web/` runtime was updated
+- the shared layout or page structure changed
+- you want to confirm the project still stays inside the supported FNLLA Web boundary
+
+Important boundary:
+
+- it validates the official UI contract
+- it is not a substitute for application-level QA of your own project pages
+
+### `scripts/validate-version-manifest.php`
+
+Purpose:
+
+- validates the machine-readable version contract for the current project
+- checks that `VERSION` and `MANIFEST.json` agree with the vendored FNLLA Web version state
+
+Use it when:
+
+- the project version changed intentionally
+- FNLLA Web was synced
+- you want proof that release metadata is not drifting
+
+Important boundary:
+
+- it validates release metadata consistency
+- it does not publish or bump versions by itself
+
+### `scripts/sync-version-manifest.php`
+
+Purpose:
+
+- regenerates `MANIFEST.json` from the current `VERSION` file plus the vendored FNLLA Web runtime state
+
+Use it when:
+
+- you intentionally changed the project version
+- you synced FNLLA Web and want the machine-readable manifest refreshed
+
+Typical outcome:
+
+- `MANIFEST.json` is rewritten to match the current framework and vendored runtime versions
+
+Important boundary:
+
+- this is a metadata synchronization step
+- it should follow a real version decision rather than replace one
+
+### `scripts/sync-fnlla-web.ps1`
+
+Purpose:
+
+- refreshes the vendored FNLLA Web runtime under `public/vendor/fnlla-web/`
+- can work from a provided local source path or by cloning the GitHub source of truth
+- detects whether the provided source is a published runtime export or a source checkout
+- when needed, publishes the runtime first and then mirrors the exported `dist/fnlla-web/` output
+- finishes by running `scripts/sync-version-manifest.php`
+
+Use it when:
+
+- the project needs a newer FNLLA Web release
+- the local vendored runtime is missing or damaged
+- you want to re-sync from the authoritative `fnlla/web` repository
+
+Important boundary:
+
+- this script is about the downstream vendored runtime
+- it does not maintain the upstream `fnlla/web` repository itself
+
+## What stays maintainer-only
+
+### `scripts/build-docs.php`
+
+Purpose:
+
+- rebuilds the framework documentation HTML under `docs/`
+- turns the maintained Markdown guide files into the published docs pages
+- keeps the framework documentation shell in sync with the current repository state
+
+Why it is not exported:
+
+- downstream application projects do not need to ship the whole framework docs browser
+- this script belongs to framework maintenance, not day-to-day application delivery
+
+### `scripts/apply-techayo-metadata.ps1`
+
+Purpose:
+
+- maintainer or organization-specific helper
+
+Why it is not exported:
+
+- downstream FNLLA PHP application repositories should not inherit TechAyo-specific maintainer automation unless a project explicitly wants that behavior
+
+## What `make:project` now leaves behind on purpose
+
+The exported starter intentionally does not copy:
+
+- `docs/`
+- `scripts/build-docs.php`
+- `.git/`
+- `.github/`
+- `CODE_OF_CONDUCT.md`
+- `SECURITY.md`
+- runtime residue from `storage/` such as logs, cache files, queue files, session files and FNLLA Web guard state
+
+That keeps the exported project closer to what a delivery repository should actually own.
+
+## Recommended downstream command sequence
+
+After export, a healthy first pass is:
+
+```bash
+php fnlla fnlla-web:validate
+php scripts/test.php
+php scripts/lint.php
+php scripts/validate-version-manifest.php
+php fnlla version:status
+```
+
+Use this order when:
+
+- you want to prove the starter is healthy before heavier project work
+- FNLLA Web was just synced
+- you want a compact pre-commit or pre-release project check
+
+## Final rule
+
+Treat `scripts/` in the framework repository as two overlapping groups:
+
+- project-facing validation and sync tools that belong in exported starters
+- maintainer-only documentation and organization helpers that should stay in `fnlla/php`
+
+That split keeps downstream projects leaner and makes the starter export easier to understand.

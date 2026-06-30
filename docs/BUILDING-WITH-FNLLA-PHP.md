@@ -15,6 +15,8 @@ If you follow the patterns below, your project will stay aligned with the curren
 
 Before using this guide for a real delivery, read [`STARTING-A-NEW-PROJECT.md`](./STARTING-A-NEW-PROJECT.md). That document explains the official starter-export workflow and when not to build directly inside the maintained `fnlla/php` repository.
 
+When you need the exact responsibilities of the project scripts and validation commands, read [`PROJECT-SCRIPTS-REFERENCE.md`](./PROJECT-SCRIPTS-REFERENCE.md).
+
 ## The working model
 
 FNLLA PHP is built around a small and explicit request flow:
@@ -92,6 +94,8 @@ php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php
 ```
+
+Those commands are intentionally the downstream-project subset. The framework docs builder stays in the upstream `fnlla/php` repository and is not part of the exported starter.
 
 Start the local server:
 

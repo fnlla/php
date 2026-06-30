@@ -25,6 +25,7 @@ use Fnlla\Php\Http\Request;
 use Fnlla\Php\Http\Response;
 
 $router->get("/", [HomeController::class, "home"])->name("home");
+$router->get("/platform", [HomeController::class, "platform"])->name("platform");
 $router->get("/about", [HomeController::class, "about"])->name("about");
 $router->get("/contact", [HomeController::class, "contact"])->name("contact");
 $router->post("/contact", [HomeController::class, "sendContact"])->middleware("csrf")->throttle(5, 1)->name("contact.submit");

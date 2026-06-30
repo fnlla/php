@@ -18,139 +18,202 @@ Purpose:
 - Defines a maintained page template for the official FNLLA PHP demonstration surface.
 */
 ?>
-<section class="section">
-  <div class="container site-section-stack">
-    <section class="hero hero-split" aria-label="FNLLA PHP hero">
-      <div class="grid gap-md hero-copy">
-        <span class="tag">Server-rendered starter</span>
-        <h1 class="hero-title">Build lean PHP apps on top of FNLLA Web without pulling in a full-stack framework.</h1>
-        <p class="hero-text">FNLLA PHP gives you a tiny application core for routes, controllers, views and forms while FNLLA Web handles the layout, components and interaction layer.</p>
+<section class="section pt-1">
+  <div class="container site-page-stack">
+    <section class="hero hero-background" aria-label="FNLLA PHP landing hero">
+      <div class="grid gap-md hero-copy hero-background-copy">
+        <div class="d-flex flex-wrap items-center gap-md">
+          <span class="tag">FNLLA PHP starter</span>
+          <span class="badge">FNLLA Web only</span>
+          <span class="badge">Server-rendered by default</span>
+        </div>
+        <h1 class="hero-title">Professional PHP delivery with a smaller, more legible runtime surface.</h1>
+        <p class="hero-text">FNLLA PHP gives teams a focused application core for routes, controllers, views, forms and release hygiene while FNLLA Web handles the reusable section, component and interaction system.</p>
         <ul class="hero-proof-list">
-          <li>No Composer dependency is required for the starter itself.</li>
-          <li>Published FNLLA Web assets are bundled locally under <code>public/vendor/fnlla-web/</code>.</li>
-          <li>The demo includes overlays, tabs, validation feedback and a JSON endpoint.</li>
+          <li>Start from a real exported project instead of building client work inside the framework repo.</li>
+          <li>Keep the UI contract local under <code>public/vendor/fnlla-web/</code> without third-party CDNs.</li>
+          <li>Ship with explicit tests, lint, FNLLA Web validation and version metadata checks already in place.</li>
         </ul>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="<?= h(url("contact")) ?>">Try the contact flow</a>
-          <button class="btn btn-outline" type="button" data-fnlla-modal-open="#architecture-modal" aria-controls="architecture-modal">See the architecture</button>
+          <a class="btn btn-primary btn-xl" href="<?= h(route("platform")) ?>">Explore the platform</a>
+          <a class="btn btn-outline" href="<?= h(route("contact")) ?>">Open the contact flow</a>
+          <a class="btn btn-ghost" href="<?= h(route("login")) ?>">View starter access</a>
+        </div>
+        <div class="hero-background-meta">
+          <article class="hero-background-chip">
+            <span class="badge">Framework boundary</span>
+            <p class="content-text mb-0">`fnlla/php` stays the maintainer workspace; each exported starter becomes the real downstream application repo.</p>
+          </article>
+          <article class="hero-background-chip">
+            <span class="badge">Delivery model</span>
+            <p class="content-text mb-0">Plain PHP request flow, one shared FNLLA Web shell, then only the application-specific logic your project actually needs.</p>
+          </article>
+          <article class="hero-background-chip">
+            <span class="badge">Operational rule</span>
+            <p class="content-text mb-0">Runtime sync, release metadata and project validation remain visible commands instead of hidden packaging side effects.</p>
+          </article>
         </div>
       </div>
-      <aside class="hero-panel" aria-label="Runtime snapshot">
-        <div class="hero-panel-intro">
-          <p class="doc-panel-label">Runtime snapshot</p>
-          <h2 class="hero-panel-title">What ships in the box</h2>
-          <p class="hero-panel-text">The starter stays narrow enough that one developer can understand the whole request lifecycle in one sitting.</p>
-        </div>
-        <div class="hero-metric-list">
-          <div class="hero-metric">
-            <p class="hero-metric-value">5</p>
-            <p class="hero-metric-label">core moving parts in the request flow</p>
-          </div>
-          <div class="hero-metric">
-            <p class="hero-metric-value">0</p>
-            <p class="hero-metric-label">external UI CDNs or JS framework dependencies</p>
-          </div>
-          <div class="hero-metric">
-            <p class="hero-metric-value">1</p>
-            <p class="hero-metric-label">vendored FNLLA Web runtime source of truth</p>
-          </div>
-        </div>
-        <p class="help-text mb-0 site-hero-panel-note">Good default for internal tools, service sites and admin surfaces that benefit from clarity more than novelty.</p>
-      </aside>
     </section>
-
-    <div class="grid grid-3 gap-md">
-      <?php foreach ($featureCards as $featureCard): ?>
-      <article class="card">
-        <h2 class="card-title"><?= h($featureCard["title"]) ?></h2>
-        <p class="card-text"><?= h($featureCard["text"]) ?></p>
-      </article>
-      <?php endforeach; ?>
-    </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Framework capabilities</h2>
-      <p class="section-text">These examples are intentionally close to real delivery tasks: route responses, page composition and form-handling feedback.</p>
-    </div>
-
-    <div class="tabs" data-fnlla-tabs>
-      <div class="tab-list" data-fnlla-tab-list aria-label="Framework capabilities">
-        <?php foreach ($runtimeTabs as $index => $tab): ?>
-        <?php $isActive = $index === 0; ?>
-        <button class="tab-button" id="capability-tab-<?= $index + 1 ?>" type="button" data-fnlla-tab aria-selected="<?= $isActive ? "true" : "false" ?>" aria-controls="capability-panel-<?= $index + 1 ?>"><?= h($tab["label"]) ?></button>
+    <section class="stats-section" aria-label="FNLLA PHP summary stats">
+      <div class="section-header mb-0">
+        <h2 class="section-title">A starter that stays compact, but no longer feels like a toy</h2>
+        <p class="section-text">The platform is intentionally smaller than the largest PHP frameworks, but it already covers the concrete delivery surfaces that teams actually need for websites, portals and internal tools.</p>
+      </div>
+      <div class="stats-grid">
+        <?php foreach ($platformStats as $stat): ?>
+        <article class="stat-card">
+          <p class="stat-value"><?= h($stat["value"]) ?></p>
+          <p class="stat-label"><?= h($stat["label"]) ?></p>
+        </article>
         <?php endforeach; ?>
       </div>
-
-      <?php foreach ($runtimeTabs as $index => $tab): ?>
-      <section class="tab-panel" id="capability-panel-<?= $index + 1 ?>" aria-labelledby="capability-tab-<?= $index + 1 ?>">
-        <h3 class="content-title"><?= h($tab["title"]) ?></h3>
-        <p class="content-text"><?= h($tab["text"]) ?></p>
-      </section>
-      <?php endforeach; ?>
-    </div>
+    </section>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="grid grid-2 gap-md">
-      <article class="card">
-        <h2 class="card-title">Try a side workspace</h2>
-        <p class="card-text">FNLLA Web overlays can stay purely declarative. The starter panel in the global header and the example panel below both run on the published runtime script.</p>
-        <div class="d-flex flex-wrap gap-md">
-          <button class="btn btn-primary" type="button" data-fnlla-offcanvas-open="#delivery-panel" aria-controls="delivery-panel">Open delivery panel</button>
-          <a class="btn btn-outline" href="<?= h(url("api/health")) ?>">Open health endpoint</a>
+    <section class="feature-section" aria-label="Landing proof section">
+      <div class="section-header mb-0">
+        <p class="feature-kicker">Why teams can move faster here</p>
+        <h2 class="section-title">The starter is designed to remove repeated delivery friction, not to impress with hidden abstraction.</h2>
+        <p class="section-text">What matters is not how many layers the framework can hide. What matters is how quickly a team can understand the project, change it safely and release it with confidence.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="grid grid-3 gap-md">
+          <?php foreach ($proofCards as $proofCard): ?>
+          <article class="feature-card">
+            <h3 class="content-title"><?= h($proofCard["title"]) ?></h3>
+            <p class="content-text"><?= h($proofCard["text"]) ?></p>
+          </article>
+          <?php endforeach; ?>
         </div>
-      </article>
-      <article class="card">
-        <h2 class="card-title">Use local assets only</h2>
-        <p class="card-text">The project copies the published FNLLA Web runtime into its own public tree, which keeps the deployment path simple and offline-safe.</p>
-        <div class="d-flex flex-wrap gap-md">
-          <span class="badge">CSS bundled locally</span>
-          <span class="badge">JS bundled locally</span>
-          <span class="badge">Icons bundled locally</span>
-        </div>
-      </article>
-    </div>
+        <aside class="feature-section-aside">
+          <h3 class="content-title">Best fit</h3>
+          <ul class="feature-list">
+            <li>service websites that need more structure than a static site</li>
+            <li>authenticated client or staff portals built with plain PHP</li>
+            <li>internal tools that benefit from a local UI runtime and explicit request flow</li>
+            <li>teams that want maintainable delivery without a front-end build dependency</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
   </div>
 </section>
 
-<div class="modal" id="architecture-modal" data-fnlla-modal role="dialog" aria-modal="true" aria-labelledby="architecture-modal-title" aria-describedby="architecture-modal-description" hidden>
-  <div class="modal-content">
-    <div class="d-flex justify-between items-center mb-3">
-      <h2 class="content-title mb-1" id="architecture-modal-title">Starter architecture</h2>
-      <button class="btn btn-ghost btn-sm" type="button" data-fnlla-modal-close data-fnlla-modal-initial-focus>Close</button>
-    </div>
-    <p class="content-text" id="architecture-modal-description">The request enters through <code>public/index.php</code>, moves into <code>bootstrap/app.php</code>, reaches the router, then a controller, then a plain PHP view rendered inside one shared layout.</p>
+<section class="section">
+  <div class="container">
+    <section class="process-section" aria-label="Starter workflow">
+      <div class="section-header mb-0">
+        <p class="process-kicker">Suggested path</p>
+        <h2 class="section-title">A healthier way to start a real FNLLA PHP project</h2>
+        <p class="section-text">The framework repo and the downstream project are no longer treated as the same thing. That separation makes release history, ownership and maintenance much easier to keep honest.</p>
+      </div>
+      <div class="process-grid">
+        <?php foreach ($workflowSteps as $step): ?>
+        <article class="process-step">
+          <span class="process-step-number"><?= h($step["number"]) ?></span>
+          <h3 class="process-step-title"><?= h($step["title"]) ?></h3>
+          <p class="process-step-text"><?= h($step["text"]) ?></p>
+        </article>
+        <?php endforeach; ?>
+      </div>
+    </section>
   </div>
-</div>
+</section>
 
-<div class="offcanvas offcanvas-end" id="delivery-panel" data-fnlla-offcanvas role="dialog" aria-modal="true" aria-labelledby="delivery-panel-title" aria-describedby="delivery-panel-description" hidden>
-  <div class="offcanvas-panel">
-    <div class="offcanvas-header">
-      <div>
-        <h2 class="content-title mb-1" id="delivery-panel-title">Delivery panel</h2>
-        <p class="content-text" id="delivery-panel-description">This is a second FNLLA Web overlay on the same page, which demonstrates how the PHP starter can compose interactive surfaces without custom front-end state management.</p>
-      </div>
-      <button class="btn btn-ghost btn-sm" type="button" data-fnlla-offcanvas-close data-fnlla-offcanvas-initial-focus>Close</button>
-    </div>
-    <div class="offcanvas-body">
-      <section class="offcanvas-section" aria-label="Current implementation steps">
-        <p class="offcanvas-kicker">Current implementation steps</p>
-        <div class="list-group list-group-nav">
-          <div class="list-group-item"><span class="list-group-link">Define routes in <code>routes/web.php</code></span></div>
-          <div class="list-group-item"><span class="list-group-link">Add a controller method under <code>src/Controllers/</code></span></div>
-          <div class="list-group-item"><span class="list-group-link">Render a PHP template from <code>views/</code></span></div>
+<section class="section">
+  <div class="container">
+    <section class="faq-section" aria-label="Starter FAQ">
+      <div class="faq-layout">
+        <div class="section-header mb-0">
+          <p class="feature-kicker">Starter FAQ</p>
+          <h2 class="section-title">The practical questions teams usually ask before committing to a smaller framework base</h2>
+          <p class="section-text">This starter is meant to be approachable without being flimsy. These answers explain the intended working model more directly than a generic marketing promise would.</p>
         </div>
-      </section>
-      <div class="d-flex flex-wrap gap-md">
-        <a class="btn btn-primary btn-sm" href="<?= h(url("about")) ?>">Read the overview</a>
-        <a class="btn btn-outline btn-sm" href="<?= h(url("contact")) ?>">Open the form flow</a>
+        <div class="accordion" data-fnlla-accordion data-fnlla-accordion-single>
+          <?php foreach ($faqItems as $index => $faqItem): ?>
+          <?php $isOpen = $index === 0; ?>
+          <div class="accordion-item<?= $isOpen ? " is-open" : "" ?>">
+            <button class="accordion-button" id="home-faq-trigger-<?= $index + 1 ?>" type="button" data-fnlla-accordion-button aria-expanded="<?= $isOpen ? "true" : "false" ?>" aria-controls="home-faq-panel-<?= $index + 1 ?>">
+              <?= h($faqItem["question"]) ?>
+            </button>
+            <div class="accordion-panel" id="home-faq-panel-<?= $index + 1 ?>" role="region" aria-labelledby="home-faq-trigger-<?= $index + 1 ?>">
+              <p class="content-text"><?= h($faqItem["answer"]) ?></p>
+            </div>
+          </div>
+          <?php endforeach; ?>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
-</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <section class="cta-section" aria-label="Landing call to action">
+      <div class="cta-grid">
+        <div class="grid gap-md cta-copy">
+          <div class="d-flex flex-wrap items-center gap-md">
+            <span class="tag">Next step</span>
+            <span class="badge">Delivery-ready starter</span>
+          </div>
+          <h2 class="content-title">Use the current starter as the base, then replace the demo with the real product flow for your project.</h2>
+          <p class="content-text">The best next move is usually not another framework evaluation. It is defining the project map, exporting a clean starter and validating the actual route, form and runtime boundary you plan to ship.</p>
+          <ul class="hero-proof-list">
+            <li>Start with <code>php fnlla make:project</code> so the application repo has its own lifecycle.</li>
+            <li>Keep FNLLA Web synced locally and validate the contract before release work.</li>
+            <li>Use the current demo pages only as a reference pattern, not as final product content.</li>
+          </ul>
+          <div class="d-flex flex-wrap gap-md">
+            <a class="btn btn-primary btn-xl" href="<?= h(route("contact")) ?>">Review the form flow</a>
+            <a class="btn btn-outline" href="<?= h(route("about")) ?>">Read the framework model</a>
+          </div>
+          <div class="cta-inline-notes">
+            <p class="help-text mb-0">Good starting point for portals, service sites and internal operational surfaces.</p>
+            <p class="help-text mb-0">Built to stay inside the supported FNLLA Web contract.</p>
+          </div>
+        </div>
+        <div class="grid grid-2 gap-md cta-proof-grid">
+          <article class="cta-proof">
+            <p class="cta-proof-title">Project export</p>
+            <p class="cta-proof-text">The starter now exports a cleaner downstream project surface instead of copying the whole maintainer docs workspace.</p>
+          </article>
+          <article class="cta-proof">
+            <p class="cta-proof-title">Validation</p>
+            <p class="cta-proof-text">Tests, lint, FNLLA Web checks and version checks already exist as first-party project commands.</p>
+          </article>
+          <article class="cta-proof">
+            <p class="cta-proof-title">UI contract</p>
+            <p class="cta-proof-text">Shared layout, navigation, overlays, forms and landing sections are all powered by the vendored FNLLA Web runtime.</p>
+          </article>
+          <article class="cta-proof">
+            <p class="cta-proof-title">Scaling path</p>
+            <p class="cta-proof-text">Routes, auth, migrations, queueing and scheduling allow the starter to grow beyond a brochure site without pivoting frameworks immediately.</p>
+          </article>
+        </div>
+        <div class="cta-support">
+          <div class="hero-inline-fact">
+            <span class="badge">Public routes</span>
+            <p class="content-text mb-0">Home, Platform, About and Contact already model a multi-page landing shell.</p>
+          </div>
+          <div class="hero-inline-fact">
+            <span class="badge">Protected examples</span>
+            <p class="content-text mb-0">Login, dashboard and admin routes show how authenticated areas layer onto the same shared runtime.</p>
+          </div>
+          <div class="hero-inline-fact">
+            <span class="badge">Operational check</span>
+            <p class="content-text mb-0">Use the health endpoint and validation scripts whenever the starter is reshaped into a real application.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

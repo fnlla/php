@@ -89,11 +89,21 @@ $guidePages = [
         "document_title" => "Building with FNLLA PHP - FNLLA PHP Documentation",
         "lead" => "Long-form implementation guidance for routes, controllers, views, forms, MySQL and auth.",
     ],
+    [
+        "label" => "Project Scripts Reference",
+        "href" => "project-scripts-reference.html",
+        "source" => "docs/PROJECT-SCRIPTS-REFERENCE.md",
+        "source_name" => "PROJECT-SCRIPTS-REFERENCE.md",
+        "title" => "Project Scripts Reference",
+        "document_title" => "Project Scripts Reference - FNLLA PHP Documentation",
+        "lead" => "Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project starter.",
+    ],
 ];
 
 $guideLinkMap = [
     "./STARTING-A-NEW-PROJECT.md" => "./starting-a-new-project.html",
     "./BUILDING-WITH-FNLLA-PHP.md" => "./building-with-fnlla-php.html",
+    "./PROJECT-SCRIPTS-REFERENCE.md" => "./project-scripts-reference.html",
 ];
 
 $pagesToWrite = [

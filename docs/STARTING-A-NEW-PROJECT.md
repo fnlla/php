@@ -47,12 +47,16 @@ The exported project already includes:
 - lint, test and FNLLA Web validation scripts
 - a project README that explains the next steps
 
-It also avoids copying framework-maintainer-only repository metadata such as:
+It also avoids copying framework-maintainer-only surfaces such as:
 
 - `.git`
 - `.github`
-- framework release metadata files
+- framework browser docs under `docs/`
+- the maintainer docs builder `scripts/build-docs.php`
+- local runtime residue from `storage/` such as logs, cache entries, queue files, session files and guard state
 - framework governance files
+
+For the exact script boundary, read [`PROJECT-SCRIPTS-REFERENCE.md`](./PROJECT-SCRIPTS-REFERENCE.md).
 
 ## What the new project should be
 
@@ -143,6 +147,8 @@ The reason is simple:
 - maintainers would have to update the framework and the starter copy separately
 
 The export command is safer because it always uses the current maintained repository state as the source of truth.
+
+It is also cleaner because it now exports the downstream application surface rather than copying the whole maintainer workspace.
 
 ## When cloning the repository directly is still acceptable
 

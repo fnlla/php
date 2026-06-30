@@ -18,71 +18,91 @@ Purpose:
 - Defines a maintained page template for the official FNLLA PHP demonstration surface.
 */
 ?>
-<section class="section">
-  <div class="container site-section-stack">
-    <div class="section-header">
-      <h1 class="section-title">What FNLLA PHP includes</h1>
-      <p class="section-text">This starter is intentionally modest: enough structure to keep a PHP app organized, but small enough to stay understandable and easy to extend.</p>
-    </div>
-
-    <div class="grid grid-2 gap-md">
-      <article class="card">
-        <h2 class="card-title">Guiding principles</h2>
-        <ul class="content-list">
+<section class="section pt-1">
+  <div class="container site-page-stack">
+    <section class="hero hero-compact" aria-label="About FNLLA PHP">
+      <div class="grid gap-md hero-copy">
+        <div class="d-flex flex-wrap items-center gap-md">
+          <span class="tag">Framework model</span>
+          <span class="badge">Plain PHP views</span>
+          <span class="badge">One shared runtime</span>
+        </div>
+        <h1 class="hero-title">FNLLA PHP stays intentionally explicit so teams can learn and change the whole stack faster.</h1>
+        <p class="hero-text">The framework does not try to win by hiding more. It tries to win by keeping routing, bootstrap, UI boundary and release checks readable enough that real delivery work remains approachable.</p>
+        <ul class="hero-proof-list">
           <?php foreach ($principles as $principle): ?>
           <li><?= h($principle) ?></li>
           <?php endforeach; ?>
         </ul>
-      </article>
-      <article class="card">
-        <h2 class="card-title">Request lifecycle</h2>
-        <div class="table-responsive">
-          <table class="table table-striped" aria-label="Request lifecycle">
-            <thead>
-              <tr>
-                <th scope="col">Step</th>
-                <th scope="col">Responsibility</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>public/index.php</code></td>
-                <td>Boot the application and hand over the request.</td>
-              </tr>
-              <tr>
-                <td><code>bootstrap/app.php</code></td>
-                <td>Register the autoloader, session handling and route definitions.</td>
-              </tr>
-              <tr>
-                <td><code>Router</code></td>
-                <td>Match the current path and invoke the right controller or closure.</td>
-              </tr>
-              <tr>
-                <td><code>Controller</code></td>
-                <td>Prepare page data, validate input and choose the response type.</td>
-              </tr>
-              <tr>
-                <td><code>View</code></td>
-                <td>Render plain PHP templates inside the shared FNLLA Web layout shell.</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="<?= h(route("platform")) ?>">See the platform surface</a>
+          <a class="btn btn-outline" href="<?= h(route("contact")) ?>">Open the working form</a>
         </div>
+      </div>
+      <div class="hero-inline-facts" aria-label="About page support facts">
+        <div class="hero-inline-fact">
+          <span class="badge">Maintainer repo</span>
+          <p class="content-text mb-0">`fnlla/php` remains the shared source of truth for framework behavior, docs and starter export rules.</p>
+        </div>
+        <div class="hero-inline-fact">
+          <span class="badge">Downstream repo</span>
+          <p class="content-text mb-0">Each exported starter becomes the actual project repository where client or internal application work belongs.</p>
+        </div>
+        <div class="hero-inline-fact">
+          <span class="badge">UI dependency</span>
+          <p class="content-text mb-0">FNLLA Web stays the only supported UI runtime in the official stack, consumed one-way under `public/vendor/fnlla-web/`.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-3 gap-md">
+      <?php foreach ($starterBoundaries as $boundary): ?>
+      <article class="card">
+        <h2 class="card-title"><?= h($boundary["title"]) ?></h2>
+        <p class="card-text"><?= h($boundary["text"]) ?></p>
       </article>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Request lifecycle in one trace</h2>
+      <p class="section-text">The lifecycle is short enough to inspect directly, but structured enough to support real forms, protected areas and operational routines.</p>
     </div>
 
-    <div class="grid grid-3 gap-md">
+    <div class="timeline">
+      <?php foreach ($timelineItems as $timelineItem): ?>
+      <article class="timeline-item">
+        <div class="timeline-marker" aria-hidden="true"></div>
+        <div class="timeline-content">
+          <p class="timeline-title"><?= h($timelineItem["title"]) ?></p>
+          <p class="timeline-text"><?= h($timelineItem["text"]) ?></p>
+          <p class="timeline-meta"><?= h($timelineItem["meta"]) ?></p>
+        </div>
+      </article>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2 gap-md">
       <article class="card">
-        <h2 class="card-title">Where to extend first</h2>
-        <p class="card-text">A mailer, database layer, route parameters and dedicated domain services are the most natural next additions once the starter leaves demo territory.</p>
+        <h2 class="card-title">Why the export boundary matters</h2>
+        <p class="card-text">A downstream application should not inherit the full framework browser docs workspace, maintainer-only build scripts or local runtime residue from the source repository.</p>
+        <p class="card-text">That is why `make:project` now exports the application-facing surface instead of acting like a blunt repository copy.</p>
       </article>
       <article class="card">
-        <h2 class="card-title">What stays simple</h2>
-        <p class="card-text">The framework deliberately avoids hidden service containers, template compilers and magic route discovery so tracing behavior stays straightforward.</p>
-      </article>
-      <article class="card">
-        <h2 class="card-title">Why FNLLA Web fits here</h2>
-        <p class="card-text">Server-rendered HTML can still feel polished when the component and section system is already solved by a published runtime like FNLLA Web.</p>
+        <h2 class="card-title">What remains easy to extend</h2>
+        <p class="card-text">Routes, controllers, views, auth flows, migrations, queueing and version checks remain simple enough to extend without introducing large secondary abstraction layers too early.</p>
       </article>
     </div>
   </div>

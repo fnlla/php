@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.8</span>
+        <span class="doc-status">Stable 1.0.9</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -109,13 +109,16 @@
               <li>lint, test and FNLLA Web validation scripts</li>
               <li>a project README that explains the next steps</li>
             </ul>
-            <p>It also avoids copying framework-maintainer-only repository metadata such as:</p>
+            <p>It also avoids copying framework-maintainer-only surfaces such as:</p>
             <ul>
               <li><code>.git</code></li>
               <li><code>.github</code></li>
-              <li>framework release metadata files</li>
+              <li>framework browser docs under <code>docs/</code></li>
+              <li>the maintainer docs builder <code>scripts/build-docs.php</code></li>
+              <li>local runtime residue from <code>storage/</code> such as logs, cache entries, queue files, session files and guard state</li>
               <li>framework governance files</li>
             </ul>
+            <p>For the exact script boundary, read <a href="./project-scripts-reference.html"><code>PROJECT-SCRIPTS-REFERENCE.md</code></a>.</p>
             <h2 id="what-the-new-project-should-be">What the new project should be</h2>
             <p>The exported directory should become the actual website or application repository.</p>
             <p>That means the normal flow is:</p>
@@ -177,6 +180,7 @@ php scripts/validate-version-manifest.php</code></pre>
               <li>maintainers would have to update the framework and the starter copy separately</li>
             </ul>
             <p>The export command is safer because it always uses the current maintained repository state as the source of truth.</p>
+            <p>It is also cleaner because it now exports the downstream application surface rather than copying the whole maintainer workspace.</p>
             <h2 id="when-cloning-the-repository-directly-is-still-acceptable">When cloning the repository directly is still acceptable</h2>
             <p>Cloning <code>fnlla/php</code> directly is still fine when the goal is:</p>
             <ul>
@@ -204,6 +208,7 @@ php scripts/validate-version-manifest.php</code></pre>
             <div class="doc-guide-nav" aria-label="Guide pages">
             <a class="btn btn-outline btn-sm" href="./starting-a-new-project.html" aria-current="page">Starting a New Project</a>
             <a class="btn btn-ghost btn-sm" href="./building-with-fnlla-php.html">Building</a>
+            <a class="btn btn-ghost btn-sm" href="./project-scripts-reference.html">Project Scripts Reference</a>
             </div>
           </div>
           <div class="card doc-guide-card">

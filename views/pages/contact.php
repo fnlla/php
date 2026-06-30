@@ -23,28 +23,76 @@ $emailError = error_for("email");
 $briefError = error_for("brief");
 $allErrors = errors();
 ?>
+<section class="section pt-1">
+  <div class="container site-page-stack">
+    <section class="hero hero-compact" aria-label="Contact page introduction">
+      <div class="grid gap-md hero-copy">
+        <div class="d-flex flex-wrap items-center gap-md">
+          <span class="tag">Working form example</span>
+          <span class="badge">Validation</span>
+          <span class="badge">CSRF</span>
+          <span class="badge">Flash feedback</span>
+        </div>
+        <h1 class="hero-title">A real contact flow is already part of the starter, not just static demo markup.</h1>
+        <p class="hero-text">This page demonstrates how FNLLA PHP and FNLLA Web work together in a practical user journey: page rendering, form structure, validation, redirect-after-post and visible success or error feedback.</p>
+        <ul class="hero-proof-list">
+          <li>Failed submits keep old values and return field-level messages.</li>
+          <li>Successful submits flash confirmation into the next request.</li>
+          <li>The entire form remains inside the shared FNLLA Web layout and component contract.</li>
+        </ul>
+      </div>
+      <div class="hero-inline-facts" aria-label="Contact page support facts">
+        <div class="hero-inline-fact">
+          <span class="badge">Good for</span>
+          <p class="content-text mb-0">Service requests, onboarding forms, internal intake flows and protected admin submissions.</p>
+        </div>
+        <div class="hero-inline-fact">
+          <span class="badge">Replace first</span>
+          <p class="content-text mb-0">Swap the demo copy, mail destination, service tracks and validation rules for your real project context.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <h1 class="section-title">Contact flow demo</h1>
-      <p class="section-text">This page demonstrates plain PHP form handling paired with FNLLA Web form, alert and toast patterns.</p>
-    </div>
+    <section class="feature-section" aria-label="Engagement tracks">
+      <div class="section-header mb-0">
+        <p class="feature-kicker">Project use cases</p>
+        <h2 class="section-title">Three starter-friendly tracks for the kind of work this example is meant to model.</h2>
+        <p class="section-text">The cards below are demo content, but the section pattern itself is the useful part: compact offer framing before the form takes over.</p>
+      </div>
+      <div class="grid grid-3 gap-md">
+        <?php foreach ($engagementTracks as $track): ?>
+        <article class="feature-card">
+          <h3 class="content-title"><?= h($track["title"]) ?></h3>
+          <p class="content-text"><?= h($track["text"]) ?></p>
+        </article>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  </div>
+</section>
 
+<section class="section">
+  <div class="container">
     <section class="contact-section" id="contact-form">
       <div class="contact-grid">
         <aside class="contact-card contact-summary-card" aria-label="Contact section summary">
-          <p class="contact-kicker">Demo use case</p>
-          <h2 class="contact-card-title">Use one reusable server-rendered contact flow instead of rebuilding validation feedback on every page.</h2>
-          <p class="contact-text">Successful submits trigger a flashed confirmation. Failed submits keep the old values and show field-level guidance.</p>
+          <p class="contact-kicker">Flow summary</p>
+          <h2 class="contact-card-title">Use one reusable server-rendered intake pattern instead of rebuilding form feedback on every new page.</h2>
+          <p class="contact-text">The starter shows a complete baseline: request data capture, validation, flashed status and a real redirect-after-post flow.</p>
           <ul class="contact-list">
             <li>CSRF token verification on submit</li>
             <li>Session-backed flash messages</li>
             <li>Preserved input values after validation errors</li>
+            <li>Mail and event hooks after a successful submit</li>
           </ul>
         </aside>
 
         <article class="cta-card contact-form-card">
-          <form class="form contact-form" action="<?= h(url("contact")) ?>" method="post" novalidate>
+          <form class="form contact-form" action="<?= h(route("contact.submit")) ?>" method="post" novalidate>
             <?= csrf_field() ?>
 
             <?php if ($allErrors !== []): ?>
@@ -113,10 +161,57 @@ $allErrors = errors();
 
             <div class="d-flex flex-wrap gap-md">
               <button class="btn btn-primary" type="submit">Submit request</button>
-              <a class="btn btn-ghost" href="<?= h(url("about")) ?>">Read the architecture</a>
+              <a class="btn btn-ghost" href="<?= h(route("platform")) ?>">Review the platform</a>
             </div>
           </form>
         </article>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <section class="process-section" aria-label="Contact flow process">
+      <div class="section-header mb-0">
+        <p class="process-kicker">Delivery sequence</p>
+        <h2 class="section-title">The example is simple, but it follows a pattern that scales into real product work.</h2>
+        <p class="section-text">Treat this as a reusable shape for request capture, not as demo-only decoration.</p>
+      </div>
+      <div class="process-grid">
+        <?php foreach ($deliverySteps as $step): ?>
+        <article class="process-step">
+          <span class="process-step-number"><?= h($step["number"]) ?></span>
+          <h3 class="process-step-title"><?= h($step["title"]) ?></h3>
+          <p class="process-step-text"><?= h($step["text"]) ?></p>
+        </article>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <section class="faq-section" aria-label="Contact FAQ">
+      <div class="faq-layout">
+        <div class="section-header mb-0">
+          <p class="feature-kicker">Form FAQ</p>
+          <h2 class="section-title">A couple of practical clarifications for teams treating this page as a starter reference.</h2>
+        </div>
+        <div class="accordion" data-fnlla-accordion data-fnlla-accordion-single>
+          <?php foreach ($contactFaqs as $index => $faqItem): ?>
+          <?php $isOpen = $index === 0; ?>
+          <div class="accordion-item<?= $isOpen ? " is-open" : "" ?>">
+            <button class="accordion-button" id="contact-faq-trigger-<?= $index + 1 ?>" type="button" data-fnlla-accordion-button aria-expanded="<?= $isOpen ? "true" : "false" ?>" aria-controls="contact-faq-panel-<?= $index + 1 ?>">
+              <?= h($faqItem["question"]) ?>
+            </button>
+            <div class="accordion-panel" id="contact-faq-panel-<?= $index + 1 ?>" role="region" aria-labelledby="contact-faq-trigger-<?= $index + 1 ?>">
+              <p class="content-text"><?= h($faqItem["answer"]) ?></p>
+            </div>
+          </div>
+          <?php endforeach; ?>
+        </div>
       </div>
     </section>
   </div>

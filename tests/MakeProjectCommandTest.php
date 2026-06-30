@@ -60,7 +60,7 @@ final class MakeProjectCommandTest extends TestCase
         rmdir($this->targetPath);
     }
 
-    public function testExportedStarterIncludesVersionContractFilesAndChecks(): void
+    public function testExportedStarterIncludesProjectSurfaceWithoutMaintainerResidue(): void
     {
         $container = $GLOBALS["fnlla_php_container"] ?? null;
         self::assertInstanceOf(Container::class, $container);
@@ -73,6 +73,19 @@ final class MakeProjectCommandTest extends TestCase
         self::assertFileExists($this->targetPath . DIRECTORY_SEPARATOR . "TRADEMARKS.md");
         self::assertFileExists($this->targetPath . DIRECTORY_SEPARATOR . "VERSION");
         self::assertFileExists($this->targetPath . DIRECTORY_SEPARATOR . "MANIFEST.json");
+        self::assertFalse(is_dir($this->targetPath . DIRECTORY_SEPARATOR . "docs"));
+        self::assertFalse(is_file($this->targetPath . DIRECTORY_SEPARATOR . "scripts" . DIRECTORY_SEPARATOR . "build-docs.php"));
+        self::assertFalse(is_file($this->targetPath . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "logs" . DIRECTORY_SEPARATOR . "app.log"));
+        self::assertFalse(is_file($this->targetPath . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR . "fnlla-web-guard.json"));
+        self::assertSame(
+            [],
+            glob($this->targetPath . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR . "cache" . DIRECTORY_SEPARATOR . "*.cache") ?: []
+        );
+        self::assertSame(
+            [],
+            glob($this->targetPath . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR . "sessions" . DIRECTORY_SEPARATOR . "sess_*") ?: []
+        );
+        self::assertFileExists($this->targetPath . DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR . "sessions" . DIRECTORY_SEPARATOR . ".gitignore");
         self::assertStringContainsString(
             'validate-version-manifest.php',
             (string) file_get_contents($this->targetPath . DIRECTORY_SEPARATOR . "lint-project.cmd")
@@ -87,6 +100,14 @@ final class MakeProjectCommandTest extends TestCase
         );
         self::assertStringContainsString(
             "TRADEMARKS.md",
+            (string) file_get_contents($this->targetPath . DIRECTORY_SEPARATOR . "README.md")
+        );
+        self::assertStringContainsString(
+            "does not copy the full maintainer workspace",
+            (string) file_get_contents($this->targetPath . DIRECTORY_SEPARATOR . "README.md")
+        );
+        self::assertStringContainsString(
+            "The starter keeps only the project-facing scripts and commands",
             (string) file_get_contents($this->targetPath . DIRECTORY_SEPARATOR . "README.md")
         );
 
