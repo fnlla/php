@@ -84,6 +84,10 @@ final class Application
         ksort($this->commands);
 
         foreach ($this->commands as $command) {
+            if ($command->hidden()) {
+                continue;
+            }
+
             fwrite(STDOUT, "  " . $command->name() . "  " . $command->description() . PHP_EOL);
         }
     }

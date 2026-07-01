@@ -37,6 +37,10 @@ $router->middleware("authorize", Authorize::class);
 $router->middleware("cors", HandleCors::class);
 $router->middleware("throttle", ThrottleRequests::class);
 
+if (is_file(APP_ROOT . DIRECTORY_SEPARATOR . "routes" . DIRECTORY_SEPARATOR . "maintenance.php")) {
+    require APP_ROOT . DIRECTORY_SEPARATOR . "routes" . DIRECTORY_SEPARATOR . "maintenance.php";
+}
+
 require APP_ROOT . DIRECTORY_SEPARATOR . "routes" . DIRECTORY_SEPARATOR . "web.php";
 
 return $router;

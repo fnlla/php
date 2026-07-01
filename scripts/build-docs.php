@@ -96,7 +96,7 @@ $guidePages = [
         "source_name" => "PROJECT-SCRIPTS-REFERENCE.md",
         "title" => "Project Scripts Reference",
         "document_title" => "Project Scripts Reference - FNLLA PHP Documentation",
-        "lead" => "Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project starter.",
+        "lead" => "Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project export.",
     ],
 ];
 
@@ -702,7 +702,7 @@ function render_getting_started_content(): string
     <section class="section pt-1">
       <div class="section-header">
         <h2 class="section-title">Quickstart</h2>
-        <p class="section-text">The fastest safe path is: keep this repo as the framework source, export a starter for the real project, configure MySQL and validate the UI/runtime contract before building features.</p>
+        <p class="section-text">The fastest safe path is: keep this repo as the framework source, export a project for the real delivery, configure MySQL and validate the UI/runtime contract before building features.</p>
       </div>
 
       <div class="grid">
@@ -736,7 +736,7 @@ php -S 127.0.0.1:8080 -t public public/router.php</code></pre>
     <section class="section">
       <div class="section-header">
         <h2 class="section-title">Recommended first steps for a new downstream project</h2>
-        <p class="section-text">The starter already runs, but the first pass should focus on wiring, contract validation and replacing the demonstration surface with the actual product flow.</p>
+        <p class="section-text">The exported project already runs, but the first pass should focus on wiring, contract validation and replacing the demonstration surface with the actual product flow.</p>
       </div>
 
       <div class="doc-card-grid doc-card-grid-2">
@@ -976,6 +976,7 @@ throttle</code></pre>
             <li><code>php fnlla make:project</code></li>
             <li><code>php fnlla fnlla-web:sync</code></li>
             <li><code>php fnlla fnlla-web:validate</code></li>
+            <li><code>php fnlla framework:update --check --source &lt;path-to-fnlla-php&gt;</code></li>
             <li><code>php fnlla route:list</code></li>
             <li><code>php fnlla version:status</code> and <code>php fnlla version:sync</code></li>
           </ul>

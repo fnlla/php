@@ -21,6 +21,7 @@ Purpose:
 use Fnlla\Php\Console\Commands\CacheClearCommand;
 use Fnlla\Php\Console\Commands\FnllaWebSyncCommand;
 use Fnlla\Php\Console\Commands\FnllaWebValidateCommand;
+use Fnlla\Php\Console\Commands\FrameworkUpdateCommand;
 use Fnlla\Php\Console\Commands\MakeCommandCommand;
 use Fnlla\Php\Console\Commands\MakeControllerCommand;
 use Fnlla\Php\Console\Commands\MakeFactoryCommand;
@@ -35,6 +36,7 @@ use Fnlla\Php\Console\Commands\QueueWorkCommand;
 use Fnlla\Php\Console\Commands\RouteListCommand;
 use Fnlla\Php\Console\Commands\ScheduleRunCommand;
 use Fnlla\Php\Console\Commands\SeedCommand;
+use Fnlla\Php\Console\Commands\StarterUpdateCommand;
 use Fnlla\Php\Console\Commands\VersionStatusCommand;
 use Fnlla\Php\Console\Commands\VersionSyncCommand;
 
@@ -44,7 +46,7 @@ Guard bypass note:
   itself is blocking normal bootstrap because of a UI contract violation
 - this keeps the repository recoverable without editing bootstrap files by hand
 */
-if (in_array($_SERVER["argv"][1] ?? "", ["fnlla-web:sync", "fnlla-web:validate", "version:status", "version:sync"], true) && !defined("FNLLA_WEB_SKIP_AUTO_GUARD")) {
+if (in_array($_SERVER["argv"][1] ?? "", ["fnlla-web:sync", "fnlla-web:validate", "framework:update", "starter:update", "version:status", "version:sync"], true) && !defined("FNLLA_WEB_SKIP_AUTO_GUARD")) {
     define("FNLLA_WEB_SKIP_AUTO_GUARD", true);
 }
 
@@ -54,6 +56,7 @@ $console = $container->make(\Fnlla\Php\Console\Application::class);
 $console->register(CacheClearCommand::class);
 $console->register(FnllaWebSyncCommand::class);
 $console->register(FnllaWebValidateCommand::class);
+$console->register(FrameworkUpdateCommand::class);
 $console->register(SeedCommand::class);
 $console->register(MigrateRollbackCommand::class);
 $console->register(MigrateCommand::class);
@@ -68,6 +71,7 @@ $console->register(MakeSeederCommand::class);
 $console->register(QueueWorkCommand::class);
 $console->register(RouteListCommand::class);
 $console->register(ScheduleRunCommand::class);
+$console->register(StarterUpdateCommand::class);
 $console->register(VersionStatusCommand::class);
 $console->register(VersionSyncCommand::class);
 

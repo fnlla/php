@@ -5,13 +5,13 @@
 `fnlla/php` now separates two concerns more deliberately:
 
 1. the maintained framework repository
-2. the downstream project starter exported by `php fnlla make:project`
+2. the downstream project exported by `php fnlla make:project`
 
 That distinction matters for `scripts/`.
 
 Not every script in the framework repository belongs in every exported project.
 
-The exported starter keeps only the scripts that are useful inside a real downstream application repository.
+The exported project keeps only the scripts that are useful inside a real downstream application repository.
 
 ## Short answer
 
@@ -23,6 +23,17 @@ For a normal exported project, the important script set is:
 - `scripts/validate-version-manifest.php`
 - `scripts/sync-version-manifest.php`
 - `scripts/sync-fnlla-web.ps1`
+
+The exported application also keeps one framework-update command on purpose:
+
+- `php fnlla framework:update --check --source <path-to-fnlla-php>`
+
+And the application now keeps one browser-facing maintenance page on purpose:
+
+- `/maintenance/framework-update`
+
+The exported project also keeps only a lean downstream smoke-test subset under `tests/`.
+Framework-internal export coverage and the `make:*` scaffolding commands stay in the upstream `fnlla/php` repository.
 
 The maintainer-only docs builder stays in the framework repository:
 
@@ -46,7 +57,7 @@ Purpose:
 Use it when:
 
 - you changed routes, controllers, helpers, middleware or validation behavior
-- you updated starter export behavior
+- you updated project-export behavior
 - you want a quick regression pass before a commit or deployment candidate
 
 Important boundary:
@@ -65,7 +76,7 @@ Purpose:
 Use it when:
 
 - you edited PHP files and want a fast syntax pass
-- you changed generated starter files and want a cheap pre-test check
+- you changed generated project files and want a cheap pre-test check
 
 Important boundary:
 
@@ -150,6 +161,60 @@ Important boundary:
 - this script is about the downstream vendored runtime
 - it does not maintain the upstream `fnlla/web` repository itself
 
+### `php fnlla framework:update`
+
+Purpose:
+
+- compares the current downstream project against a fresh application export generated from a maintained `fnlla/php` repository
+- checks only framework-managed files recorded in `.fnlla/framework-lock.json`
+- protects application-owned files such as routes, views, the project README and project-specific migrations from blind overwrite
+
+Use it when:
+
+- the upstream FNLLA PHP framework was improved and you want to see what can safely flow into an existing project
+- you need a framework-update report before doing manual merge work
+- you want to apply only the non-conflicting framework-managed changes
+
+Typical examples:
+
+```bash
+php fnlla framework:update --check --source ..\fnlla-php
+php fnlla framework:update --apply --source ..\fnlla-php
+```
+
+Important boundary:
+
+- this command expects a maintained `fnlla/php` source repository path
+- in this MVP form it does not pull from GitHub by itself
+- it updates only files that the framework lock marks as framework-managed
+- a hidden `php fnlla starter:update` alias remains available for legacy project workflows
+
+### `/maintenance/framework-update`
+
+Purpose:
+
+- gives the downstream project a small browser-facing maintenance surface for framework updates
+- wraps the same check/apply workflow as `php fnlla framework:update`
+- stays local-first and can keep safe apply disabled outside trusted development usage
+
+Use it when:
+
+- you want a visible maintenance surface inside the project itself
+- the local team prefers reviewing framework drift from the browser before applying it
+- you want a professional hand-off path for teams that are less CLI-heavy
+
+Important boundary:
+
+- it is meant for local or explicitly enabled maintenance usage, not for general public exposure
+- it still relies on a maintained local `fnlla/php` source path
+
+Operational note:
+
+- `FRAMEWORK_UPDATE_UI_ENABLED` turns the page on or off
+- `FRAMEWORK_UPDATE_UI_LOCAL_ONLY` keeps it limited to localhost by default
+- `FRAMEWORK_UPDATE_UI_APPLY_ENABLED` controls whether the browser UI may run safe apply or only drift checks
+- `FRAMEWORK_UPDATE_SOURCE_PATH` lets the project prefill the maintained `fnlla/php` source path
+
 ## What stays maintainer-only
 
 ### `scripts/build-docs.php`
@@ -177,7 +242,7 @@ Why it is not exported:
 
 ## What `make:project` now leaves behind on purpose
 
-The exported starter intentionally does not copy:
+The exported project intentionally does not copy:
 
 - `docs/`
 - `scripts/build-docs.php`
@@ -186,6 +251,7 @@ The exported starter intentionally does not copy:
 - `CODE_OF_CONDUCT.md`
 - `SECURITY.md`
 - runtime residue from `storage/` such as logs, cache files, queue files, session files and FNLLA Web guard state
+- the `make:*` scaffolding commands, the `make:project` export command and their maintainer-only regression coverage
 
 That keeps the exported project closer to what a delivery repository should actually own.
 
@@ -195,6 +261,7 @@ After export, a healthy first pass is:
 
 ```bash
 php fnlla fnlla-web:validate
+php fnlla framework:update --check --source ..\fnlla-php
 php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php
@@ -203,7 +270,7 @@ php fnlla version:status
 
 Use this order when:
 
-- you want to prove the starter is healthy before heavier project work
+- you want to prove the exported project is healthy before heavier project work
 - FNLLA Web was just synced
 - you want a compact pre-commit or pre-release project check
 
@@ -211,7 +278,7 @@ Use this order when:
 
 Treat `scripts/` in the framework repository as two overlapping groups:
 
-- project-facing validation and sync tools that belong in exported starters
+- project-facing validation and sync tools that belong in exported projects
 - maintainer-only documentation and organization helpers that should stay in `fnlla/php`
 
-That split keeps downstream projects leaner and makes the starter export easier to understand.
+That split keeps downstream projects leaner and makes the project export easier to understand.

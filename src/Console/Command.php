@@ -34,6 +34,11 @@ abstract class Command
 
     abstract public function handle(array $arguments): int;
 
+    public function hidden(): bool
+    {
+        return false;
+    }
+
     protected function line(string $message): void
     {
         fwrite(STDOUT, $message . PHP_EOL);

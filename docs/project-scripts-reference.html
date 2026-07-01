@@ -17,7 +17,7 @@
     <header class="doc-header" aria-label="FNLLA PHP documentation shell">
       <div class="doc-header-bar">
         <span class="doc-kicker">Application framework</span>
-        <span class="doc-status">Stable 1.0.9</span>
+        <span class="doc-status">Stable 1.0.10</span>
       </div>
       <div class="doc-header-grid">
         <p class="doc-overline">Server-rendered delivery stack</p>
@@ -35,7 +35,7 @@
           <span class="doc-brand-separator" aria-hidden="true">-</span>
           <p class="doc-display">Documentation</p>
         </div>
-        <p class="doc-lead">Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project starter.</p>
+        <p class="doc-lead">Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project export.</p>
       </div>
     </header>
 
@@ -67,7 +67,7 @@
     <section class="section pt-1">
       <div class="section-header">
         <h2 class="section-title">Project Scripts Reference</h2>
-        <p class="section-text">Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project starter.</p>
+        <p class="section-text">Exact responsibilities, boundaries and downstream usage notes for the scripts kept in the FNLLA PHP project export.</p>
       </div>
 
       <div class="doc-guide-layout">
@@ -76,11 +76,11 @@
             <p><code>fnlla/php</code> now separates two concerns more deliberately:</p>
             <ol>
               <li>the maintained framework repository</li>
-              <li>the downstream project starter exported by <code>php fnlla make:project</code></li>
+              <li>the downstream project exported by <code>php fnlla make:project</code></li>
             </ol>
             <p>That distinction matters for <code>scripts/</code>.</p>
             <p>Not every script in the framework repository belongs in every exported project.</p>
-            <p>The exported starter keeps only the scripts that are useful inside a real downstream application repository.</p>
+            <p>The exported project keeps only the scripts that are useful inside a real downstream application repository.</p>
             <h2 id="short-answer">Short answer</h2>
             <p>For a normal exported project, the important script set is:</p>
             <ul>
@@ -91,6 +91,15 @@
               <li><code>scripts/sync-version-manifest.php</code></li>
               <li><code>scripts/sync-fnlla-web.ps1</code></li>
             </ul>
+            <p>The exported application also keeps one framework-update command on purpose:</p>
+            <ul>
+              <li><code>php fnlla framework:update --check --source &lt;path-to-fnlla-php&gt;</code></li>
+            </ul>
+            <p>And the application now keeps one browser-facing maintenance page on purpose:</p>
+            <ul>
+              <li><code>/maintenance/framework-update</code></li>
+            </ul>
+            <p>The exported project also keeps only a lean downstream smoke-test subset under <code>tests/</code>. Framework-internal export coverage and the <code>make:*</code> scaffolding commands stay in the upstream <code>fnlla/php</code> repository.</p>
             <p>The maintainer-only docs builder stays in the framework repository:</p>
             <ul>
               <li><code>scripts/build-docs.php</code></li>
@@ -111,7 +120,7 @@
             <p>Use it when:</p>
             <ul>
               <li>you changed routes, controllers, helpers, middleware or validation behavior</li>
-              <li>you updated starter export behavior</li>
+              <li>you updated project-export behavior</li>
               <li>you want a quick regression pass before a commit or deployment candidate</li>
             </ul>
             <p>Important boundary:</p>
@@ -129,7 +138,7 @@
             <p>Use it when:</p>
             <ul>
               <li>you edited PHP files and want a fast syntax pass</li>
-              <li>you changed generated starter files and want a cheap pre-test check</li>
+              <li>you changed generated project files and want a cheap pre-test check</li>
             </ul>
             <p>Important boundary:</p>
             <ul>
@@ -210,6 +219,54 @@
               <li>this script is about the downstream vendored runtime</li>
               <li>it does not maintain the upstream <code>fnlla/web</code> repository itself</li>
             </ul>
+            <h3 id="php-fnlla-framework-update"><code>php fnlla framework:update</code></h3>
+            <p>Purpose:</p>
+            <ul>
+              <li>compares the current downstream project against a fresh application export generated from a maintained <code>fnlla/php</code> repository</li>
+              <li>checks only framework-managed files recorded in <code>.fnlla/framework-lock.json</code></li>
+              <li>protects application-owned files such as routes, views, the project README and project-specific migrations from blind overwrite</li>
+            </ul>
+            <p>Use it when:</p>
+            <ul>
+              <li>the upstream FNLLA PHP framework was improved and you want to see what can safely flow into an existing project</li>
+              <li>you need a framework-update report before doing manual merge work</li>
+              <li>you want to apply only the non-conflicting framework-managed changes</li>
+            </ul>
+            <p>Typical examples:</p>
+            <pre><code class="language-bash">php fnlla framework:update --check --source ..\fnlla-php
+php fnlla framework:update --apply --source ..\fnlla-php</code></pre>
+            <p>Important boundary:</p>
+            <ul>
+              <li>this command expects a maintained <code>fnlla/php</code> source repository path</li>
+              <li>in this MVP form it does not pull from GitHub by itself</li>
+              <li>it updates only files that the framework lock marks as framework-managed</li>
+              <li>a hidden <code>php fnlla starter:update</code> alias remains available for legacy project workflows</li>
+            </ul>
+            <h3 id="maintenance-framework-update"><code>/maintenance/framework-update</code></h3>
+            <p>Purpose:</p>
+            <ul>
+              <li>gives the downstream project a small browser-facing maintenance surface for framework updates</li>
+              <li>wraps the same check/apply workflow as <code>php fnlla framework:update</code></li>
+              <li>stays local-first and can keep safe apply disabled outside trusted development usage</li>
+            </ul>
+            <p>Use it when:</p>
+            <ul>
+              <li>you want a visible maintenance surface inside the project itself</li>
+              <li>the local team prefers reviewing framework drift from the browser before applying it</li>
+              <li>you want a professional hand-off path for teams that are less CLI-heavy</li>
+            </ul>
+            <p>Important boundary:</p>
+            <ul>
+              <li>it is meant for local or explicitly enabled maintenance usage, not for general public exposure</li>
+              <li>it still relies on a maintained local <code>fnlla/php</code> source path</li>
+            </ul>
+            <p>Operational note:</p>
+            <ul>
+              <li><code>FRAMEWORK_UPDATE_UI_ENABLED</code> turns the page on or off</li>
+              <li><code>FRAMEWORK_UPDATE_UI_LOCAL_ONLY</code> keeps it limited to localhost by default</li>
+              <li><code>FRAMEWORK_UPDATE_UI_APPLY_ENABLED</code> controls whether the browser UI may run safe apply or only drift checks</li>
+              <li><code>FRAMEWORK_UPDATE_SOURCE_PATH</code> lets the project prefill the maintained <code>fnlla/php</code> source path</li>
+            </ul>
             <h2 id="what-stays-maintainer-only">What stays maintainer-only</h2>
             <h3 id="scripts-build-docs-php"><code>scripts/build-docs.php</code></h3>
             <p>Purpose:</p>
@@ -233,7 +290,7 @@
               <li>downstream FNLLA PHP application repositories should not inherit TechAyo-specific maintainer automation unless a project explicitly wants that behavior</li>
             </ul>
             <h2 id="what-make-project-now-leaves-behind-on-purpose">What <code>make:project</code> now leaves behind on purpose</h2>
-            <p>The exported starter intentionally does not copy:</p>
+            <p>The exported project intentionally does not copy:</p>
             <ul>
               <li><code>docs/</code></li>
               <li><code>scripts/build-docs.php</code></li>
@@ -242,28 +299,30 @@
               <li><code>CODE_OF_CONDUCT.md</code></li>
               <li><code>SECURITY.md</code></li>
               <li>runtime residue from <code>storage/</code> such as logs, cache files, queue files, session files and FNLLA Web guard state</li>
+              <li>the <code>make:*</code> scaffolding commands, the <code>make:project</code> export command and their maintainer-only regression coverage</li>
             </ul>
             <p>That keeps the exported project closer to what a delivery repository should actually own.</p>
             <h2 id="recommended-downstream-command-sequence">Recommended downstream command sequence</h2>
             <p>After export, a healthy first pass is:</p>
             <pre><code class="language-bash">php fnlla fnlla-web:validate
+php fnlla framework:update --check --source ..\fnlla-php
 php scripts/test.php
 php scripts/lint.php
 php scripts/validate-version-manifest.php
 php fnlla version:status</code></pre>
             <p>Use this order when:</p>
             <ul>
-              <li>you want to prove the starter is healthy before heavier project work</li>
+              <li>you want to prove the exported project is healthy before heavier project work</li>
               <li>FNLLA Web was just synced</li>
               <li>you want a compact pre-commit or pre-release project check</li>
             </ul>
             <h2 id="final-rule">Final rule</h2>
             <p>Treat <code>scripts/</code> in the framework repository as two overlapping groups:</p>
             <ul>
-              <li>project-facing validation and sync tools that belong in exported starters</li>
+              <li>project-facing validation and sync tools that belong in exported projects</li>
               <li>maintainer-only documentation and organization helpers that should stay in <code>fnlla/php</code></li>
             </ul>
-            <p>That split keeps downstream projects leaner and makes the starter export easier to understand.</p>
+            <p>That split keeps downstream projects leaner and makes the project export easier to understand.</p>
         </article>
         <aside class="doc-guide-sidebar scrollbar scrollbar-thin">
           <div class="card doc-guide-card">
@@ -286,6 +345,8 @@ php fnlla version:status</code></pre>
               <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#scripts-validate-version-manifest-php">scripts/validate-version-manifest.php</a>
               <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#scripts-sync-version-manifest-php">scripts/sync-version-manifest.php</a>
               <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#scripts-sync-fnlla-web-ps1">scripts/sync-fnlla-web.ps1</a>
+              <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#php-fnlla-framework-update">php fnlla framework:update</a>
+              <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#maintenance-framework-update">/maintenance/framework-update</a>
               <a class="doc-guide-toc-link doc-guide-toc-level-2" href="#what-stays-maintainer-only">What stays maintainer-only</a>
               <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#scripts-build-docs-php">scripts/build-docs.php</a>
               <a class="doc-guide-toc-link doc-guide-toc-level-3" href="#scripts-apply-techayo-metadata-ps1">scripts/apply-techayo-metadata.ps1</a>

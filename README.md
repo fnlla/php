@@ -276,6 +276,7 @@ Important commands:
 
 - `php fnlla fnlla-web:sync`
 - `php fnlla fnlla-web:validate`
+- `php fnlla framework:update --check --source <path-to-fnlla-php>`
 - `php fnlla migrate`
 - `php fnlla migrate:rollback`
 - `php fnlla migrate:status`
@@ -311,6 +312,9 @@ Authoritative maintainer scripts and checkpoints:
 - `scripts/build-docs.php` rebuilds the shared HTML documentation set from the maintained docs sources
 - `scripts/validate-fnlla-web.php` validates the enforced FNLLA Web contract
 - `scripts/validate-version-manifest.php` validates framework and vendored runtime version metadata
+- exported projects keep `.fnlla/framework-lock.json` as the authoritative framework-base lock and a compatibility copy at `.fnlla/starter-lock.json`
+- exported projects also keep `php fnlla framework:update` plus a hidden legacy `starter:update` alias for downstream framework-update checks
+- exported projects also keep a local-first `/maintenance/framework-update` page with buttons for browser-based check and safe apply flows
 - `scripts/test.php` runs the repository-local framework tests
 - `scripts/lint.php` runs PHP syntax checks across the maintained source tree
 - `bootstrap/common.php` enforces the shared FNLLA Web guard during bootstrap
@@ -324,6 +328,7 @@ php scripts/validate-fnlla-web.php
 php scripts/validate-version-manifest.php
 php scripts/build-docs.php --check
 php fnlla fnlla-web:sync
+php fnlla framework:update --check --source ..\fnlla-php
 php fnlla version:status
 ```
 
